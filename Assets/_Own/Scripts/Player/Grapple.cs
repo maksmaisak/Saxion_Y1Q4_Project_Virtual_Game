@@ -93,14 +93,14 @@ public class Grapple : MonoBehaviour {
         state = State.Connected;
     }
 
-    public void Shoot(Vector3 startVelocity) {
+    public void Shoot(Vector3 targetPosition, float speed) {
 
         if (!isRetracted) Retract();
 
         transform.SetParent(null, worldPositionStays: true);
 
         rigidbody.isKinematic = false;
-        rigidbody.velocity = startVelocity;
+        rigidbody.velocity = (targetPosition - transform.position).normalized * speed;
 
         state = State.Flying;
     }

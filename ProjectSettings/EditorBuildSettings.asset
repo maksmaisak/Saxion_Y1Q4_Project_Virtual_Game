@@ -4,4 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Own/Scenes/develop_basic_grapple.unity
+    guid: 50adee5a3a217426db43c2510db4fb7f
