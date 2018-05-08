@@ -11,7 +11,6 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class Grapple : MonoBehaviour {
 
     enum State {
-        
         Retracted,
         Flying,
         Connected
@@ -19,6 +18,10 @@ public class Grapple : MonoBehaviour {
 
     [SerializeField] Transform attachmentPoint;
     [SerializeField] Rigidbody attachmentRigidbody;
+    [Space]
+    [SerializeField] float minDistance = 1f;
+    [SerializeField] float springForce = 1000f;
+    [SerializeField] float retractionSpeed = 1f;
 
     private new Rigidbody rigidbody;
     private RigidbodyFirstPersonController firstPersonController;
@@ -33,19 +36,36 @@ public class Grapple : MonoBehaviour {
 
     void Start() {
 
+        Assert.IsNotNull(attachmentPoint);
+        Assert.IsNotNull(attachmentRigidbody);
+
         rigidbody = GetComponent<Rigidbody>();
         firstPersonController = GetComponentInParent<RigidbodyFirstPersonController>();
         lineRenderer = GetComponent<LineRenderer>();
+
+        // Disable collisions between this and its holder.
+        Collider[] ownerColliders = attachmentRigidbody.GetComponentsInChildren<Collider>();
+        Collider[] ownColliders = GetComponentsInChildren<Collider>();
+        foreach (Collider ownerCollider in ownerColliders) {
+            foreach (Collider ownCollider in ownColliders) {
+                if (ownerCollider == ownCollider) continue;
+                Physics.IgnoreCollision(ownerCollider, ownCollider);
+            }
+        }
     }
 
     void Update() {
 
         if (isRetracted) {
-            transform.position = attachmentPoint.position;
-        }
+            
+            lineRenderer.enabled = false;
+        } else {
 
-        lineRenderer.SetPosition(0, attachmentPoint.position);
-        lineRenderer.SetPosition(1, rigidbody.position);
+            lineRenderer.enabled = true;
+            Vector3 delta = rigidbody.position - attachmentPoint.position;
+            lineRenderer.SetPosition(0, attachmentPoint.position - delta.normalized * 1f);
+            lineRenderer.SetPosition(1, rigidbody.position);
+        }
     }
 
     void FixedUpdate() {
@@ -55,12 +75,14 @@ public class Grapple : MonoBehaviour {
             float ropeLength = joint.minDistance;
             float currentDistance = Vector3.Distance(attachmentRigidbody.position, joint.connectedBody.position);
 
-            if (currentDistance < ropeLength) {
-                ropeLength = currentDistance;
-            } else if (ropeLength > 0f && !firstPersonController.Grounded) {
-
-                ropeLength -= 1f * Time.fixedDeltaTime;
-                if (ropeLength < 0f) ropeLength = 0f;
+            if (ropeLength > minDistance) {
+                
+                if (currentDistance < ropeLength) {
+                    ropeLength = currentDistance;
+                } else if (!firstPersonController.Grounded) {
+                    ropeLength -= retractionSpeed * Time.fixedDeltaTime;
+                    if (ropeLength < minDistance) ropeLength = 0f;
+                }
             }
 
             joint.minDistance = joint.maxDistance = ropeLength;
@@ -86,7 +108,9 @@ public class Grapple : MonoBehaviour {
         joint.autoConfigureConnectedAnchor = false;
         joint.anchor = Vector3.zero;
         joint.connectedAnchor = Vector3.zero;
-        joint.spring = 1000f;
+        joint.spring = springForce;
+        joint.enablePreprocessing = false;
+        joint.enableCollision = true;
         joint.connectedBody = targetRigidbody;
 
         // Change state
@@ -120,6 +144,7 @@ public class Grapple : MonoBehaviour {
         transform.SetParent(attachmentPoint, worldPositionStays: false);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+        transform.localScale    = Vector3.one;
 
         state = State.Retracted;
     }
