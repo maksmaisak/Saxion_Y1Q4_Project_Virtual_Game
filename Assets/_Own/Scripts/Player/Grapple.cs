@@ -22,6 +22,7 @@ public class Grapple : MonoBehaviour {
     [SerializeField] float minDistance = 1f;
     [SerializeField] float springForce = 1000f;
     [SerializeField] float retractionSpeed = 1f;
+    [SerializeField] float maxFlyingDistance = 300f;
 
     private new Rigidbody rigidbody;
     private RigidbodyFirstPersonController firstPersonController;
@@ -69,6 +70,13 @@ public class Grapple : MonoBehaviour {
     }
 
     void FixedUpdate() {
+
+        if (state == State.Flying) {
+
+            if (Vector3.Distance(attachmentRigidbody.position, rigidbody.position) > maxFlyingDistance) {
+                Retract();
+            }
+        }
 
         if (joint != null) {
             

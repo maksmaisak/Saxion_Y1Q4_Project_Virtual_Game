@@ -935,6 +935,7 @@ MonoBehaviour:
   minDistance: 2
   springForce: 1000
   retractionSpeed: 2
+  maxFlyingDistance: 100
 --- !u!54 &270260268
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1429,6 +1430,7 @@ MonoBehaviour:
   minDistance: 2
   springForce: 1000
   retractionSpeed: 2
+  maxFlyingDistance: 100
 --- !u!54 &639227615
 Rigidbody:
   m_ObjectHideFlags: 0
