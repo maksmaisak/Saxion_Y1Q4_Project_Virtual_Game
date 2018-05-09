@@ -3,8 +3,7 @@ using UnityEngine;
 
 #pragma warning disable 0649
 
-public class PathFinding : MonoBehaviour
-{
+public class PathFinding : MonoBehaviour {
 
     public float speed;
 
@@ -25,8 +24,7 @@ public class PathFinding : MonoBehaviour
     [SerializeField] private float seperationDistance;
 
 
-    void Start()
-    {
+    void Start() {
 
         shootingController = GetComponent<ShootingController>();
         target = GameObject.FindGameObjectWithTag("Player");
@@ -35,18 +33,14 @@ public class PathFinding : MonoBehaviour
     }
 
 
-    void Update()
-    {
+    void Update() {
         var dir = (target.transform.position + new Vector3(0, -1, 1) - transform.position).normalized;
 
         RaycastHit _hit;
 
-        if (!playerFound)
-        {
-            if (Physics.SphereCast(transform.position, 2, transform.forward, out _hit, 20))
-            {
-                if (_hit.transform != transform)
-                {
+        if (!playerFound) {
+            if (Physics.SphereCast(transform.position, 2, transform.forward, out _hit, 20)) {
+                if (_hit.transform != transform) {
                     dir += _hit.normal * 50;
                 }
             }
@@ -58,22 +52,19 @@ public class PathFinding : MonoBehaviour
         rb.position += transform.forward * speed * Time.deltaTime;
 
 
-        if (Vector3.Distance(target.transform.position, transform.position) <= 7)
-        {
+        if (Vector3.Distance(target.transform.position, transform.position) <= 7) {
 
             speed--;
             if (speed <= 0) speed = 0;
             playerFound = true;
             Shoot();
         }
-        else
-        {
+        else {
             speed++;
             if (speed > 6) speed = 6;
         }
 
-        if (!shootingController.CanShootAt(target))
-        {
+        if (!shootingController.CanShootAt(target)) {
             speed = 6;
             playerFound = false;
         }
@@ -83,20 +74,15 @@ public class PathFinding : MonoBehaviour
     }
 
 
-    private void Shoot()
-    {
-        if (shootingController.CanShootAt(target))
-        {
-            if (!reloading)
-            {
+    private void Shoot() {
+        if (shootingController.CanShootAt(target)) {
+            if (!reloading) {
                 shootingController.ShootAt(target);
                 reloading = true;
             }
-            else
-            {
+            else {
                 counter += Time.deltaTime;
-                if (counter >= 2)
-                {
+                if (counter >= 2) {
                     reloading = false;
                     counter = 0;
                 }
@@ -105,13 +91,10 @@ public class PathFinding : MonoBehaviour
         }
     }
 
-    private void AvoidOtherEnemies()
-    {
+    private void AvoidOtherEnemies() {
         Vector3 totalForce = Vector3.zero;
-        foreach (GameObject enemy in FlockManager.enemyArray)
-        {
-            if (this != enemy && Vector3.Distance(transform.position, enemy.transform.position) <= 3f)
-            {
+        foreach (GameObject enemy in FlockManager.enemyArray) {
+            if (this != enemy && Vector3.Distance(transform.position, enemy.transform.position) <= 3f) {
                 Vector3 headingVector = transform.position - enemy.transform.position;
                 totalForce += headingVector;
             }
@@ -120,4 +103,3 @@ public class PathFinding : MonoBehaviour
         rb.AddForce(totalForce * seperationFactor, ForceMode.Acceleration);
     }
 }
-
