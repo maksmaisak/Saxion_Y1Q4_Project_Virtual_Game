@@ -74,6 +74,7 @@ public class Grapple : MonoBehaviour {
         if (state == State.Flying) {
 
             if (Vector3.Distance(attachmentRigidbody.position, rigidbody.position) > maxFlyingDistance) {
+                
                 Retract();
             }
         }
@@ -89,8 +90,12 @@ public class Grapple : MonoBehaviour {
                     ropeLength = currentDistance;
                 } else if (!firstPersonController.Grounded) {
                     ropeLength -= retractionSpeed * Time.fixedDeltaTime;
-                    if (ropeLength < minDistance) ropeLength = 0f;
+                    if (ropeLength < minDistance) ropeLength = minDistance;
                 }
+
+            } else {
+                
+                ropeLength = minDistance;
             }
 
             joint.minDistance = joint.maxDistance = ropeLength;

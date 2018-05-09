@@ -932,7 +932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachmentPoint: {fileID: 2046833078}
   attachmentRigidbody: {fileID: 63749902}
-  minDistance: 2
+  minDistance: 1
   springForce: 1000
   retractionSpeed: 2
   maxFlyingDistance: 100
@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachmentPoint: {fileID: 1533367597}
   attachmentRigidbody: {fileID: 63749902}
-  minDistance: 2
+  minDistance: 1
   springForce: 1000
   retractionSpeed: 2
   maxFlyingDistance: 100
