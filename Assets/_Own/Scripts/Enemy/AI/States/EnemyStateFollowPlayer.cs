@@ -1,11 +1,16 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-#pragma warning disable 0649
+// TODO Ok this here needs work. It keeps moving towards the player in some weird roundabout way.
 
-public class PathFinding : MonoBehaviour
+public class EnemyStateFollowPlayer : FSMState<Enemy>
 {
     public float speed;
+
+    [SerializeField] private float maxRotationDegreesPerSecond = 180f;
+    [SerializeField] private float separationFactor = 1f;
+    [SerializeField] private float separationDistance = 5f;
 
     private Rigidbody rb;
     private GameObject target;
@@ -14,13 +19,11 @@ public class PathFinding : MonoBehaviour
     private float counter;
     private bool playerFound;
 
-    [SerializeField] private float separationFactor;
-    [SerializeField] private float separationDistance;
-
     void Start()
     {
         shootingController = GetComponent<ShootingController>();
         target = GameObject.FindGameObjectWithTag("Player");
+
         rb = GetComponent<Rigidbody>();
     }
 
@@ -42,7 +45,7 @@ public class PathFinding : MonoBehaviour
         }
 
         var rot = Quaternion.LookRotation(dir, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, maxRotationDegreesPerSecond * Time.deltaTime); //Quaternion.Slerp(transform.rotation, rot, Time.deltaTime);
         rb.position += transform.forward * speed * Time.deltaTime;
 
         if (Vector3.Distance(target.transform.position, transform.position) <= 7f)

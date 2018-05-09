@@ -6,15 +6,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class FloatingBehaviour : MonoBehaviour
 {
-
-    public float hoverForce = 20;
-
+    [SerializeField] private float hoverMultiplier = 20f;
+    [SerializeField] private float slowdownDistance = 1f;
+    [SerializeField] private float maxHoverForce = 20f;
     [SerializeField] private float upOffset = 2.5f;
 
-    private float hoverHeight;
     private GameObject target;
     private Rigidbody rb;
-
 
     private void Start()
     {
@@ -24,12 +22,25 @@ public class FloatingBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        hoverHeight = target.transform.position.y + upOffset;
+        float desiredHeight = target.transform.position.y + upOffset;
 
-        float proportionalHeight = (hoverHeight - transform.position.y) / hoverHeight;
-        Vector3 _hoverForce = Vector3.up * proportionalHeight * hoverForce * Time.deltaTime;
-        rb.AddForce(_hoverForce, ForceMode.Acceleration);
+        Vector3 force = Vector3.zero;
+
+        /*float delta = desiredHeight - transform.position.y;
+        force += Vector3.up * delta * hoverMultiplier;
+        
+        // Cancel gravity
+        force += -Physics.gravity;
+        */
+
+        float desiredVerticalSpeed = target.transform.position.y + upOffset - desiredHeight;
+        float desiredVerticalAcceleration = desiredVerticalSpeed - rb.velocity.y;
+
+        force += -Physics.gravity + Vector3.up * rb.mass * desiredVerticalAcceleration;
+        force = Vector3.ClampMagnitude(force, maxHoverForce);
+
+        Debug.DrawRay(rb.position, force, Color.red);
+        rb.AddForce(force);
     }
 }
-
 
