@@ -584,7 +584,7 @@ MonoBehaviour:
     clampVerticalRotation: 1
     MinimumX: -90
     MaximumX: 90
-    smooth: 0
+    smooth: 1
     smoothTime: 18
     lockCursor: 1
   advancedSettings:
@@ -2524,7 +2524,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh16426
+  m_Name: pb_Mesh17320
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -3050,6 +3050,7 @@ GameObject:
   - component: {fileID: 1493150002}
   - component: {fileID: 1493150001}
   - component: {fileID: 1493150000}
+  - component: {fileID: 1493150006}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -3423,6 +3424,17 @@ Transform:
   m_Father: {fileID: 813871820}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1493150006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1493149999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b142385a43004e53b310ea58df15fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1533367596
 GameObject:
   m_ObjectHideFlags: 0

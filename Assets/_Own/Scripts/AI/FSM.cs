@@ -25,7 +25,7 @@ public class FSM<AgentT> where AgentT : Component, IAgent
 
     public void Update()
     {
-        if (currentState != null) Debug.Log("Executing state " + currentState);
+        //if (currentState != null) Debug.Log("Executing state " + currentState);
     }
 
     public FSMState<AgentT> GetCurrentState()

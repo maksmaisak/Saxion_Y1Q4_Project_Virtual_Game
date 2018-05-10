@@ -189,7 +189,7 @@ public class Grapple : MonoBehaviour
 
         if (grappledGrappleable != null)
         {
-            grappledGrappleable.Release();
+            grappledGrappleable.Ungrapple();
             grappledGrappleable = null;
         }
     }
