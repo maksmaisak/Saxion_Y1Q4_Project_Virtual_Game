@@ -6,7 +6,7 @@ public class Checkpoint : MonoBehaviour {
     
     public void Activate()
     {
-        CheckpointManager.instance.activeChecpoints.Add(this.gameObject);
+        CheckpointManager.Instance.ActiveChecpoints.Add(this.gameObject);
     }
 
 
