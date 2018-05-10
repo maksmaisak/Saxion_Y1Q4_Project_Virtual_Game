@@ -31,15 +31,15 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
     {
         var dir = (target.transform.position + new Vector3(0, -1f, 1f) - transform.position).normalized;
 
-        RaycastHit _hit;
+        RaycastHit hit;
 
         if (!playerFound)
         {
-            if (Physics.SphereCast(transform.position, 2f, transform.forward, out _hit, 20f))
+            if (Physics.SphereCast(transform.position, 2f, transform.forward, out hit, 20f))
             {
-                if (_hit.transform != transform)
+                if (hit.transform != transform)
                 {
-                    dir += _hit.normal * 50f;
+                    dir += hit.normal * 50f;
                 }
             }
         }
