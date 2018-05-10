@@ -973,6 +973,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114667340359538260, guid: aa6eb2d4b81ff40978374ffdffec143c,
+        type: 2}
+      propertyPath: prerequisiteCheckpoints.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4238395984445030, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -6.8
@@ -2054,11 +2059,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114667340359538260, guid: aa6eb2d4b81ff40978374ffdffec143c,
-        type: 2}
-      propertyPath: prerequisiteCheckpoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4238395984445030, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -27.18
@@ -2091,15 +2091,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1798676592363856, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
-      propertyPath: m_Name
-      value: Checkpoint
-      objectReference: {fileID: 0}
     - target: {fileID: 114667340359538260, guid: aa6eb2d4b81ff40978374ffdffec143c,
         type: 2}
       propertyPath: prerequisiteCheckpoints.Array.data[0]
       value: 
       objectReference: {fileID: 1467831017}
+    - target: {fileID: 1798676592363856, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
+      propertyPath: m_Name
+      value: Checkpoint
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
   m_IsPrefabParent: 0
