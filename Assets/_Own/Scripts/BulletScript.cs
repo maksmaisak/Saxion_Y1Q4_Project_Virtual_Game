@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class BulletScript : MonoBehaviour
 {
-
     private GameObject player;
     private Health health;
 
