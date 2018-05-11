@@ -25,12 +25,12 @@ public class EnemyThrustUpState : FSMState<Enemy>
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         if (thrustingBehaviour)
         {
             steering.ThrustUp(upThrustStrength);
-            counter += Time.deltaTime;
+            counter += Time.fixedDeltaTime;
             if (counter >= ThrustTime)
             {
                 thrustingBehaviour = false;

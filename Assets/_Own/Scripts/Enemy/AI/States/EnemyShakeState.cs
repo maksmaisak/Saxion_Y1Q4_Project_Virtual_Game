@@ -19,12 +19,12 @@ public class EnemyShakeState : FSMState<Enemy>
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (shakingBehaviour)
         {
-            rb.AddForce(new Vector3(Random.Range(0, 2) * maxShakingForce, Random.Range(0, 2) * maxShakingForce, Random.Range(0, 2) * maxShakingForce), ForceMode.Impulse);
-            counter += Time.deltaTime;
+            rb.AddForce(new Vector3(Random.Range(-2, 2) * maxShakingForce, Random.Range(-2, 2) * maxShakingForce, Random.Range(-2, 2) * maxShakingForce), ForceMode.Impulse);
+            counter += Time.fixedDeltaTime;
             if (counter >= shakingLenght)
             {
                 shakingBehaviour = false;

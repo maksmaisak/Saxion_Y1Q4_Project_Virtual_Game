@@ -10,8 +10,14 @@ public class Enemy : MonoBehaviour, IAgent
 
     private Grappleable grappleable;
 
-    [SerializeField] private bool thrustBehaviour;
-    [SerializeField] private bool shakeBehaviour;
+    private enum State
+    {
+        NONE,
+        THRUSTUP,
+        SHAKE
+    }
+
+    [SerializeField] private State selectedState;
 
     // Use this for initialization
     void Start()
@@ -27,11 +33,11 @@ public class Enemy : MonoBehaviour, IAgent
 
     private void OnGrapple(Grappleable sender)
     {
-        if (thrustBehaviour)
+        if (selectedState == State.THRUSTUP)
         {
             fsm.ChangeState<EnemyThrustUpState>();
         }
-        else if(shakeBehaviour)
+        else if(selectedState == State.SHAKE)
         {
             fsm.ChangeState<EnemyShakeState>();
         }
@@ -55,5 +61,8 @@ public class Enemy : MonoBehaviour, IAgent
         Debug.Log(message);
     }
 
-
+    private void OnDestroy()
+    {
+        FlockManager.enemyList.Remove(gameObject);
+    }
 }

@@ -82,7 +82,7 @@ public class SteeringManager : MonoBehaviour
     private Vector3 DoEnemyAvoidance()
     {
         Vector3 totalForce = Vector3.zero;
-        foreach (GameObject enemy in FlockManager.enemyArray)
+        foreach (GameObject enemy in FlockManager.enemyList)
         {
             if (gameObject != enemy && Vector3.Distance(transform.position, enemy.transform.position) <= separationDistance)
             {
