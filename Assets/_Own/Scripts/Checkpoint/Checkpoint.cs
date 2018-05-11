@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.SceneManagement;
 
 #pragma warning disable 0649
 
@@ -13,7 +11,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class Checkpoint : MonoBehaviour
 {
-    // HACK TODO
+    // FIXME HACK TODO
     // Kinda hacky, must change when we get to the respective user story.
     public static Vector3? LatestActiveCheckpointPosition { get; private set; }
 
