@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,63 +16,51 @@ public class SteeringManager : MonoBehaviour
 
     Vector3 steering = Vector3.zero;
     private Rigidbody rb;
-    private GameObject target;
 
     private void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        Debug.DrawRay(transform.position, rb.velocity.normalized * collisionAvoidanceRange, Color.red);
+        Debug.DrawRay(transform.position, rb.velocity, Color.red);
 
         steering = Vector3.ClampMagnitude(steering, maxSteeringForce);
+        Debug.DrawRay(transform.position, steering, Color.blue);
 
         rb.AddForce(steering, ForceMode.Acceleration);
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
 
-        Debug.DrawRay(transform.position, steering, Color.blue);
-
-        Rotate();
-
+        steering = Vector3.zero;
     }
 
-    public void Seek(Vector3 desiredPosition,float maxDistanceToPlayer)
+    public void Seek(Vector3 desiredPosition, float maxDistanceToPlayer)
     {
         steering += DoSeek(desiredPosition, maxDistanceToPlayer);
     }
+
     public void AvoidObstacles()
     {
         steering += DoObstaclesAvoidance();
     }
+
     public void AvoidEnemies()
     {
         steering += DoEnemyAvoidance();
     }
 
-    public Vector3 DoSeek(Vector3 target, float slowingRadius = 0)
+    public Vector3 DoSeek(Vector3 target, float slowingRadius = 0f)
     {
-        Vector3 force = Vector3.zero;
-        Vector3 desired = Vector3.zero;
-
-        desired = target - this.transform.position;
-
-        float distance = desired.magnitude;
-
-        Vector3.Normalize(desired);
+        Vector3 desiredVelocity = (target - transform.position).normalized * maxVelocity;
+        float distance = desiredVelocity.magnitude;
 
         if (distance <= slowingRadius)
         {
-            desired *= maxVelocity * distance / slowingRadius;
-        }
-        else
-        {
-            desired *= maxVelocity;
+            desiredVelocity *= distance / slowingRadius;
         }
 
-        force = desired - rb.velocity;
+        Vector3 force = desiredVelocity - rb.velocity;
 
         return force;
     }
@@ -136,19 +125,22 @@ public class SteeringManager : MonoBehaviour
         return force;
     }
 
-
-    private void Rotate()
+    public void LookWhereGoing()
     {
-        Quaternion rotation;
         if (rb.velocity != Vector3.zero)
         {
-            rotation = Quaternion.LookRotation(rb.velocity, Vector3.up);
+            SmoothRotateTowards(Quaternion.LookRotation(rb.velocity, Vector3.up));
         }
-        else
-        {
-            rotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
-        }
+    }
 
-        rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, maxRotationDegreesPerSecond * Time.deltaTime));
+    public void LookAt(Vector3 targetPosition)
+    {
+        var targetRotation = Quaternion.LookRotation(targetPosition - transform.position, Vector3.up);
+        SmoothRotateTowards(targetRotation);
+    }
+
+    public void SmoothRotateTowards(Quaternion targetRotation)
+    {
+        rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, maxRotationDegreesPerSecond * Time.deltaTime));
     }
 }

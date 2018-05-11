@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class EnemyStateFollowPlayer : FSMState<Enemy>
 {
-    [SerializeField] private float maxDistanceToPlayer = 5;
+    [SerializeField] private float maxDistanceToPlayer = 5f;
+    [SerializeField] private float arriveSlowdownDistance = 5f;
+    [SerializeField] private float lookAtPlayerDistance = 10f;
 
     private Rigidbody rb;
     private GameObject target;
@@ -22,14 +24,21 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
 
     private void FixedUpdate()
     {
-        Vector3 desiredPos = Vector3.zero;
-        desiredPos = target.transform.position + (transform.position - target.transform.position).normalized * maxDistanceToPlayer;
-         
-        steeringManager.Seek(desiredPos,maxDistanceToPlayer);
+        Vector3 toPlayer = target.transform.position - transform.position;
+        Vector3 desiredPos = target.transform.position - toPlayer.normalized * maxDistanceToPlayer;
+
+        steeringManager.Seek(desiredPos, arriveSlowdownDistance);
         steeringManager.AvoidEnemies();
         steeringManager.AvoidObstacles();
+
+        if (toPlayer.magnitude > lookAtPlayerDistance)
+        {
+            steeringManager.LookWhereGoing();
+        } 
+        else 
+        {
+            steeringManager.LookAt(target.transform.position);
+        }
     }
-
-
 }
 
