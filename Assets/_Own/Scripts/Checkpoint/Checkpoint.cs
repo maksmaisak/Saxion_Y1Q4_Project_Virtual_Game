@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 #pragma warning disable 0649
 
@@ -17,8 +18,11 @@ public class Checkpoint : MonoBehaviour
 
     public event Action<Checkpoint> OnActivated;
 
-    [Tooltip("All the checkpoints that need to be active for this one to become enabled.")]
+    [Tooltip("All the checkpoints that need to be active for this one to become enabled. If none are specified, the checkpoint will activate immediately.")]
     [SerializeField] private Checkpoint[] prerequisiteCheckpoints;
+
+    [Tooltip("The checkpoint will activate when the player enters this trigger. This field will be filled automatically as long as this gameobject or one of its children has a trigger collider or a TriggerEvents component.")]
+    [SerializeField] private TriggerEvents triggerEvents;
 
     private ParticleSystem[] particleSystems;
 
@@ -28,6 +32,9 @@ public class Checkpoint : MonoBehaviour
     void Start()
     {
         particleSystems = GetComponentsInChildren<ParticleSystem>();
+
+        EnsureTrigger();
+        triggerEvents.onPlayerTriggerEnter.AddListener(OnPlayerTriggerEnter);
 
         numPrerequisiteCheckpointsLeft = prerequisiteCheckpoints.Length;
         if (numPrerequisiteCheckpointsLeft == 0)
@@ -43,9 +50,9 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnPlayerTriggerEnter()
     {
-        if (isUseable && collision.gameObject.tag == "Player")
+        if (isUseable)
         {
             Activate();
         }
@@ -90,5 +97,25 @@ public class Checkpoint : MonoBehaviour
         {
             MakeUseable();
         }
+    }
+
+    private void EnsureTrigger()
+    {
+        if (triggerEvents == null)
+        {
+            triggerEvents = GetComponentInChildren<TriggerEvents>();
+
+            if (triggerEvents == null)
+            {
+                var trigger = GetComponentsInChildren<Collider>().FirstOrDefault(col => col.isTrigger);
+                if (trigger != null)
+                {
+                    triggerEvents = trigger.gameObject.AddComponent<TriggerEvents>();
+                    Debug.Log("TriggerEvents was not set in the inspector and not found. Found a trigger collider in children and added TriggerEvents component to it. Found trigger: " + trigger);
+                }
+            }
+        }
+
+        Assert.IsNotNull(triggerEvents, "[" + this + "]: TriggerEvents was not set in the inspector and not found! Could not find a trigger collider in children!");
     }
 }
