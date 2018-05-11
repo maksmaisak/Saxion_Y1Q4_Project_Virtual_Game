@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4238395984445030}
   - component: {fileID: 114667340359538260}
   m_Layer: 0
-  m_Name: Cehckpoint
+  m_Name: Checkpoint
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prerequisiteCheckpoints: []
+  needToDieToActivate: []
   triggerEvents: {fileID: 0}
 --- !u!114 &114938539444156862
 MonoBehaviour:
