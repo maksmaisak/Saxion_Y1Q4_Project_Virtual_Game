@@ -18,15 +18,17 @@ public class Checkpoint : MonoBehaviour
 
     public event Action<Checkpoint> OnActivated;
 
-    [Tooltip("All the checkpoints that need to be active for this one to become enabled. If none are specified, the checkpoint will activate immediately.")]
-    [SerializeField] private Checkpoint[] prerequisiteCheckpoints;
+    [Tooltip("All the checkpoints that need to be active for this one to become useable. If none are specified, the checkpoint will activate immediately.")]
+    [SerializeField] private List<Checkpoint> prerequisiteCheckpoints;
+
+    [Tooltip("All of these need to die for this one to become useable.")]
+    [SerializeField] private List<Health> needToDieToActivate = new List<Health>();
 
     [Tooltip("The checkpoint will activate when the player enters this trigger. This field will be filled automatically as long as this gameobject or one of its children has a trigger collider or a TriggerEvents component.")]
     [SerializeField] private TriggerEvents triggerEvents;
 
     private ParticleSystem[] particleSystems;
 
-    private int numPrerequisiteCheckpointsLeft;
     private bool isUseable;
 
     void Start()
@@ -36,8 +38,7 @@ public class Checkpoint : MonoBehaviour
         EnsureTrigger();
         triggerEvents.onPlayerTriggerEnter.AddListener(OnPlayerTriggerEnter);
 
-        numPrerequisiteCheckpointsLeft = prerequisiteCheckpoints.Length;
-        if (numPrerequisiteCheckpointsLeft == 0)
+        if (ShouldBeUseable())
         {
             MakeUseable();
         }
@@ -46,6 +47,11 @@ public class Checkpoint : MonoBehaviour
             foreach (Checkpoint checkpoint in prerequisiteCheckpoints)
             {
                 checkpoint.OnActivated += OnPrerequisiteCheckpointActivated;
+            }
+
+            foreach (Health health in needToDieToActivate)
+            {
+                health.OnDeath += OnRequiredEnemyDied;
             }
         }
     }
@@ -92,13 +98,34 @@ public class Checkpoint : MonoBehaviour
     {
         checkpoint.OnActivated -= OnPrerequisiteCheckpointActivated;
 
-        numPrerequisiteCheckpointsLeft -= 1;
-        if (numPrerequisiteCheckpointsLeft <= 0)
+        prerequisiteCheckpoints.Remove(checkpoint);
+        if (ShouldBeUseable())
         {
             MakeUseable();
         }
     }
 
+    private void OnRequiredEnemyDied(Health sender)
+    {
+        sender.OnDeath -= OnRequiredEnemyDied;
+
+        needToDieToActivate.Remove(sender);
+        if (ShouldBeUseable())
+        {
+            MakeUseable();
+        }
+    }
+
+    private bool ShouldBeUseable()
+    {
+        return
+            prerequisiteCheckpoints.Count == 0 &&
+            needToDieToActivate.Count == 0;
+    }
+
+    /// <summary>
+    /// Makes sure triggerEvents is not null.
+    /// </summary>
     private void EnsureTrigger()
     {
         if (triggerEvents == null)
