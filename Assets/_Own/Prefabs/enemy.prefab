@@ -28,6 +28,8 @@ GameObject:
   - component: {fileID: 114163407737006916}
   - component: {fileID: 114981167159142292}
   - component: {fileID: 114058244687087694}
+  - component: {fileID: 114207660364780426}
+  - component: {fileID: 114590443844130900}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Enemy
@@ -267,15 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2511120f5579142beaa181756657b53a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSteeringForce: 5
-  maxVelocity: 6
-  collisionAvoidanceMultiplier: 20
-  MaxDistanceToPlayer: 5
-  ShootingRange: 10
-  collisionAvoidanceRange: 4
-  maxRotationDegreesPerSecond: 90
-  separationFactor: 20
-  separationDistance: 2
+  maxDistanceToPlayer: 5
 --- !u!114 &114163407737006916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,6 +281,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b142385a43004e53b310ea58df15fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114207660364780426
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200429050449118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f89ee905da244311b8b666abd080dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSteeringForce: 5
+  maxVelocity: 6
+  collisionAvoidanceMultiplier: 20
+  collisionAvoidanceRange: 2
+  maxRotationDegreesPerSecond: 180
+  separationFactor: 15
+  separationDistance: 4
 --- !u!114 &114415618604697572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,6 +317,19 @@ MonoBehaviour:
   obstacleDetectionLayerMask:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &114590443844130900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200429050449118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6541b32dc1544f6abfe765f5151549c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootingRange: 10
+  reloadTime: 2
 --- !u!114 &114981167159142292
 MonoBehaviour:
   m_ObjectHideFlags: 1
