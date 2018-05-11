@@ -5,6 +5,12 @@ using UnityEngine;
 public class EnemyGrappledState : FSMState<Enemy>
 {
     [SerializeField] private float upThrustStrength = 300;
+    [SerializeField] private float ThrustTime = 5;
+    [SerializeField] private float newSteeringStrength = 200;
+
+    private float counter = 0;
+    private bool thrusting = false;
+
     private Shooting shooting;
     private Rigidbody rb;
     private SteeringManager steering;
@@ -16,21 +22,31 @@ public class EnemyGrappledState : FSMState<Enemy>
         rb = GetComponent<Rigidbody>();
         shooting = GetComponent<Shooting>();
         steering = GetComponent<SteeringManager>();
-        steering.SetMaxSteeringForce(200);
+        steering.SetMaxSteeringForce(newSteeringStrength);
         shooting.enabled = false;
-
+        thrusting = true;
     }
 
 
-    void FixedUpdate()
+    void Update()
     {
-        steering.ThrustUp(upThrustStrength);
+        if (thrusting)
+        {
+            steering.ThrustUp(upThrustStrength);
+            counter += Time.deltaTime;
+            if(counter >= ThrustTime)
+            {
+                thrusting = false;
+                counter = 0;
+            }
+        }
+        Debug.Log(thrusting);
     }
 
     public override void Exit()
     {
         base.Exit();
-        steering.SetMaxSteeringForce(5);
+        steering.SetMaxSteeringForce(steering.GetInitalSteeringForce());
         shooting.enabled = true;
     }
 

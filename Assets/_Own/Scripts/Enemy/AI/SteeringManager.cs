@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SteeringManager : MonoBehaviour
 {
-    [SerializeField] private float maxSteeringForce = 5;
+    [SerializeField] private float maxSteeringForce = 10;
     [SerializeField] private float maxSpeed = 6;
     [SerializeField] private float collisionAvoidanceMultiplier = 20;
     [SerializeField] private float collisionAvoidanceRange = 2;
@@ -13,11 +13,14 @@ public class SteeringManager : MonoBehaviour
     [SerializeField] private float separationFactor = 1f;
     [SerializeField] private float separationDistance = 5f;
 
+    private float initialSteeringForce;
     Vector3 steering = Vector3.zero;
     private Rigidbody rb;
 
+
     private void Start()
     {
+        initialSteeringForce = maxSteeringForce;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -158,6 +161,11 @@ public class SteeringManager : MonoBehaviour
     public void SetMaxSteeringForce(float newSteeringForce)
     {
         maxSteeringForce = newSteeringForce;
+    }
+
+    public float GetInitalSteeringForce()
+    {
+        return initialSteeringForce;
     }
 
 }
