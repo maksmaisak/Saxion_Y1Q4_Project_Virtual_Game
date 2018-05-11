@@ -40,5 +40,7 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
             steeringManager.LookAt(target.transform.position);
         }
     }
+
+
 }
 

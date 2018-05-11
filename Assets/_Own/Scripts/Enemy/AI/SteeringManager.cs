@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class SteeringManager : MonoBehaviour
 {
-
     [SerializeField] private float maxSteeringForce = 5;
-    [SerializeField] private float maxVelocity = 6;
+    [SerializeField] private float maxSpeed = 6;
     [SerializeField] private float collisionAvoidanceMultiplier = 20;
     [SerializeField] private float collisionAvoidanceRange = 2;
     [SerializeField] private float maxRotationDegreesPerSecond = 180f;
@@ -22,6 +21,7 @@ public class SteeringManager : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+
     private void FixedUpdate()
     {
         Debug.DrawRay(transform.position, rb.velocity, Color.red);
@@ -30,7 +30,7 @@ public class SteeringManager : MonoBehaviour
         Debug.DrawRay(transform.position, steering, Color.blue);
 
         rb.AddForce(steering, ForceMode.Acceleration);
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
 
         steering = Vector3.zero;
     }
@@ -50,10 +50,21 @@ public class SteeringManager : MonoBehaviour
         steering += DoEnemyAvoidance();
     }
 
-    public Vector3 DoSeek(Vector3 target, float slowingRadius = 0f)
+    public void ThrustUp(float thrustStrength)
     {
-        Vector3 desiredVelocity = (target - transform.position).normalized * maxVelocity;
-        float distance = desiredVelocity.magnitude;
+        steering += DoThrustUp(thrustStrength);
+    }
+
+    private Vector3 DoThrustUp(float thrustStrength)
+    {
+        return new Vector3(0, thrustStrength, 0);
+    }
+
+    private Vector3 DoSeek(Vector3 target, float slowingRadius = 0f)
+    {
+        Vector3 toTarget = target - transform.position;
+        Vector3 desiredVelocity = toTarget.normalized * maxSpeed;
+        float distance = toTarget.magnitude;
 
         if (distance <= slowingRadius)
         {
@@ -65,7 +76,7 @@ public class SteeringManager : MonoBehaviour
         return force;
     }
 
-    public Vector3 DoEnemyAvoidance()
+    private Vector3 DoEnemyAvoidance()
     {
         Vector3 totalForce = Vector3.zero;
         foreach (GameObject enemy in FlockManager.enemyArray)
@@ -81,7 +92,7 @@ public class SteeringManager : MonoBehaviour
     }
 
 
-    public Vector3 DoObstaclesAvoidance()
+    private Vector3 DoObstaclesAvoidance()
     {
         Vector3 force = Vector3.zero;
 
@@ -143,4 +154,10 @@ public class SteeringManager : MonoBehaviour
     {
         rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, maxRotationDegreesPerSecond * Time.deltaTime));
     }
+
+    public void SetMaxSteeringForce(float newSteeringForce)
+    {
+        maxSteeringForce = newSteeringForce;
+    }
+
 }
