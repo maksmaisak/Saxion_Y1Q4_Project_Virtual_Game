@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemyShakeState : FSMState<Enemy>
 {
-    [SerializeField] private float shakingLenght = 3;
+    [SerializeField] private float shakingDuration = 3;
     [SerializeField] private float maxShakingForce = 5;
 
-    private bool shakingBehaviour;
+    private bool isShaking;
     private float counter = 0;
     private Rigidbody rb;
 
@@ -15,23 +15,21 @@ public class EnemyShakeState : FSMState<Enemy>
     {
         base.Enter();
         rb = GetComponent<Rigidbody>();
-        shakingBehaviour = true;
+        isShaking = true;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        if (shakingBehaviour)
+        if (isShaking)
         {
             rb.AddForce(new Vector3(Random.Range(-2, 2) * maxShakingForce, Random.Range(-2, 2) * maxShakingForce, Random.Range(-2, 2) * maxShakingForce), ForceMode.Impulse);
             counter += Time.fixedDeltaTime;
-            if (counter >= shakingLenght)
+            if (counter >= shakingDuration)
             {
-                shakingBehaviour = false;
+                isShaking = false;
                 counter = 0;
             }
         }
-
     }
 
     public override void Exit()

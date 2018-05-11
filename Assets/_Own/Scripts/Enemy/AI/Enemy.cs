@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IAgent
 {
-
     public FSM<Enemy> fsm { get; private set; }
 
     private Grappleable grappleable;
 
     private enum State
     {
-        NONE,
-        THRUSTUP,
-        SHAKE
+        None,
+        ThrustUp,
+        Shake
     }
 
     [SerializeField] private State selectedState;
@@ -27,20 +26,22 @@ public class Enemy : MonoBehaviour, IAgent
 
         grappleable = GetComponent<Grappleable>();
 
-        grappleable.OnGrappled += OnGrapple;
+        grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
     }
 
     private void OnGrapple(Grappleable sender)
     {
-        if (selectedState == State.THRUSTUP)
+        switch (selectedState)
         {
-            fsm.ChangeState<EnemyThrustUpState>();
+            case State.ThrustUp:
+                fsm.ChangeState<EnemyThrustUpState>();
+                break;
+            case State.Shake:
+                fsm.ChangeState<EnemyShakeState>();
+                break;
         }
-        else if(selectedState == State.SHAKE)
-        {
-            fsm.ChangeState<EnemyShakeState>();
-        }
+
         GetComponent<Shooting>().enabled = false;
     }
 

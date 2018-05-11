@@ -28,10 +28,10 @@ GameObject:
   - component: {fileID: 114163407737006916}
   - component: {fileID: 114981167159142292}
   - component: {fileID: 114058244687087694}
-  - component: {fileID: 114207660364780426}
-  - component: {fileID: 114590443844130900}
   - component: {fileID: 114159233124540168}
   - component: {fileID: 114864656048003352}
+  - component: {fileID: 114207660364780426}
+  - component: {fileID: 114590443844130900}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Enemy
@@ -280,13 +280,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1200429050449118}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abb924765e4714b28a199e05fdf2cfca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   upThrustStrength: 300
-  ThrustTime: 5
+  thrustTime: 5
   newSteeringStrength: 200
 --- !u!114 &114163407737006916
 MonoBehaviour:
@@ -354,12 +354,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1200429050449118}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b788e1476fce442ac8cbbb98279f7c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakingLenght: 5
+  shakingDuration: 5
   maxShakingForce: 10
 --- !u!114 &114981167159142292
 MonoBehaviour:

@@ -1128,6 +1128,16 @@ Prefab:
       propertyPath: arriveSlowdownDistance
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114864656048003352, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: shakingDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: selectedState
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
   m_IsPrefabParent: 0
@@ -1276,6 +1286,16 @@ Prefab:
         type: 2}
       propertyPath: arriveSlowdownDistance
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114864656048003352, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: shakingDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: selectedState
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
@@ -1531,6 +1551,16 @@ Prefab:
         type: 2}
       propertyPath: arriveSlowdownDistance
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114864656048003352, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: shakingDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: selectedState
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
@@ -2228,6 +2258,16 @@ Prefab:
         type: 2}
       propertyPath: arriveSlowdownDistance
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114864656048003352, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: shakingDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: selectedState
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
@@ -3523,6 +3563,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114864656048003352, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: shakingDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: selectedState
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

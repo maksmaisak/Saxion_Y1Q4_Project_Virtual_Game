@@ -6,14 +6,13 @@ using UnityEditor;
 public class EnemyThrustUpState : FSMState<Enemy>
 {  
     [SerializeField] private float upThrustStrength = 300;
-    [SerializeField] private float ThrustTime = 5;
+    [SerializeField] private float thrustTime = 5;
     [SerializeField] private float newSteeringStrength = 200;
 
     private float counter = 0;
-    private bool thrustingBehaviour;
+    private bool isThrusting;
     private Rigidbody rb;
     private SteeringManager steering;
-
 
     public override void Enter()
     {
@@ -21,19 +20,18 @@ public class EnemyThrustUpState : FSMState<Enemy>
         rb = GetComponent<Rigidbody>();
         steering = GetComponent<SteeringManager>();
         steering.SetMaxSteeringForce(newSteeringStrength);
-        thrustingBehaviour = true;
+        isThrusting = true;
     }
-
 
     void FixedUpdate()
     {
-        if (thrustingBehaviour)
+        if (isThrusting)
         {
             steering.ThrustUp(upThrustStrength);
             counter += Time.fixedDeltaTime;
-            if (counter >= ThrustTime)
+            if (counter >= thrustTime)
             {
-                thrustingBehaviour = false;
+                isThrusting = false;
                 counter = 0;
             }
         }
