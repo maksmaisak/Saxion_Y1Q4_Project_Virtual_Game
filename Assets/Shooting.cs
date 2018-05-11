@@ -10,6 +10,7 @@ public class Shooting : MonoBehaviour
 
     private float counter;
     private bool reloading;
+
     private ShootingController shootingController;
     private GameObject target;
 

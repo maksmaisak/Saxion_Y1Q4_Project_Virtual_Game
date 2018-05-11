@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-public class EnemyGrappledState : FSMState<Enemy>
-{
+public class EnemyThrustUpState : FSMState<Enemy>
+{  
     [SerializeField] private float upThrustStrength = 300;
     [SerializeField] private float ThrustTime = 5;
     [SerializeField] private float newSteeringStrength = 200;
 
     private float counter = 0;
-    private bool thrusting = false;
-
-    private Shooting shooting;
+    private bool thrustingBehaviour;
     private Rigidbody rb;
     private SteeringManager steering;
 
@@ -20,35 +19,29 @@ public class EnemyGrappledState : FSMState<Enemy>
     {
         base.Enter();
         rb = GetComponent<Rigidbody>();
-        shooting = GetComponent<Shooting>();
         steering = GetComponent<SteeringManager>();
         steering.SetMaxSteeringForce(newSteeringStrength);
-        shooting.enabled = false;
-        thrusting = true;
+        thrustingBehaviour = true;
     }
 
 
     void Update()
     {
-        if (thrusting)
+        if (thrustingBehaviour)
         {
             steering.ThrustUp(upThrustStrength);
             counter += Time.deltaTime;
-            if(counter >= ThrustTime)
+            if (counter >= ThrustTime)
             {
-                thrusting = false;
+                thrustingBehaviour = false;
                 counter = 0;
             }
         }
-        Debug.Log(thrusting);
     }
 
     public override void Exit()
     {
         base.Exit();
         steering.SetMaxSteeringForce(steering.GetInitalSteeringForce());
-        shooting.enabled = true;
     }
-
-
 }

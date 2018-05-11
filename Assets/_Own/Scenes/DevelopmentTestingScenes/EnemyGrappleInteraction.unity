@@ -2355,10 +2355,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114898381795259366, guid: 8d2778192b2b444a1bf3332b16fbf956,
+    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
-      propertyPath: ThrustTime
+      propertyPath: thrustBehaviour
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: shakeBehaviour
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114864656048003352, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: maxShakingForce
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114864656048003352, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: shakingLenght
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}

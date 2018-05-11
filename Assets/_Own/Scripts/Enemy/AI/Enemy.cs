@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour, IAgent
 
     private Grappleable grappleable;
 
+    [SerializeField] private bool thrustBehaviour;
+    [SerializeField] private bool shakeBehaviour;
+
     // Use this for initialization
     void Start()
     {
@@ -24,12 +27,21 @@ public class Enemy : MonoBehaviour, IAgent
 
     private void OnGrapple(Grappleable sender)
     {
-        fsm.ChangeState<EnemyGrappledState>();
+        if (thrustBehaviour)
+        {
+            fsm.ChangeState<EnemyThrustUpState>();
+        }
+        else if(shakeBehaviour)
+        {
+            fsm.ChangeState<EnemyShakeState>();
+        }
+        GetComponent<Shooting>().enabled = false;
     }
 
     private void OnRelease(Grappleable sender)
     {
         fsm.ChangeState<EnemyStateFollowPlayer>();
+        GetComponent<Shooting>().enabled = true;
     }
 
     // Update is called once per frame

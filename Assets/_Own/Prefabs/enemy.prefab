@@ -30,7 +30,8 @@ GameObject:
   - component: {fileID: 114058244687087694}
   - component: {fileID: 114207660364780426}
   - component: {fileID: 114590443844130900}
-  - component: {fileID: 114898381795259366}
+  - component: {fileID: 114159233124540168}
+  - component: {fileID: 114864656048003352}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Enemy
@@ -273,6 +274,20 @@ MonoBehaviour:
   maxDistanceToPlayer: 10
   arriveSlowdownDistance: 2
   lookAtPlayerDistance: 15
+--- !u!114 &114159233124540168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200429050449118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb924765e4714b28a199e05fdf2cfca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upThrustStrength: 300
+  ThrustTime: 5
+  newSteeringStrength: 200
 --- !u!114 &114163407737006916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -296,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSteeringForce: 10
-  maxVelocity: 6
+  maxSpeed: 6
   collisionAvoidanceMultiplier: 20
   collisionAvoidanceRange: 2
   maxRotationDegreesPerSecond: 180
@@ -333,17 +348,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingRange: 40
   reloadTime: 2
---- !u!114 &114898381795259366
+--- !u!114 &114864656048003352
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1200429050449118}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abb924765e4714b28a199e05fdf2cfca, type: 3}
+  m_Script: {fileID: 11500000, guid: b788e1476fce442ac8cbbb98279f7c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakingLenght: 3
+  maxShakingForce: 5
 --- !u!114 &114981167159142292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -355,6 +372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c519062df9d4f8a8b51c98432bdd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thrustBehaviour: 0
+  shakeBehaviour: 0
 --- !u!135 &135870948589046598
 SphereCollider:
   m_ObjectHideFlags: 1
