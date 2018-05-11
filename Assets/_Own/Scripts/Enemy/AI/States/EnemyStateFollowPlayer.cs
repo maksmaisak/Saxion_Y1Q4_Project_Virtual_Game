@@ -1,108 +1,82 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿
+using System.Collections; using System.Collections.Generic; using UnityEngine;  public class EnemyStateFollowPlayer : FSMState<Enemy>, IBOID {
 
-// TODO Ok this here needs work. It keeps moving towards the player in some weird roundabout way.
+    [SerializeField] private float maxSteeringForce;     [SerializeField] private float maxVelocity = 6;     [SerializeField] private float collisionAvoidanceMultiplier = 20;     [SerializeField] private float MaxDistanceToPlayer = 5;
+    [SerializeField] private float ShootingRange = 10;     [SerializeField] private float collisionAvoidanceRange = 2;     [SerializeField] private float maxRotationDegreesPerSecond = 180f;     [SerializeField] private float separationFactor = 1f;     [SerializeField] private float separationDistance = 5f;      private Rigidbody rb;     private GameObject target;     private ShootingController shootingController;     private float speed;     private bool reloading;     private float counter;     private bool playerFound;     private SteeringManager steeringManager; 
+     void Start()     {         shootingController = GetComponent<ShootingController>();         target = GameObject.FindGameObjectWithTag("Player");         steeringManager = new SteeringManager(this);         rb = GetComponent<Rigidbody>();     }      void Update()     {
 
-public class EnemyStateFollowPlayer : FSMState<Enemy>
-{
-    public float speed;
+        Vector3 steering = Vector3.zero;         Vector3 desiredPos = Vector3.zero;          Debug.DrawRay(transform.position, rb.velocity.normalized * collisionAvoidanceRange, Color.red);          desiredPos = target.transform.position + (transform.position - target.transform.position).normalized * MaxDistanceToPlayer;
 
-    [SerializeField] private float maxRotationDegreesPerSecond = 180f;
-    [SerializeField] private float separationFactor = 1f;
-    [SerializeField] private float separationDistance = 5f;
+        steering += steeringManager.DoSeek(desiredPos, MaxDistanceToPlayer);
+        steering += steeringManager.DoObstaclesAvoidance();         steering += steeringManager.DoEnemyAvoidance();
 
-    private Rigidbody rb;
-    private GameObject target;
-    private ShootingController shootingController;
-    private bool reloading;
-    private float counter;
-    private bool playerFound;
+        steering = Vector3.ClampMagnitude(steering, maxSteeringForce);
 
-    void Start()
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity + steering, maxVelocity);
+
+         Debug.DrawRay(transform.position, steering, Color.blue);
+
+
+        Rotate();          if (Vector3.Distance(target.transform.position, transform.position) <= ShootingRange)         {
+
+            playerFound = true;             Shoot();         }
+
+        if (!shootingController.CanShootAt(target))         {             playerFound = false;         }     } 
+    private void Rotate()
     {
-        shootingController = GetComponent<ShootingController>();
-        target = GameObject.FindGameObjectWithTag("Player");
-
-        rb = GetComponent<Rigidbody>();
-    }
-
-    void Update()
-    {
-        var dir = (target.transform.position + new Vector3(0, -1f, 1f) - transform.position).normalized;
-
-        RaycastHit hit;
-
-        if (!playerFound)
+        Quaternion rotation;
+        if (rb.velocity != Vector3.zero)
         {
-            if (Physics.SphereCast(transform.position, 2f, transform.forward, out hit, 20f))
-            {
-                if (hit.transform != transform)
-                {
-                    dir += hit.normal * 50f;
-                }
-            }
-        }
-
-        var rot = Quaternion.LookRotation(dir, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, maxRotationDegreesPerSecond * Time.deltaTime); //Quaternion.Slerp(transform.rotation, rot, Time.deltaTime);
-        rb.position += transform.forward * speed * Time.deltaTime;
-
-        if (Vector3.Distance(target.transform.position, transform.position) <= 7f)
-        {
-            speed--;
-            if (speed < 0f) speed = 0f;
-            playerFound = true;
-            Shoot();
+            rotation = Quaternion.LookRotation(rb.velocity, Vector3.up);
         }
         else
         {
-            speed++;
-            if (speed > 6f) speed = 6f;
+            rotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
         }
 
-        if (!shootingController.CanShootAt(target))
-        {
-            speed = 6f;
-            playerFound = false;
-        }
+        rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, maxRotationDegreesPerSecond * Time.deltaTime));
+    }      private void Shoot()     {         if (shootingController.CanShootAt(target))         {             if (!reloading)             {                 shootingController.ShootAt(target);                 reloading = true;             }             else             {                 counter += Time.deltaTime;                 if (counter >= 2f)                 {                     reloading = false;                     counter = 0f;                 }             }         }     } 
 
-        AvoidOtherEnemies();
-    }
 
-    private void Shoot()
+    public Vector3 GetVelocity()
     {
-        if (shootingController.CanShootAt(target))
-        {
-            if (!reloading)
-            {
-                shootingController.ShootAt(target);
-                reloading = true;
-            }
-            else
-            {
-                counter += Time.deltaTime;
-                if (counter >= 2f)
-                {
-                    reloading = false;
-                    counter = 0f;
-                }
-            }
-        }
+        return rb.velocity;
     }
-
-    private void AvoidOtherEnemies()
+    public float GetMaxVelocity()
     {
-        Vector3 totalForce = Vector3.zero;
-        foreach (GameObject enemy in FlockManager.enemyArray)
-        {
-            if (this != enemy && Vector3.Distance(transform.position, enemy.transform.position) <= 3f)
-            {
-                Vector3 headingVector = transform.position - enemy.transform.position;
-                totalForce += headingVector;
-            }
-        }
-
-        rb.AddForce(totalForce * separationFactor, ForceMode.Acceleration);
+        return maxVelocity;
     }
-}
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+    public float GetMaxForce()
+    {
+        return maxSteeringForce;
+    }
+
+    public float GetSeparationDistance()
+    {
+        return separationDistance;
+    }
+
+    public GameObject GetEnemy()
+    {
+        return this.gameObject;
+    }
+
+    public float GetSeparationFactor()
+    {
+        return separationFactor;
+    }
+
+    public float GetCollisionAvoidanceMultiplier()
+    {
+        return collisionAvoidanceMultiplier;
+    }
+    public float GetCollisionAvoidanceRange()
+    {
+        return collisionAvoidanceRange;
+    }
+
+}  
