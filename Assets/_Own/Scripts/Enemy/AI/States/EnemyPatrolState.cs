@@ -6,19 +6,11 @@ public class EnemyPatrolState : FSMState<Enemy>
 {
     [SerializeField] private float patrolRadius = 5f;
     [SerializeField] private float spottingPlayerDistance = 10f;
+    [SerializeField] private float patrolTime = 5;
+    [SerializeField] private GameObject patrolPoint;
 
     private SteeringManager steering;
-
-    // This is literally never used.
-    private Rigidbody rb;
-
-    // Why store this? Just use Player.Instance
-    private GameObject target;
-
-    // You don't need to store it, just use agent.fsm (`agent` is a protected variable of FSMState, look into it).
-    private FSM<Enemy> fsm;
     private ShootingController shootingController;
-
     Vector3 newPos;
     private bool patrol;
     private float counter;
@@ -28,26 +20,25 @@ public class EnemyPatrolState : FSMState<Enemy>
         base.Enter();
         GetComponent<Shooting>().enabled = false;
         shootingController = GetComponent<ShootingController>();
-        fsm = agent.fsm;
         steering = GetComponent<SteeringManager>();
         steering.SetMaxSteeringForce(50);
-        rb = GetComponent<Rigidbody>();
-        target = GameObject.FindGameObjectWithTag("Player");
+        counter = patrolTime;
     }
 
     private void FixedUpdate()
     {
         counter += Time.fixedDeltaTime;
 
-        // Don't hardcode values.
-        // This also makes the enemy wait 5 seconds after entering the state before moving.
-        if (counter >= 5f)
+        if (counter >= patrolTime)
         {
-            // This here is a position near the origin (0, 0, 0) of the scene.
-            // Should be somewhere close a designated position.
-            newPos = Random.onUnitSphere * patrolRadius;
+            newPos = Random.onUnitSphere * patrolRadius + patrolPoint.transform.position;
             patrol = true;
             counter = 0f;
+        }
+
+        if(Vector3.Distance(transform.position,newPos) <= 0f)
+        {
+            counter = patrolTime;
         }
 
         if (patrol)
@@ -55,12 +46,8 @@ public class EnemyPatrolState : FSMState<Enemy>
             Patrol(newPos);
         }
 
-        float distance = (target.transform.position - transform.position).magnitude;
-
-        if (distance <= spottingPlayerDistance && shootingController.CanShootAt(target))
-        {
-            fsm.ChangeState<EnemyStateFollowPlayer>();
-        }
+        CheckForDistanceWithPlayer();
+       
     }
 
     public override void Exit()
@@ -77,5 +64,15 @@ public class EnemyPatrolState : FSMState<Enemy>
         steering.AvoidEnemies();
         steering.AvoidObstacles();
         steering.LookWhereGoing();
+    }
+
+    private void CheckForDistanceWithPlayer()
+    {
+        float distance = (Player.Instance.transform.position - transform.position).magnitude;
+
+        if (distance <= spottingPlayerDistance && shootingController.CanShootAt(Player.Instance.gameObject))
+        {
+            agent.fsm.ChangeState<EnemyStateFollowPlayer>();
+        }
     }
 }

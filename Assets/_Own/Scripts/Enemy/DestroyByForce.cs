@@ -8,8 +8,7 @@ public class DestroyByForce : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        // FIXME String comparisons are slooow. Use .CompareTag instead
-        if (collision.transform.tag == "Player" || collision.transform.tag == "wall")
+        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("wall"))
         {
             Vector3 force = collision.impulse / Time.fixedDeltaTime;
 

@@ -332,6 +332,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolRadius: 10
   spottingPlayerDistance: 10
+  patrolTime: 5
+  patrolPoint: {fileID: 0}
 --- !u!114 &114415618604697572
 MonoBehaviour:
   m_ObjectHideFlags: 1
