@@ -560,9 +560,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 236577755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fae3bad33bfac41aa9161824414e43f0, type: 3}
+  m_Script: {fileID: 11500000, guid: becb4d1d085104c58965a20f7c22b344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeTillRestart: 2
+  timeScaleMultiplier: 0.4
 --- !u!1001 &275104352
 Prefab:
   m_ObjectHideFlags: 0
