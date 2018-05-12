@@ -74,7 +74,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             [Tooltip("When in the air, should it change its velocity to move where the camera is looking?")]
             public bool alwaysForwardWhenAirborne;
             [Tooltip("When in the air, input will be scaled by this number. Set it to a smaller value to have less contol when in the air.")]
-            public float airControlModifier = 1f;
+            public float airControlMultiplier = 1f;
             [Tooltip("Set it to 0.1 or more if you get stuck in wall")]
             public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
         }
@@ -163,7 +163,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 } 
                 else 
                 {
-                    desiredMove *= movementSettings.ForwardSpeed * advancedSettings.airControlModifier;
+                    desiredMove *= movementSettings.ForwardSpeed * advancedSettings.airControlMultiplier;
                     m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
                 }
             }
