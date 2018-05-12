@@ -16,6 +16,7 @@ public class AudioWindManager : MonoBehaviour
     [SerializeField] float minSpeed = 1f;
     [Tooltip("Volume is 1 when moving faster than this.")]
     [SerializeField] float maxSpeed = 10f;
+    [SerializeField] float maxVolumeChangePerSecond = 2f;
 
     // Use this for initialization
     void Start()
@@ -30,7 +31,11 @@ public class AudioWindManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        audioSource.volume = GetDesiredVolume();
+        audioSource.volume = Mathf.MoveTowards(
+            audioSource.volume, 
+            GetDesiredVolume(),
+            maxVolumeChangePerSecond * Time.deltaTime
+        );
     }
 
     private float GetDesiredVolume()
