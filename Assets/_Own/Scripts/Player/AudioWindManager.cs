@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityStandardAssets.Characters.FirstPerson;
 
 /// Adjusts the volume of a given audioSource to play a wind sound when moving fast.
 public class AudioWindManager : MonoBehaviour
 {
     [SerializeField] AudioSource audioSource;
-    [SerializeField] Rigidbody rigidbodyToTrack;
+    [SerializeField] RigidbodyFirstPersonController playerController;
+    [SerializeField] bool playOnlyWhenInAir = true;
     [Space]
     [Tooltip("Volume is 0 when moving slower than this.")]
     [SerializeField] float minSpeed = 1f;
@@ -19,7 +21,7 @@ public class AudioWindManager : MonoBehaviour
     void Start()
     {
         Assert.IsNotNull(audioSource);
-        Assert.IsNotNull(rigidbodyToTrack);
+        Assert.IsNotNull(playerController);
 
         audioSource.loop = true;
         if (!audioSource.isPlaying) audioSource.Play();
@@ -33,7 +35,8 @@ public class AudioWindManager : MonoBehaviour
 
     private float GetDesiredVolume()
     {
-        float speed = rigidbodyToTrack.velocity.magnitude;
+        if (playOnlyWhenInAir && playerController.Grounded) return 0f;
+        float speed = playerController.Velocity.magnitude;
         return Mathf.Clamp01(Mathf.InverseLerp(minSpeed, maxSpeed, speed));
     }
 }
