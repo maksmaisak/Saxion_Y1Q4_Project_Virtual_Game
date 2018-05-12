@@ -22,7 +22,8 @@ public class Enemy : MonoBehaviour, IAgent
     void Start()
     {
         fsm = new FSM<Enemy>(this);
-        fsm.ChangeState<EnemyStateFollowPlayer>();
+
+        fsm.ChangeState<EnemyPatrolState>();
 
         grappleable = GetComponent<Grappleable>();
 

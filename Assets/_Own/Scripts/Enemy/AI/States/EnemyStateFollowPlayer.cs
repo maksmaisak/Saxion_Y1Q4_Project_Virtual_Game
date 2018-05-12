@@ -11,15 +11,17 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
 
     private Rigidbody rb;
     private GameObject target;
-    private ShootingController shootingController;
+    private Shooting shootingController;
     private SteeringManager steeringManager;
 
     void Start()
     {
-        shootingController = GetComponent<ShootingController>();
+        shootingController = GetComponent<Shooting>();
+        shootingController.enabled = true;
         target = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         steeringManager = GetComponent<SteeringManager>();
+
     }
 
     private void FixedUpdate()
