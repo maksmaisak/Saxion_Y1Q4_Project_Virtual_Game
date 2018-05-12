@@ -23,9 +23,7 @@ public class BulletScript : MonoBehaviour
             if (player != null)
             {
                 Instantiate(explosion, transform.position, Quaternion.identity);
-                player.transform.DetachChildren();
-                //health.DealDamage(100);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                health.DealDamage(100);
             }
         }
         if (collision.gameObject != gameObject)
@@ -34,6 +32,7 @@ public class BulletScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 
 
 }

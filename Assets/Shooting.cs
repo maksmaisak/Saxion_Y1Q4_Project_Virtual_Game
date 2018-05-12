@@ -23,7 +23,7 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Distance(target.transform.position, transform.position) <= shootingRange)
+        if (target != null && Vector3.Distance(target.transform.position, transform.position) <= shootingRange)
         {
             Shoot();
         }
