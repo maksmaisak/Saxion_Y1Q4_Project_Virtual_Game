@@ -3501,7 +3501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolRadius: 10
-  spotingPlayerDistance: 10
+  spottingPlayerDistance: 10
 --- !u!114 &1529833260
 MonoBehaviour:
   m_ObjectHideFlags: 0

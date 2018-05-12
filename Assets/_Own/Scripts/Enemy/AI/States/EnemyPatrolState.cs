@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPatrolState : FSMState<Enemy> {
-
-    [SerializeField] private float patrolRadius= 5;
-    [SerializeField] private float spotingPlayerDistance = 10;
+public class EnemyPatrolState : FSMState<Enemy>
+{
+    [SerializeField] private float patrolRadius = 5f;
+    [SerializeField] private float spottingPlayerDistance = 10f;
 
     private SteeringManager steering;
     private Rigidbody rb;
@@ -17,12 +17,12 @@ public class EnemyPatrolState : FSMState<Enemy> {
     private bool patrol;
     private float counter;
 
-	public override void Enter()
+    public override void Enter()
     {
         base.Enter();
         GetComponent<Shooting>().enabled = false;
         shootingController = GetComponent<ShootingController>();
-        fsm = GetComponent<Enemy>().fsm;
+        fsm = agent.fsm;
         steering = GetComponent<SteeringManager>();
         steering.SetMaxSteeringForce(50);
         rb = GetComponent<Rigidbody>();
@@ -31,29 +31,26 @@ public class EnemyPatrolState : FSMState<Enemy> {
 
     private void FixedUpdate()
     {
-       
         counter += Time.fixedDeltaTime;
 
         if (counter >= 5)
         {
-             newPos = Random.onUnitSphere * patrolRadius;
+            newPos = Random.onUnitSphere * patrolRadius;
             patrol = true;
             counter = 0;
         }
 
-       
-        if(patrol)
+        if (patrol)
         {
             Patrol(newPos);
         }
 
-        float distance = (target.transform.position - transform.position).magnitude; 
+        float distance = (target.transform.position - transform.position).magnitude;
 
-        if(distance <= spotingPlayerDistance && shootingController.CanShootAt(target))
+        if (distance <= spottingPlayerDistance && shootingController.CanShootAt(target))
         {
             fsm.ChangeState<EnemyStateFollowPlayer>();
         }
-
     }
 
     public override void Exit()
@@ -63,15 +60,11 @@ public class EnemyPatrolState : FSMState<Enemy> {
         steering.SetMaxSteeringForce(steering.GetInitalSteeringForce());
     }
 
-
-
     private void Patrol(Vector3 randomPos)
     {
-        steering.Seek(randomPos,0);
+        steering.Seek(randomPos, 0f);
         steering.AvoidEnemies();
         steering.AvoidObstacles();
         steering.LookWhereGoing();
     }
-
-   
 }
