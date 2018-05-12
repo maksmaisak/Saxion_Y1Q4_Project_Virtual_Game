@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
-public class FallDeath : MonoBehaviour {
-
+public class KillWhenBelowTreshold : MonoBehaviour
+{
     [SerializeField] private float fallDeathYPos = -50;
-	// Update is called once per frame
-	void Update () 
+
+    // Update is called once per frame
+    void Update()
     {
-        if(transform.position.y <= fallDeathYPos)
+        if (transform.position.y <= fallDeathYPos)
         {
             GetComponent<Health>().DealDamage(100);
         }
-	}
+    }
 }
