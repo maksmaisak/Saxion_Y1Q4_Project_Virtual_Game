@@ -8,8 +8,14 @@ public class EnemyPatrolState : FSMState<Enemy>
     [SerializeField] private float spottingPlayerDistance = 10f;
 
     private SteeringManager steering;
+
+    // This is literally never used.
     private Rigidbody rb;
+
+    // Why store this? Just use Player.Instance
     private GameObject target;
+
+    // You don't need to store it, just use agent.fsm (`agent` is a protected variable of FSMState, look into it).
     private FSM<Enemy> fsm;
     private ShootingController shootingController;
 
@@ -33,11 +39,15 @@ public class EnemyPatrolState : FSMState<Enemy>
     {
         counter += Time.fixedDeltaTime;
 
-        if (counter >= 5)
+        // Don't hardcode values.
+        // This also makes the enemy wait 5 seconds after entering the state before moving.
+        if (counter >= 5f)
         {
+            // This here is a position near the origin (0, 0, 0) of the scene.
+            // Should be somewhere close a designated position.
             newPos = Random.onUnitSphere * patrolRadius;
             patrol = true;
-            counter = 0;
+            counter = 0f;
         }
 
         if (patrol)
@@ -57,6 +67,7 @@ public class EnemyPatrolState : FSMState<Enemy>
     {
         base.Exit();
         GetComponent<Shooting>().enabled = true;
+
         steering.SetMaxSteeringForce(steering.GetInitalSteeringForce());
     }
 

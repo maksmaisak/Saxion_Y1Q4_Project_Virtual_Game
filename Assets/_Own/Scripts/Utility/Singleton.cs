@@ -4,18 +4,18 @@ using System;
 
 public abstract class Singleton<T> : MonoBehaviour where T : Component
 {
-    static T _instance;
+    private static T instance;
 
     public static T Instance
     {
         get
         {
-            if (_instance == null)
+            if (instance == null)
             {
-                _instance = FindInstance() ?? CreateInstance();
+                instance = FindInstance() ?? CreateInstance();
             }
 
-            return _instance;
+            return instance;
         }
     }
 
