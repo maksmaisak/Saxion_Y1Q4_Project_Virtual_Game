@@ -119,8 +119,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 #endif
             }
         }
-
-
+        
+        
         private void Start()
         {
             m_RigidBody = GetComponent<Rigidbody>();
@@ -233,7 +233,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-            //avoids the mouse looking if the game is effectively paused
+            // avoids the mouse looking if the game is effectively paused
             if (Mathf.Abs(Time.timeScale) < float.Epsilon) return;
 
             // get the rotation before it's changed

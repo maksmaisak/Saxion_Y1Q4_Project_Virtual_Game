@@ -691,6 +691,7 @@ MonoBehaviour:
   playOnlyWhenInAir: 1
   minSpeed: 5
   maxSpeed: 10
+  maxVolumeChangePerSecond: 2
 --- !u!114 &114563294807682808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -885,10 +886,12 @@ MonoBehaviour:
     lockCursor: 1
   advancedSettings:
     groundCheckDistance: 0.1
-    stickToGroundHelperDistance: 0.6
+    stickToGroundHelperDistance: 0.1
     slowDownRate: 20
-    airControl: 0
-    shellOffset: 0
+    airControl: 1
+    alwaysForwardWhenAirborne: 0
+    airControlMultiplier: 0.1
+    shellOffset: 0.1
 --- !u!120 &120220043813957526
 LineRenderer:
   m_ObjectHideFlags: 1
