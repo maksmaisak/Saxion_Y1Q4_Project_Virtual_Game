@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityStandardAssets.Characters.FirstPerson;
 
+#pragma warning disable 0649
+
 /// Adjusts the volume of a given audioSource to play a wind sound when moving fast.
 public class AudioWindManager : MonoBehaviour
 {
