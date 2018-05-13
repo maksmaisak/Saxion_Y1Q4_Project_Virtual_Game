@@ -5,7 +5,12 @@ using UnityEngine;
 public class DestroyByForce : MonoBehaviour {
 
     [SerializeField] private float forceNeededToDestroy = 500;
+    private Health health;
 
+    private void Start()
+    {
+        health = GetComponent<Health>();
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("wall"))
@@ -16,7 +21,7 @@ public class DestroyByForce : MonoBehaviour {
 
             if (force.magnitude >= forceNeededToDestroy)
             {
-                Destroy(gameObject);
+                health.DealDamage(100);
             }
         }
     }

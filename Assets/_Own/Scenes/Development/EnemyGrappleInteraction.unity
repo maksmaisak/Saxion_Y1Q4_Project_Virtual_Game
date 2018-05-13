@@ -654,7 +654,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114058244687087694, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
@@ -818,7 +818,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114058244687087694, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
@@ -1088,7 +1088,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114058244687087694, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
@@ -1648,7 +1648,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114058244687087694, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
@@ -1817,9 +1817,59 @@ Prefab:
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 2004411827}
+    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: selectedState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114159233124540168, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: thrustHeightLimit
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114159233124540168, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: upThrustStrength
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 114321984381602372, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: spottingPlayerDistance
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1251264718 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956,
+    type: 2}
+  m_PrefabInternal: {fileID: 1032832384}
+--- !u!114 &1251264734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1251264718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5adbbf77754b1412199c647ece8a6162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
+  _maxHealth: 100
+  destroyOnDeath: 1
+  _canBeReduced: 1
+  OnDeathUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnHealthChangedUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Health+OnHealthChangedEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1001 &1261447040
 Prefab:
   m_ObjectHideFlags: 0
@@ -2903,7 +2953,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114864656048003352, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
