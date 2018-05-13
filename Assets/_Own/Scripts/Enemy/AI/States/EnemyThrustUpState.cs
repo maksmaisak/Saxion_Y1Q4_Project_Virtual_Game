@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEditor;
 
 public class EnemyThrustUpState : FSMState<Enemy>
-{  
+{
+    [SerializeField] private float thrustHeightLimit = 30;
     [SerializeField] private float upThrustStrength = 300;
     [SerializeField] private float thrustTime = 5;
     [SerializeField] private float newSteeringStrength = 200;
@@ -25,7 +26,7 @@ public class EnemyThrustUpState : FSMState<Enemy>
 
     void FixedUpdate()
     {
-        if (isThrusting)
+        if (isThrusting && transform.position.y <= thrustHeightLimit)
         {
             steering.ThrustUp(upThrustStrength);
             counter += Time.fixedDeltaTime;

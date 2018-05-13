@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb924765e4714b28a199e05fdf2cfca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thrustHeightLimit: 30
   upThrustStrength: 300
   thrustTime: 5
   newSteeringStrength: 200
