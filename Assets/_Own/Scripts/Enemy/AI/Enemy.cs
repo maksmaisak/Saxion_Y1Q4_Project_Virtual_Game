@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour, IAgent
 
     private Grappleable grappleable;
 
+    private float initialHeight;
+
     private enum State
     {
         None,
@@ -21,6 +23,8 @@ public class Enemy : MonoBehaviour, IAgent
     // Use this for initialization
     void Start()
     {
+        initialHeight = transform.position.y;
+
         fsm = new FSM<Enemy>(this);
 
         fsm.ChangeState<EnemyPatrolState>();
@@ -66,5 +70,10 @@ public class Enemy : MonoBehaviour, IAgent
     private void OnDestroy()
     {
         FlockManager.enemyList.Remove(gameObject);
+    }
+
+    public float GetInitialHeight()
+    {
+        return initialHeight;
     }
 }

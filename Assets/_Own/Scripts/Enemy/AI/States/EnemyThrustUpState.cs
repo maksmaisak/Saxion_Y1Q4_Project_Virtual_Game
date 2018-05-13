@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class EnemyThrustUpState : FSMState<Enemy>
 {
-    [SerializeField] private float thrustHeightLimit = 30;
+    [SerializeField] private float thrustHeightLimit = 20;
     [SerializeField] private float upThrustStrength = 300;
     [SerializeField] private float thrustTime = 5;
     [SerializeField] private float newSteeringStrength = 200;
@@ -14,19 +14,21 @@ public class EnemyThrustUpState : FSMState<Enemy>
     private bool isThrusting;
     private Rigidbody rb;
     private SteeringManager steering;
+    private Enemy enemyComponent;
 
     public override void Enter()
     {
         base.Enter();
         rb = GetComponent<Rigidbody>();
         steering = GetComponent<SteeringManager>();
+        enemyComponent = GetComponent<Enemy>();
         steering.SetMaxSteeringForce(newSteeringStrength);
         isThrusting = true;
     }
 
     void FixedUpdate()
     {
-        if (isThrusting && transform.position.y <= thrustHeightLimit)
+        if (isThrusting && transform.position.y <= thrustHeightLimit + enemyComponent.GetInitialHeight())
         {
             steering.ThrustUp(upThrustStrength);
             counter += Time.fixedDeltaTime;
