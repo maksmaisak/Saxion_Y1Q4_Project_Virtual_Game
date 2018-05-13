@@ -3,12 +3,16 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 #pragma warning disable 0649
 
 /// <summary>
 /// Activates upon collision with the player.
-/// Only a useable checkpoint can be activated.
+/// Only an unlocked checkpoint can be activated.
+/// To unlock a checkpoint, all prerequisite checkpoints must have been activated,
+/// and all specified entities with health need to have died.
+/// FIXME KNOWN ISSUE: if a required entity is destroyed without dying, the checkpoint still won't
 /// </summary>
 public class Checkpoint : MonoBehaviour
 {
@@ -16,20 +20,24 @@ public class Checkpoint : MonoBehaviour
     // Kinda hacky, must change when we get to the respective user story.
     public static Vector3? LatestActiveCheckpointPosition { get; private set; }
 
+    public event Action<Checkpoint> OnUnlocked;
     public event Action<Checkpoint> OnActivated;
 
-    [Tooltip("All the checkpoints that need to be active for this one to become useable. If none are specified, the checkpoint will activate immediately.")]
+    [SerializeField] private UnityEvent onUnlocked  = new UnityEvent();
+    [SerializeField] private UnityEvent onActivated = new UnityEvent();
+
+    [Tooltip("All the checkpoints that need to be active for this one to unlock. If none are specified, the checkpoint will unlock immediately.")]
     [SerializeField] private List<Checkpoint> prerequisiteCheckpoints;
 
-    [Tooltip("All of these need to die for this one to become useable.")]
-    [SerializeField] private List<Health> needToDieToActivate = new List<Health>();
+    [Tooltip("All of these need to die for this one to unlock.")]
+    [SerializeField] private List<Health> needToDieToUnlock = new List<Health>();
 
     [Tooltip("The checkpoint will activate when the player enters this trigger. This field will be filled automatically as long as this gameobject or one of its children has a trigger collider or a TriggerEvents component.")]
     [SerializeField] private TriggerEvents triggerEvents;
 
     private ParticleSystem[] particleSystems;
 
-    private bool isUseable;
+    private bool isLocked = true;
 
     void Start()
     {
@@ -38,9 +46,9 @@ public class Checkpoint : MonoBehaviour
         EnsureTrigger();
         triggerEvents.onPlayerTriggerEnter.AddListener(OnPlayerTriggerEnter);
 
-        if (ShouldBeUseable())
+        if (!ShouldBeLocked())
         {
-            MakeUseable();
+            Unlock();
         }
         else
         {
@@ -49,16 +57,16 @@ public class Checkpoint : MonoBehaviour
                 checkpoint.OnActivated += OnPrerequisiteCheckpointActivated;
             }
 
-            foreach (Health health in needToDieToActivate)
+            foreach (Health health in needToDieToUnlock)
             {
-                health.OnDeath += OnRequiredEnemyDied;
+                health.OnDeath += OnRequiredEntityDied;
             }
         }
     }
 
     private void OnPlayerTriggerEnter()
     {
-        if (isUseable)
+        if (!isLocked)
         {
             Activate();
         }
@@ -70,28 +78,32 @@ public class Checkpoint : MonoBehaviour
         LatestActiveCheckpointPosition = transform.position;
 
         if (OnActivated != null) OnActivated(this);
+        onActivated.Invoke();
 
-        MakeUnuseable();
+        Lock();
     }
 
-    private void MakeUseable()
+    private void Unlock()
     {
         foreach (var system in particleSystems)
         {
             if (!system.isPlaying) system.Play();
         }
 
-        isUseable = true;
+        if (OnUnlocked != null) OnUnlocked(this);
+        onUnlocked.Invoke();
+
+        isLocked = false;
     }
 
-    private void MakeUnuseable()
+    private void Lock()
     {
         foreach (var system in particleSystems)
         {
             if (!system.isStopped) system.Stop();
         }
 
-        isUseable = false;
+        isLocked = true;
     }
 
     private void OnPrerequisiteCheckpointActivated(Checkpoint checkpoint)
@@ -99,28 +111,28 @@ public class Checkpoint : MonoBehaviour
         checkpoint.OnActivated -= OnPrerequisiteCheckpointActivated;
 
         prerequisiteCheckpoints.Remove(checkpoint);
-        if (ShouldBeUseable())
+        if (!ShouldBeLocked())
         {
-            MakeUseable();
+            Unlock();
         }
     }
 
-    private void OnRequiredEnemyDied(Health sender)
+    private void OnRequiredEntityDied(Health sender)
     {
-        sender.OnDeath -= OnRequiredEnemyDied;
+        sender.OnDeath -= OnRequiredEntityDied;
 
-        needToDieToActivate.Remove(sender);
-        if (ShouldBeUseable())
+        needToDieToUnlock.Remove(sender);
+        if (!ShouldBeLocked())
         {
-            MakeUseable();
+            Unlock();
         }
     }
 
-    private bool ShouldBeUseable()
+    private bool ShouldBeLocked()
     {
         return
-            prerequisiteCheckpoints.Count == 0 &&
-            needToDieToActivate.Count == 0;
+            prerequisiteCheckpoints.Count > 0 ||
+            needToDieToUnlock.Count > 0;
     }
 
     /// <summary>
