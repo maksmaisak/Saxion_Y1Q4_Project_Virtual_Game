@@ -1825,7 +1825,7 @@ Prefab:
     - target: {fileID: 114159233124540168, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
       propertyPath: thrustHeightLimit
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114159233124540168, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
@@ -1870,6 +1870,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Health+OnHealthChangedEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+--- !u!114 &1251264736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1251264718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d453ebe37a1c540b3a3b2fa76b8c24b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1261447040
 Prefab:
   m_ObjectHideFlags: 0

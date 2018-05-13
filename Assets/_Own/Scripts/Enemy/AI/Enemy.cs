@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour, IAgent
 
     private Grappleable grappleable;
 
+    private Health health;
+
     private float initialHeight;
 
     private enum State
@@ -30,9 +32,12 @@ public class Enemy : MonoBehaviour, IAgent
         fsm.ChangeState<EnemyPatrolState>();
 
         grappleable = GetComponent<Grappleable>();
+        health = GetComponent<Health>();
 
         grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
+
+        health.OnDeath += retractOnDestroy;
     }
 
     private void OnGrapple(Grappleable sender)
@@ -75,5 +80,10 @@ public class Enemy : MonoBehaviour, IAgent
     public float GetInitialHeight()
     {
         return initialHeight;
+    }
+
+    public void retractOnDestroy(Health sender)
+    {
+        sender.gameObject.GetComponentInChildren<Grapple>().Retract();
     }
 }
