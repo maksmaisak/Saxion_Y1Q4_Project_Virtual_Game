@@ -14,9 +14,10 @@ public class AudioWindManager : MonoBehaviour
     [Space]
     [Tooltip("Volume is 0 when moving slower than this.")]
     [SerializeField] float minSpeed = 1f;
-    [Tooltip("Volume is 1 when moving faster than this.")]
+    [Tooltip("Volume is `maxVolume` when moving faster than this.")]
     [SerializeField] float maxSpeed = 10f;
     [SerializeField] float maxVolumeChangePerSecond = 2f;
+    [SerializeField] [Range(0f, 1f)] float maxVolume = 1f;
 
     // Use this for initialization
     void Start()
@@ -42,6 +43,7 @@ public class AudioWindManager : MonoBehaviour
     {
         if (playOnlyWhenInAir && playerController.Grounded) return 0f;
         float speed = playerController.Velocity.magnitude;
-        return Mathf.Clamp01(Mathf.InverseLerp(minSpeed, maxSpeed, speed));
+
+        return Mathf.Clamp01(Mathf.InverseLerp(minSpeed, maxSpeed, speed)) * maxVolume;
     }
 }
