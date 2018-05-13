@@ -7,7 +7,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 #pragma warning disable 0649
 
 /// Creates a physics joint between itself and origin upon making contact.
-[RequireComponent(typeof(Rigidbody), typeof(LineRenderer))]
+[RequireComponent(typeof(Rigidbody), typeof(LineRenderer), typeof(AudioSource))]
 public class Grapple : MonoBehaviour
 {
     enum State
@@ -19,6 +19,8 @@ public class Grapple : MonoBehaviour
 
     [SerializeField] Transform attachmentPoint;
     [SerializeField] Rigidbody attachmentRigidbody;
+    [SerializeField] AudioClip throwSound;
+    [SerializeField] AudioClip hitSound;
     [Space]
     [SerializeField] float minDistance = 1f;
     [SerializeField] float springForce = 1000f;
@@ -27,6 +29,7 @@ public class Grapple : MonoBehaviour
 
     private new Rigidbody rigidbody;
     private RigidbodyFirstPersonController firstPersonController;
+    private AudioSource audioSource;
     private LineRenderer lineRenderer;
 
     private State state = State.Retracted;
@@ -44,8 +47,11 @@ public class Grapple : MonoBehaviour
         Assert.IsNotNull(attachmentRigidbody);
 
         rigidbody = GetComponent<Rigidbody>();
-        firstPersonController = GetComponentInParent<RigidbodyFirstPersonController>();
+        audioSource = GetComponent<AudioSource>();
         lineRenderer = GetComponent<LineRenderer>();
+
+        firstPersonController = GetComponentInParent<RigidbodyFirstPersonController>();
+        Assert.IsNotNull(firstPersonController);
 
         // Disable collisions between this and its holder.
         Collider[] ownerColliders = attachmentRigidbody.GetComponentsInChildren<Collider>();
@@ -140,11 +146,17 @@ public class Grapple : MonoBehaviour
             grappledGrappleable.Grapple();
         }
 
+        // Play the hit sound
+        if (hitSound != null)
+        {
+            audioSource.PlayOneShot(hitSound);
+        }
+
         // Change state
         state = State.Connected;
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
         if (state == State.Connected)
         {
@@ -160,6 +172,11 @@ public class Grapple : MonoBehaviour
 
         rigidbody.isKinematic = false;
         rigidbody.velocity = (targetPosition - transform.position).normalized * speed;
+
+        if (throwSound != null)
+        {
+            audioSource.PlayOneShot(throwSound);
+        }
 
         state = State.Flying;
     }
