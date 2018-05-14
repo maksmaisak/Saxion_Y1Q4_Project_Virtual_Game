@@ -79,7 +79,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float stickToGroundHelperDistance = 0.5f; // stops the character
 
             public float wallCheckDistance = 0.01f;
-            public float stickToWallHelperDistance = 0.5f; // TODO use this.
+            public float stickToWallHelperDistance = 0.5f;
+            public float stickToWallHelperForce = 1f;
 
             public float slowDownRate = 20f; // rate at which the controller comes to a stop when there is no input
             public bool airControl;
@@ -225,7 +226,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     Vector3 awayFromWall = m_GroundContactNormal;
                     Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up);
-                    desiredMove -= Vector3.Project(desiredMove, awayFromWall);
+                    //desiredMove -= Vector3.Project(desiredMove, awayFromWall);
 
                     m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
 
@@ -283,7 +284,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             RaycastHit hitInfo;
             if (RaycastWalls(advancedSettings.stickToWallHelperDistance, out hitInfo))
             {
-                 m_RigidBody.velocity = Vector3.ProjectOnPlane(m_RigidBody.velocity, hitInfo.normal);
+                Vector3 awayFromWall = hitInfo.normal;
+                m_RigidBody.velocity = Vector3.ProjectOnPlane(m_RigidBody.velocity, awayFromWall);
+                m_RigidBody.AddForce(-awayFromWall * advancedSettings.stickToWallHelperForce, ForceMode.Impulse);
             }
         }
 

@@ -1059,6 +1059,7 @@ MonoBehaviour:
     stickToGroundHelperDistance: 0.1
     wallCheckDistance: 0.1
     stickToWallHelperDistance: 0.5
+    stickToWallHelperForce: 4
     slowDownRate: 20
     airControl: 1
     alwaysForwardWhenAirborne: 0
