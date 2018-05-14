@@ -28,22 +28,27 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
     {
         if (target != null)
         {
-            Vector3 toPlayer = target.transform.position - transform.position;
-            Vector3 desiredPos = target.transform.position - toPlayer.normalized * maxDistanceToPlayer;
+            FollowPlayer();
+        }
+    }
+
+    private void FollowPlayer()
+    {
+        Vector3 toPlayer = target.transform.position - transform.position;
+        Vector3 desiredPos = target.transform.position - toPlayer.normalized * maxDistanceToPlayer;
 
 
-            steeringManager.Seek(desiredPos, arriveSlowdownDistance);
-            steeringManager.AvoidEnemies();
-            steeringManager.AvoidObstacles();
+        steeringManager.Seek(desiredPos, arriveSlowdownDistance);
+        steeringManager.AvoidEnemies();
+        steeringManager.AvoidObstacles();
 
-            if (toPlayer.magnitude > lookAtPlayerDistance)
-            {
-                steeringManager.LookWhereGoing();
-            }
-            else
-            {
-                steeringManager.LookAt(target.transform.position);
-            }
+        if (toPlayer.magnitude > lookAtPlayerDistance)
+        {
+            steeringManager.LookWhereGoing();
+        }
+        else
+        {
+            steeringManager.LookAt(target.transform.position);
         }
     }
 

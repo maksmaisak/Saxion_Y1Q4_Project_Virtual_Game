@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class Destroyer : MonoBehaviour {
 
-	
-	// Update is called once per frame
-	void Update () {
+    private Health health;
+
+    private void Start()
+    {
+        health = GetComponent<Health>();
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
         if(Input.GetKeyDown(KeyCode.F))
         {
-            Destroy(this.gameObject);
+            health.DealDamage(100);
         }
 	}
 }

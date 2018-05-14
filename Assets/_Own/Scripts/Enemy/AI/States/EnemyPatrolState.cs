@@ -7,6 +7,7 @@ public class EnemyPatrolState : FSMState<Enemy>
     [SerializeField] private float patrolRadius = 5f;
     [SerializeField] private float spottingPlayerDistance = 10f;
     [SerializeField] private float patrolTime = 5;
+    [SerializeField] private float newSteeringForce = 50;
     [SerializeField] private GameObject patrolPoint;
 
     private SteeringManager steering;
@@ -21,7 +22,7 @@ public class EnemyPatrolState : FSMState<Enemy>
         GetComponent<Shooting>().enabled = false;
         shootingController = GetComponent<ShootingController>();
         steering = GetComponent<SteeringManager>();
-        steering.SetMaxSteeringForce(50);
+        steering.SetMaxSteeringForce(newSteeringForce);
         counter = patrolTime;
     }
 
@@ -72,6 +73,7 @@ public class EnemyPatrolState : FSMState<Enemy>
 
         if (distance <= spottingPlayerDistance && shootingController.CanShootAt(Player.Instance.gameObject))
         {
+            Debug.Log("distance from player: " + distance);
             agent.fsm.ChangeState<EnemyStateFollowPlayer>();
         }
     }

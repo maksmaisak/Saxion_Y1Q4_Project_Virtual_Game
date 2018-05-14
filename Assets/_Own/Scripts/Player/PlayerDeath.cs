@@ -36,27 +36,23 @@ public class PlayerDeath : MonoBehaviour
 
     private void OnDeathHandler(Health sender)
     {
-        Restart();
-
-        var characterController = GetComponent<CharacterController>();
-        if (characterController != null) characterController.enabled = false;
-
-        var firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+        var firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController>();
         if (firstPersonController != null) firstPersonController.enabled = false;
 
-        //var playerController = GetComponent<PlayerController>();
-        //if (playerController != null) playerController.enabled = false;
-
         var rb = GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = false;
-
-        //if (afterDeathCollider != null) afterDeathCollider.enabled = true;
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.freezeRotation = false;
+        }
 
         originalTimeScale = Time.timeScale;
         originalFixedDeltaTime = Time.fixedDeltaTime;
 
         Time.timeScale *= timeScaleMultiplier;
         Time.fixedDeltaTime *= timeScaleMultiplier;
+
+        Invoke("Restart", timeTillRestart);
 
         didDie = true;
     }

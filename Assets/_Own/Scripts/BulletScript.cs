@@ -5,34 +5,37 @@ using UnityEngine.SceneManagement;
 
 public class BulletScript : MonoBehaviour
 {
-    private GameObject player;
-    private Health health;
-
+    [SerializeField] private int bulletDamage = 100;
     [SerializeField] private GameObject explosion;
-
-    private void Start()
-    {
-        player = GameObject.FindWithTag("Player");
-        health = player.GetComponent<Health>();
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == player)
-        {
-            if (player != null)
-            {
-                Instantiate(explosion, transform.position, Quaternion.identity);
-                health.DealDamage(100);
-            }
-        }
         if (collision.gameObject != gameObject)
         {
+            DealDamage(collision);
             Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
 
+    private void DealDamage(Collision collision)
+    {
+        var health = collision.gameObject.GetComponent<Health>();
+        if (health == null) return;
+        bool wasAlive = health.isAlive;
 
+        health.DealDamage(bulletDamage);
+
+        bool didDie = health.isDead && wasAlive;
+
+        if (didDie)
+        {
+            var rb = collision.collider.attachedRigidbody;
+            if (rb != null)
+            {
+                rb.AddForce(-collision.impulse, ForceMode.Impulse);
+            }
+        }
+    }
 
 }

@@ -9,6 +9,10 @@ public class Enemy : MonoBehaviour, IAgent
 
     private Grappleable grappleable;
 
+    private Health health;
+
+    private float initialHeight;
+
     private enum State
     {
         None,
@@ -21,14 +25,19 @@ public class Enemy : MonoBehaviour, IAgent
     // Use this for initialization
     void Start()
     {
+        initialHeight = transform.position.y;
+
         fsm = new FSM<Enemy>(this);
 
         fsm.ChangeState<EnemyPatrolState>();
 
         grappleable = GetComponent<Grappleable>();
+        health = GetComponent<Health>();
 
         grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
+
+        health.OnDeath += retractOnDestroy;
     }
 
     private void OnGrapple(Grappleable sender)
@@ -66,5 +75,15 @@ public class Enemy : MonoBehaviour, IAgent
     private void OnDestroy()
     {
         FlockManager.enemyList.Remove(gameObject);
+    }
+
+    public float GetInitialHeight()
+    {
+        return initialHeight;
+    }
+
+    public void retractOnDestroy(Health sender)
+    {
+        sender.gameObject.GetComponentInChildren<Grapple>().Retract();
     }
 }

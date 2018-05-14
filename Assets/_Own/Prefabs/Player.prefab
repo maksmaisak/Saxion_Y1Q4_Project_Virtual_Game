@@ -75,6 +75,8 @@ GameObject:
   - component: {fileID: 114600096338631776}
   - component: {fileID: 114613365338058248}
   - component: {fileID: 114241177953772902}
+  - component: {fileID: 114018062812841970}
+  - component: {fileID: 114526936135404986}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -241,7 +243,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245565852253206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.32, y: 4.7, z: -55.83}
+  m_LocalPosition: {x: 0.87, y: 19.66, z: 25.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4102287641370528}
@@ -810,6 +812,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114018062812841970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1245565852253206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e0469c0fad947f3963256fb57d33cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallDeathYPos: -50
 --- !u!114 &114241177953772902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -855,6 +869,19 @@ MonoBehaviour:
   maxSpeed: 30
   maxVolumeChangePerSecond: 0.25
   maxVolume: 0.5
+--- !u!114 &114526936135404986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1245565852253206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: becb4d1d085104c58965a20f7c22b344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeTillRestart: 2
+  timeScaleMultiplier: 0.4
 --- !u!114 &114563294807682808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -888,9 +915,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adbbf77754b1412199c647ece8a6162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 1
+  _health: 100
   _maxHealth: 100
-  destroyOnDeath: 1
+  destroyOnDeath: 0
   _canBeReduced: 1
   OnDeathUnityEvent:
     m_PersistentCalls:
