@@ -79,6 +79,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float stickToGroundHelperDistance = 0.5f; // stops the character
 
             public float wallCheckDistance = 0.01f;
+            public float stickToWallHelperDistance = 0.5f; // TODO use this.
 
             public float slowDownRate = 20f; // rate at which the controller comes to a stop when there is no input
             public bool airControl;
@@ -100,10 +101,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private CapsuleCollider m_Capsule;
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
-        private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
+        private bool m_Jump, m_Jumping, m_IsGrounded;
         private float m_defaultDrag;
 
-        private State m_state;
+        private State m_State;
+        private State m_PreviousState;
 
         public Vector3 Velocity
         {
@@ -168,7 +170,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 // Always move along the camera forward as it is the direction that it being aimed at
                 Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
 
-                if (m_state == State.Grounded)
+                if (m_State == State.Grounded)
                 {
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
                     desiredMove *= movementSettings.CurrentTargetSpeed;
@@ -180,7 +182,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
                     }
                 }
-                else if (m_state == State.OnWall)
+                else if (m_State == State.OnWall)
                 {
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up).normalized;
                     desiredMove *= movementSettings.CurrentTargetSpeed;
@@ -188,7 +190,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.AddForce(-Physics.gravity, ForceMode.Acceleration);
                     m_RigidBody.AddForce(desiredMove, ForceMode.Impulse);
                 }
-                else if (m_state == State.Airborne && advancedSettings.airControl)
+                else if (m_State == State.Airborne && advancedSettings.airControl)
                 {
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up).normalized;
                     desiredMove *= movementSettings.ForwardSpeed * advancedSettings.airControlMultiplier;
@@ -197,7 +199,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
             }
 
-            if (m_state == State.Grounded)
+            if (m_State == State.Grounded)
             {
                 m_RigidBody.drag = 5f;
 
@@ -214,13 +216,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.Sleep();
                 }
             }
-            else if (m_state == State.OnWall)
+            else if (m_State == State.OnWall)
             {
                 m_RigidBody.drag = 5f;
 
                 if (m_Jump)
                 {
-                    
                     Vector3 awayFromWall = m_GroundContactNormal;
                     Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up);
@@ -239,12 +240,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_Jumping = true;
                 }
             }
-            else if (m_state == State.Airborne)
+            else if (m_State == State.Airborne)
             {
                 m_RigidBody.drag = m_defaultDrag;
-                if (m_PreviouslyGrounded && !m_Jumping)
+
+                if (!m_Jumping)
                 {
-                    StickToGroundHelper();
+                    if (m_PreviousState == State.Grounded)
+                    {
+                        StickToGroundHelper();
+                    }
+                    else if (m_PreviousState == State.OnWall)
+                    {
+                        //TODO a StickToWallHelper;
+                    }
                 }
             }
             m_Jump = false;
@@ -260,8 +269,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             RaycastHit hitInfo;
             if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
-                                   ((m_Capsule.height / 2f) - m_Capsule.radius) +
-                                   advancedSettings.stickToGroundHelperDistance, groundAndWallDetectionLayerMask, QueryTriggerInteraction.Ignore))
+                                   ((m_Capsule.height / 2f) - m_Capsule.radius) + advancedSettings.stickToGroundHelperDistance, groundAndWallDetectionLayerMask, QueryTriggerInteraction.Ignore))
             {
                 if (Mathf.Abs(Vector3.Angle(hitInfo.normal, Vector3.up)) < 85f)
                 {
@@ -288,7 +296,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             mouseLook.LookRotation(transform, cam.transform);
 
-            if (m_state != State.Airborne || advancedSettings.alwaysForwardWhenAirborne)
+            if (m_State != State.Airborne || advancedSettings.alwaysForwardWhenAirborne)
             {
                 // Rotate the rigidbody velocity to match the new direction that the character is looking
                 Quaternion velRotation = Quaternion.AngleAxis(transform.eulerAngles.y - oldYRotation, Vector3.up);
@@ -298,16 +306,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void StateCheck()
         {
-            m_PreviouslyGrounded = m_IsGrounded;
+            m_PreviousState = m_State;
 
             GroundCheck();
-            if (m_state == State.Airborne)
+            if (m_State == State.Airborne)
             {
                 WallCheck();
             }
 
-            // use a !m_PreviouslyAirborne instead?
-            if (!m_PreviouslyGrounded && !Airborne && m_Jumping)
+            if (m_PreviousState == State.Airborne && !Airborne && m_Jumping)
             {
                 m_Jumping = false;
             }
@@ -320,13 +327,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
                                    ((m_Capsule.height / 2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, groundAndWallDetectionLayerMask, QueryTriggerInteraction.Ignore))
             {
-                m_state = State.Grounded;
+                m_State = State.Grounded;
                 m_IsGrounded = true;
                 m_GroundContactNormal = hitInfo.normal;
             }
             else
             {
-                m_state = State.Airborne;
+                m_State = State.Airborne;
                 m_IsGrounded = false;
                 m_GroundContactNormal = Vector3.up;
             }
@@ -338,12 +345,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (RaycastWalls(out hitInfo))
             {
                 Debug.Log("Went to State.OnWall because of " + hitInfo.collider.gameObject);
-                m_state = State.OnWall;
+                m_State = State.OnWall;
                 m_GroundContactNormal = hitInfo.normal;
             }
             else
             {
-                m_state = State.Airborne;
+                m_State = State.Airborne;
                 m_GroundContactNormal = Vector3.up;
             }
         }

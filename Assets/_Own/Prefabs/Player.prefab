@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4837964987189180}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 33965577092859360}
   - component: {fileID: 135903538262352320}
   - component: {fileID: 23623927041518402}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4638884814030826}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GrappleOriginLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 114600096338631776}
   - component: {fileID: 114613365338058248}
   - component: {fileID: 114241177953772902}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 4996396189134464}
   - component: {fileID: 82365586891174224}
   - component: {fileID: 114505675243747264}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 114774150361057274}
   - component: {fileID: 120220043813957526}
   - component: {fileID: 82060776753815970}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GrappleLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 33217963035415428}
   - component: {fileID: 135003219380747764}
   - component: {fileID: 23991584507292700}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 4147014611049008}
   - component: {fileID: 33761436473352742}
   - component: {fileID: 23517882769274480}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 81757579488414178}
   - component: {fileID: 114823057689330340}
   - component: {fileID: 124612543107112300}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 114746154259358212}
   - component: {fileID: 120881727482958744}
   - component: {fileID: 82561629009537956}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GrappleRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4810693501529642}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GrappleOriginRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1018,7 +1018,8 @@ MonoBehaviour:
     RunKey: 304
     JumpForce: 50
     WallJumpUpwardsModifier: 2
-    WallJumpAwayFromWallModifier: 2
+    WallJumpSidewaysModifier: 1
+    WallJumpAwayFromWallModifier: 1
     SlopeCurveModifier:
       serializedVersion: 2
       m_Curve:
@@ -1057,6 +1058,7 @@ MonoBehaviour:
     groundCheckDistance: 0.1
     stickToGroundHelperDistance: 0.1
     wallCheckDistance: 0.1
+    stickToWallHelperDistance: 0.1
     slowDownRate: 20
     airControl: 0
     alwaysForwardWhenAirborne: 0
