@@ -239,6 +239,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.AddForce(force, ForceMode.Impulse);
                     m_Jumping = true;
                 }
+                else 
+                {
+                    StickToWallHelper();
+                }
             }
             else if (m_State == State.Airborne)
             {
@@ -249,10 +253,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     if (m_PreviousState == State.Grounded)
                     {
                         StickToGroundHelper();
-                    }
-                    else if (m_PreviousState == State.OnWall)
-                    {
-                        //TODO a StickToWallHelper;
                     }
                 }
             }
@@ -275,6 +275,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 {
                     m_RigidBody.velocity = Vector3.ProjectOnPlane(m_RigidBody.velocity, hitInfo.normal);
                 }
+            }
+        }
+
+        private void StickToWallHelper()
+        {
+            RaycastHit hitInfo;
+            if (RaycastWalls(advancedSettings.stickToWallHelperDistance, out hitInfo))
+            {
+                 m_RigidBody.velocity = Vector3.ProjectOnPlane(m_RigidBody.velocity, hitInfo.normal);
             }
         }
 
@@ -340,7 +349,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void WallCheck()
         {
             RaycastHit hitInfo;
-            if (RaycastWalls(out hitInfo))
+            if (RaycastWalls(advancedSettings.wallCheckDistance, out hitInfo))
             {
                 Debug.Log("Went to State.OnWall because of " + hitInfo.collider.gameObject);
                 m_State = State.OnWall;
@@ -353,7 +362,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
-        private bool RaycastWalls(out RaycastHit hitInfo)
+        private bool RaycastWalls(float maxDistance, out RaycastHit hitInfo)
         {
             Vector3 position = transform.position;
 
@@ -361,21 +370,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
             Vector3 forward = cameraTransform.forward;
             Vector3 right   = cameraTransform.right;
 
-            if (CastAgainstWall(position,  right,   out hitInfo)) return true;
-            if (CastAgainstWall(position, -right,   out hitInfo)) return true;
-            if (CastAgainstWall(position,  forward, out hitInfo)) return true;
-            if (CastAgainstWall(position, -forward, out hitInfo)) return true;
+            if (CastAgainstWall(position,  right,   maxDistance, out hitInfo)) return true;
+            if (CastAgainstWall(position, -right,   maxDistance, out hitInfo)) return true;
+            if (CastAgainstWall(position,  forward, maxDistance, out hitInfo)) return true;
+            if (CastAgainstWall(position, -forward, maxDistance, out hitInfo)) return true;
 
             return false;
         }
 
-        private bool CastAgainstWall(Vector3 position, Vector3 direction, out RaycastHit hitInfo)
+        private bool CastAgainstWall(Vector3 position, Vector3 direction, float maxDistance, out RaycastHit hitInfo)
         {
             return Physics.SphereCast(
                 new Ray(position, direction),
                 radius: m_Capsule.radius * (1.0f - advancedSettings.shellOffset),
                 hitInfo: out hitInfo,
-                maxDistance: advancedSettings.wallCheckDistance,
+                maxDistance: maxDistance,
                 layerMask: groundAndWallDetectionLayerMask,
                 queryTriggerInteraction: QueryTriggerInteraction.Ignore
             );
