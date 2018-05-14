@@ -7,9 +7,6 @@ public class Enemy : MonoBehaviour, IAgent
 {
     public FSM<Enemy> fsm { get; private set; }
 
-    [SerializeField] 
-    private GameObject crashingEnemyEffect;
-
     private Grappleable grappleable;
 
     private Health health;
@@ -41,9 +38,6 @@ public class Enemy : MonoBehaviour, IAgent
 
         grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
-
-        health.OnDeath += InstantiateExplosionEffectOnDeath;
-        health.OnDeath += RetractOnDestroy;
     }
 
     private void OnGrapple(Grappleable sender)
@@ -88,18 +82,5 @@ public class Enemy : MonoBehaviour, IAgent
     public float GetInitialHeight()
     {
         return initialHeight;
-    }
-
-    public void RetractOnDestroy(Health sender)
-    {
-        foreach (var grapple in gameObject.GetComponentsInChildren<Grapple>())
-        {
-            grapple.Retract();
-        }
-    }
-
-    public void InstantiateExplosionEffectOnDeath(Health sender)
-    {
-        Instantiate(crashingEnemyEffect,transform.position,Quaternion.identity);
     }
 }

@@ -49,6 +49,10 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
             steeringManager.LookAt(target.transform.position);
         }
     }
-
+    public override void Exit()
+    {
+        base.Exit();
+        shootingController.enabled = false;
+    }
 }
 

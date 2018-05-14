@@ -35,7 +35,8 @@ GameObject:
   - component: {fileID: 114321984381602372}
   - component: {fileID: 114812728332883278}
   - component: {fileID: 114887561937617366}
-  - component: {fileID: 114104118472234310}
+  - component: {fileID: 114894056729156204}
+  - component: {fileID: 114491858908809362}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Enemy
@@ -278,17 +279,6 @@ MonoBehaviour:
   maxDistanceToPlayer: 10
   arriveSlowdownDistance: 2
   lookAtPlayerDistance: 15
---- !u!114 &114104118472234310
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1200429050449118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d453ebe37a1c540b3a3b2fa76b8c24b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114159233124540168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -302,7 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrustHeightLimit: 20
   upThrustStrength: 300
-  thrustTime: 5
+  thrustTime: 4
   newSteeringStrength: 200
 --- !u!114 &114163407737006916
 MonoBehaviour:
@@ -367,6 +357,19 @@ MonoBehaviour:
   obstacleDetectionLayerMask:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &114491858908809362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200429050449118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6e8456b21d674cf7b4ade98a21acc28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleRadius: 1
+  heightAbovePlayer: 4
 --- !u!114 &114590443844130900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -391,7 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171c506dd0cae45698e1679cbe27ebca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceNeededToDestroy: 1
+  forceNeededToDestroy: 700
 --- !u!114 &114864656048003352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -404,7 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakingDuration: 5
-  maxShakingForce: 10
+  maxShakingForce: 5
 --- !u!114 &114887561937617366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -430,6 +433,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Health+OnHealthChangedEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+--- !u!114 &114894056729156204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200429050449118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230a0527ce8d344a0975712ae3a61dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crashingEnemyEffect: {fileID: 1568884166417326, guid: 278ab82d167384840a4e45e55cb915ae,
+    type: 2}
 --- !u!114 &114981167159142292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -441,7 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c519062df9d4f8a8b51c98432bdd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedState: 1
+  selectedState: 3
 --- !u!135 &135870948589046598
 SphereCollider:
   m_ObjectHideFlags: 1

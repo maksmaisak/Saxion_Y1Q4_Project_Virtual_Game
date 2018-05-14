@@ -24,6 +24,7 @@ public class EnemyFallingToDeathState : FSMState<Enemy> {
     public override void Exit()
     {
         base.Exit();
+        rb.useGravity = false;
     }
 
     private void OnCollisionEnter(Collision collision)
