@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyCircularMovementState : FSMState<Enemy>
 {
-    [SerializeField] private float rotationForceMultiplier = 4;
+    [SerializeField] private float speed = 4;
+    [SerializeField] private float circleRadius = 2;
     private Rigidbody rb;
 
     public override void Enter()
@@ -15,8 +16,8 @@ public class EnemyCircularMovementState : FSMState<Enemy>
 
     private void FixedUpdate()
     {
-        Vector3 normalOfVelocity = Vector3.Cross(rb.velocity, Vector3.up).normalized;
-        rb.AddForce(normalOfVelocity * rotationForceMultiplier, ForceMode.Acceleration);
+        Vector3 towardsCenter = Vector3.Cross(rb.velocity, Vector3.up).normalized;
+        rb.AddForce(towardsCenter * (speed * speed)/circleRadius, ForceMode.Acceleration);
     }
 
     public override void Exit()
