@@ -619,7 +619,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -779,7 +779,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1017,6 +1017,8 @@ MonoBehaviour:
     RunMultiplier: 2
     RunKey: 304
     JumpForce: 50
+    WallJumpUpwardsModifier: 2
+    WallJumpAwayFromWallModifier: 2
     SlopeCurveModifier:
       serializedVersion: 2
       m_Curve:
@@ -1054,11 +1056,15 @@ MonoBehaviour:
   advancedSettings:
     groundCheckDistance: 0.1
     stickToGroundHelperDistance: 0.1
+    wallCheckDistance: 0.1
     slowDownRate: 20
-    airControl: 1
+    airControl: 0
     alwaysForwardWhenAirborne: 0
     airControlMultiplier: 0.1
     shellOffset: 0.1
+  groundAndWallDetectionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294965755
 --- !u!120 &120220043813957526
 LineRenderer:
   m_ObjectHideFlags: 1

@@ -8,6 +8,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof(CapsuleCollider))]
     public class RigidbodyFirstPersonController : MonoBehaviour
     {
+        private enum State
+        {
+            Grounded,
+            Airborne,
+            OnWall
+        }
+
         [Serializable]
         public class MovementSettings
         {
@@ -17,12 +24,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float RunMultiplier = 2.0f;   // Speed when sprinting
             public KeyCode RunKey = KeyCode.LeftShift;
             public float JumpForce = 30f;
+            public float WallJumpUpwardsModifier = 1f;
+            public float WallJumpSidewaysModifier = 1f;
+            public float WallJumpAwayFromWallModifier = 1f;
             public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
             [HideInInspector] public float CurrentTargetSpeed = 8f;
 #if !MOBILE_INPUT
             private bool m_Running;
 #endif
-
             public void UpdateDesiredTargetSpeed(Vector2 input)
             {
                 if (input == Vector2.zero) return;
@@ -63,12 +72,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
 #endif
         }
 
-
         [Serializable]
         public class AdvancedSettings
         {
             public float groundCheckDistance = 0.01f; // distance for checking if the controller is grounded ( 0.01f seems to work best for this )
             public float stickToGroundHelperDistance = 0.5f; // stops the character
+
+            public float wallCheckDistance = 0.01f;
+
             public float slowDownRate = 20f; // rate at which the controller comes to a stop when there is no input
             public bool airControl;
             [Tooltip("When in the air, should it change its velocity to move where the camera is looking?")]
@@ -79,12 +90,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
         }
 
-
         public Camera cam;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
-
+        public LayerMask groundAndWallDetectionLayerMask = Physics.DefaultRaycastLayers;
 
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
@@ -92,6 +102,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Vector3 m_GroundContactNormal;
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
         private float m_defaultDrag;
+
+        private State m_state;
 
         public Vector3 Velocity
         {
@@ -108,6 +120,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             get { return m_Jumping; }
         }
 
+        public bool Airborne
+        {
+            get { return !m_IsGrounded; } // TODO change to state == State.Airborne
+        }
+
         public bool Running
         {
             get
@@ -119,9 +136,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 #endif
             }
         }
-        
-        
-        private void Start()
+
+        void Start()
         {
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
@@ -130,45 +146,58 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_defaultDrag = m_RigidBody.drag;
         }
 
-
-        private void Update()
+        void Update()
         {
             RotateView();
 
-            if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
+            if (!m_Jump && CrossPlatformInputManager.GetButtonDown("Jump"))
             {
                 m_Jump = true;
             }
         }
 
-
-        private void FixedUpdate()
+        void FixedUpdate()
         {
-            GroundCheck();
-            Vector2 input = GetInput();
+            StateCheck();
 
-            if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
+            Vector2 input = GetInput();
+            movementSettings.UpdateDesiredTargetSpeed(input);
+
+            if (IsNonZero(input))
             {
-                // always move along the camera forward as it is the direction that it being aimed at
+                // Always move along the camera forward as it is the direction that it being aimed at
                 Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
-                desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
-                if (m_IsGrounded)
+
+                if (m_state == State.Grounded)
                 {
+                    desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
                     desiredMove *= movementSettings.CurrentTargetSpeed;
+
+                    // TODO this speed limiting thing should be in other states as well (to some degree)
                     float targetSpeed = movementSettings.CurrentTargetSpeed;
                     if (m_RigidBody.velocity.sqrMagnitude < targetSpeed * targetSpeed)
                     {
                         m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
                     }
-                } 
-                else 
+                }
+                else if (m_state == State.OnWall)
                 {
+                    desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up).normalized;
+                    desiredMove *= movementSettings.CurrentTargetSpeed;
+
+                    m_RigidBody.AddForce(-Physics.gravity, ForceMode.Acceleration);
+                    m_RigidBody.AddForce(desiredMove, ForceMode.Impulse);
+                }
+                else if (m_state == State.Airborne && advancedSettings.airControl)
+                {
+                    desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up).normalized;
                     desiredMove *= movementSettings.ForwardSpeed * advancedSettings.airControlMultiplier;
-                    m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
+
+                    m_RigidBody.AddForce(desiredMove, ForceMode.Impulse);
                 }
             }
 
-            if (m_IsGrounded)
+            if (m_state == State.Grounded)
             {
                 m_RigidBody.drag = 5f;
 
@@ -180,12 +209,37 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_Jumping = true;
                 }
 
-                if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
+                if (!m_Jumping && IsZero(input) && m_RigidBody.velocity.magnitude < 1f)
                 {
                     m_RigidBody.Sleep();
                 }
             }
-            else
+            else if (m_state == State.OnWall)
+            {
+                m_RigidBody.drag = 5f;
+
+                if (m_Jump)
+                {
+                    
+                    Vector3 awayFromWall = m_GroundContactNormal;
+                    Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
+                    desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up);
+                    desiredMove -= Vector3.Project(desiredMove, awayFromWall);
+
+                    m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
+
+                    Vector3 force = (
+                        Vector3.up * movementSettings.WallJumpUpwardsModifier +
+                        desiredMove.normalized * movementSettings.WallJumpSidewaysModifier +
+                        m_GroundContactNormal * movementSettings.WallJumpAwayFromWallModifier
+                    ) * movementSettings.JumpForce;
+
+                    m_RigidBody.drag = m_defaultDrag;
+                    m_RigidBody.AddForce(force, ForceMode.Impulse);
+                    m_Jumping = true;
+                }
+            }
+            else if (m_state == State.Airborne)
             {
                 m_RigidBody.drag = m_defaultDrag;
                 if (m_PreviouslyGrounded && !m_Jumping)
@@ -195,7 +249,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             m_Jump = false;
         }
-
 
         private float SlopeMultiplier()
         {
@@ -208,7 +261,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             RaycastHit hitInfo;
             if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
                                    ((m_Capsule.height / 2f) - m_Capsule.radius) +
-                                   advancedSettings.stickToGroundHelperDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+                                   advancedSettings.stickToGroundHelperDistance, groundAndWallDetectionLayerMask, QueryTriggerInteraction.Ignore))
             {
                 if (Mathf.Abs(Vector3.Angle(hitInfo.normal, Vector3.up)) < 85f)
                 {
@@ -217,19 +270,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
-
         private Vector2 GetInput()
         {
-
-            Vector2 input = new Vector2
-            {
-                x = CrossPlatformInputManager.GetAxis("Horizontal"),
-                y = CrossPlatformInputManager.GetAxis("Vertical")
-            };
-            movementSettings.UpdateDesiredTargetSpeed(input);
-            return input;
+            return new Vector2(
+                CrossPlatformInputManager.GetAxis("Horizontal"),
+                CrossPlatformInputManager.GetAxis("Vertical")
+            );
         }
-
 
         private void RotateView()
         {
@@ -241,7 +288,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             mouseLook.LookRotation(transform, cam.transform);
 
-            if (m_IsGrounded || advancedSettings.alwaysForwardWhenAirborne)
+            if (m_state != State.Airborne || advancedSettings.alwaysForwardWhenAirborne)
             {
                 // Rotate the rigidbody velocity to match the new direction that the character is looking
                 Quaternion velRotation = Quaternion.AngleAxis(transform.eulerAngles.y - oldYRotation, Vector3.up);
@@ -249,26 +296,94 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
+        private void StateCheck()
+        {
+            m_PreviouslyGrounded = m_IsGrounded;
+
+            GroundCheck();
+            if (m_state == State.Airborne)
+            {
+                WallCheck();
+            }
+
+            // use a !m_PreviouslyAirborne instead?
+            if (!m_PreviouslyGrounded && !Airborne && m_Jumping)
+            {
+                m_Jumping = false;
+            }
+        }
+
         /// sphere cast down just beyond the bottom of the capsule to see if the capsule is colliding round the bottom
         private void GroundCheck()
         {
-            m_PreviouslyGrounded = m_IsGrounded;
             RaycastHit hitInfo;
             if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
-                                   ((m_Capsule.height / 2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+                                   ((m_Capsule.height / 2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, groundAndWallDetectionLayerMask, QueryTriggerInteraction.Ignore))
             {
+                m_state = State.Grounded;
                 m_IsGrounded = true;
                 m_GroundContactNormal = hitInfo.normal;
             }
             else
             {
+                m_state = State.Airborne;
                 m_IsGrounded = false;
                 m_GroundContactNormal = Vector3.up;
             }
-            if (!m_PreviouslyGrounded && m_IsGrounded && m_Jumping)
+        }
+
+        private void WallCheck()
+        {
+            RaycastHit hitInfo;
+            if (RaycastWalls(out hitInfo))
             {
-                m_Jumping = false;
+                Debug.Log("Went to State.OnWall because of " + hitInfo.collider.gameObject);
+                m_state = State.OnWall;
+                m_GroundContactNormal = hitInfo.normal;
             }
+            else
+            {
+                m_state = State.Airborne;
+                m_GroundContactNormal = Vector3.up;
+            }
+        }
+
+        private bool RaycastWalls(out RaycastHit hitInfo)
+        {
+            Vector3 position = transform.position;
+
+            Transform cameraTransform = cam.transform;
+            Vector3 forward = cameraTransform.forward;
+            Vector3 right   = cameraTransform.right;
+
+            if (CastAgainstWall(position,  right,   out hitInfo)) return true;
+            if (CastAgainstWall(position, -right,   out hitInfo)) return true;
+            if (CastAgainstWall(position,  forward, out hitInfo)) return true;
+            if (CastAgainstWall(position, -forward, out hitInfo)) return true;
+
+            return false;
+        }
+
+        private bool CastAgainstWall(Vector3 position, Vector3 direction, out RaycastHit hitInfo)
+        {
+            return Physics.SphereCast(
+                new Ray(position, direction),
+                radius: m_Capsule.radius * (1.0f - advancedSettings.shellOffset),
+                hitInfo: out hitInfo,
+                maxDistance: advancedSettings.wallCheckDistance,
+                layerMask: groundAndWallDetectionLayerMask,
+                queryTriggerInteraction: QueryTriggerInteraction.Ignore
+            );
+        }
+
+        private static bool IsNonZero(Vector2 vector)
+        {
+            return Mathf.Abs(vector.x) > float.Epsilon || Mathf.Abs(vector.y) > float.Epsilon;
+        }
+
+        private static bool IsZero(Vector2 vector)
+        {
+            return Mathf.Abs(vector.x) <= float.Epsilon && Mathf.Abs(vector.y) <= float.Epsilon;
         }
     }
 }
