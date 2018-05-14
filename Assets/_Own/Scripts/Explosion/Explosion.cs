@@ -45,12 +45,12 @@ public class Explosion : MonoBehaviour
 
         foreach (Rigidbody rb in rigidbodies)
         {
-            rb.AddExplosionForce(
+             rb.AddExplosionForce(
                 explosionForce * modifier,
                 transform.position,
                 radius * modifier,
                 upwardsModifier * modifier
-            );
+             );
         }
     }
 }
