@@ -335,7 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   explosionForce: 2000
-  radius: 4
+  radius: 6
   upwardsModifier: 0.5
   modifier: 1
 --- !u!114 &114305339380665668

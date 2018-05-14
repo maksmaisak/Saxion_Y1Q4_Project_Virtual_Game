@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-
     public int damage = 1;
 
     public float explosionForce = 2000f;
