@@ -17,7 +17,8 @@ public class Enemy : MonoBehaviour, IAgent
     {
         None,
         ThrustUp,
-        Shake
+        Shake,
+        CircularMovement
     }
 
     [SerializeField] private State selectedState;
@@ -49,6 +50,9 @@ public class Enemy : MonoBehaviour, IAgent
                 break;
             case State.Shake:
                 fsm.ChangeState<EnemyShakeState>();
+                break;
+            case State.CircularMovement:
+                fsm.ChangeState<EnemyCircularMovementState>();
                 break;
         }
 
