@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171c506dd0cae45698e1679cbe27ebca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceNeededToDestroy: 700
+  forceNeededToDestroy: 1
 --- !u!114 &114864656048003352
 MonoBehaviour:
   m_ObjectHideFlags: 1

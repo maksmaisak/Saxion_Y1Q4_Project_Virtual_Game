@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour, IAgent
         grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
 
-        health.OnDeath += retractOnDestroy;
+        health.OnDeath += RetractOnDestroy;
     }
 
     private void OnGrapple(Grappleable sender)
@@ -82,8 +82,11 @@ public class Enemy : MonoBehaviour, IAgent
         return initialHeight;
     }
 
-    public void retractOnDestroy(Health sender)
+    public void RetractOnDestroy(Health sender)
     {
-        sender.gameObject.GetComponentInChildren<Grapple>().Retract();
+        foreach (var grapple in gameObject.GetComponentsInChildren<Grapple>())
+        {
+            grapple.Retract();
+        }
     }
 }
