@@ -6,8 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class FloatingBehaviour : MonoBehaviour
 {
-    [SerializeField] private float hoverMultiplier = 20f;
-    [SerializeField] private float slowdownDistance = 1f;
+    //[SerializeField] private float hoverMultiplier = 20f;
+    //[SerializeField] private float slowdownDistance = 1f;
     [SerializeField] private float maxHoverForce = 20f;
     [SerializeField] private float upOffset = 2.5f;
 

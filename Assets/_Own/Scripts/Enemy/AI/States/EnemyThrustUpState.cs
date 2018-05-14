@@ -12,14 +12,12 @@ public class EnemyThrustUpState : FSMState<Enemy>
 
     private float counter = 0;
     private bool isThrusting;
-    private Rigidbody rb;
     private SteeringManager steering;
     private Enemy enemyComponent;
 
     public override void Enter()
     {
         base.Enter();
-        rb = GetComponent<Rigidbody>();
         steering = GetComponent<SteeringManager>();
         enemyComponent = GetComponent<Enemy>();
         steering.SetMaxSteeringForce(newSteeringStrength);
