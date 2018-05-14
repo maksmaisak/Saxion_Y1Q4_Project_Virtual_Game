@@ -101,7 +101,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private CapsuleCollider m_Capsule;
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
-        private bool m_Jump, m_Jumping, m_IsGrounded;
+        private bool m_Jump, m_Jumping;
         private float m_defaultDrag;
 
         private State m_State;
@@ -114,7 +114,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public bool Grounded
         {
-            get { return m_IsGrounded; }
+            get { return m_State == State.Grounded; }
         }
 
         public bool Jumping
@@ -124,7 +124,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public bool Airborne
         {
-            get { return !m_IsGrounded; } // TODO change to state == State.Airborne
+            get { return m_State == State.Airborne; }
         }
 
         public bool Running
@@ -314,7 +314,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 WallCheck();
             }
 
-            if (m_PreviousState == State.Airborne && !Airborne && m_Jumping)
+            if (m_PreviousState == State.Airborne && m_State != State.Airborne && m_Jumping)
             {
                 m_Jumping = false;
             }
@@ -328,13 +328,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
                                    ((m_Capsule.height / 2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, groundAndWallDetectionLayerMask, QueryTriggerInteraction.Ignore))
             {
                 m_State = State.Grounded;
-                m_IsGrounded = true;
                 m_GroundContactNormal = hitInfo.normal;
             }
             else
             {
                 m_State = State.Airborne;
-                m_IsGrounded = false;
                 m_GroundContactNormal = Vector3.up;
             }
         }
