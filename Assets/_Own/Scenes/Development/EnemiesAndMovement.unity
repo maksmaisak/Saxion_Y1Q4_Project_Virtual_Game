@@ -1797,6 +1797,22 @@ Prefab:
       propertyPath: forceNeededToDestroy
       value: 700
       objectReference: {fileID: 0}
+    - target: {fileID: 114864656048003352, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: maxShakingForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114159233124540168, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: thrustTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: crashingEnemyEffect
+      value: 
+      objectReference: {fileID: 1568884166417326, guid: 278ab82d167384840a4e45e55cb915ae,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
   m_IsPrefabParent: 0
@@ -1816,7 +1832,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e8456b21d674cf7b4ade98a21acc28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationForceMultiplier: 150
+  circleRadius: 1
+  heightAbovePlayer: 4
 --- !u!1001 &1261447040
 Prefab:
   m_ObjectHideFlags: 0
@@ -1861,6 +1878,11 @@ Prefab:
       propertyPath: crosshairIndicator
       value: 
       objectReference: {fileID: 1960162807}
+    - target: {fileID: 54529678100293030, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0

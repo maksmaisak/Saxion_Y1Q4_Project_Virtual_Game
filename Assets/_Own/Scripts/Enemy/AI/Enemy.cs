@@ -7,11 +7,15 @@ public class Enemy : MonoBehaviour, IAgent
 {
     public FSM<Enemy> fsm { get; private set; }
 
+    [SerializeField] 
+    private GameObject crashingEnemyEffect;
+
     private Grappleable grappleable;
 
     private Health health;
 
     private float initialHeight;
+
 
     private enum State
     {
@@ -38,6 +42,7 @@ public class Enemy : MonoBehaviour, IAgent
         grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
 
+        health.OnDeath += InstantiateExplosionEffectOnDeath;
         health.OnDeath += RetractOnDestroy;
     }
 
@@ -61,8 +66,7 @@ public class Enemy : MonoBehaviour, IAgent
 
     private void OnRelease(Grappleable sender)
     {
-        fsm.ChangeState<EnemyStateFollowPlayer>();
-        GetComponent<Shooting>().enabled = true;
+        fsm.ChangeState<EnemyFallingToDeathState>();
     }
 
     // Update is called once per frame
@@ -92,5 +96,10 @@ public class Enemy : MonoBehaviour, IAgent
         {
             grapple.Retract();
         }
+    }
+
+    public void InstantiateExplosionEffectOnDeath(Health sender)
+    {
+        Instantiate(crashingEnemyEffect,transform.position,Quaternion.identity);
     }
 }
