@@ -43,8 +43,8 @@ public class AudioWindManager : MonoBehaviour
 
     private float GetDesiredVolume()
     {
-        if (playOnlyWhenInAir && playerController.Grounded) return 0f;
-        float speed = playerController.Velocity.magnitude;
+        if (playOnlyWhenInAir && playerController.isGrounded) return 0f;
+        float speed = playerController.velocity.magnitude;
 
         return Mathf.Clamp01(Mathf.InverseLerp(minSpeed, maxSpeed, speed)) * maxVolume;
     }

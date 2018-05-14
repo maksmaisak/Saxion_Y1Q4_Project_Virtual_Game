@@ -29,12 +29,12 @@ public class WallRun : MonoBehaviour {
     void Update()
     {
       
-        if(_firstPersonRigidbody.Grounded)
+        if(_firstPersonRigidbody.isGrounded)
         {
             _jumpCount = 0;
         }
 
-        if(Input.GetKeyDown(KeyCode.E) && !_firstPersonRigidbody.Grounded && _jumpCount <= 1)
+        if(Input.GetKeyDown(KeyCode.E) && !_firstPersonRigidbody.isGrounded && _jumpCount <= 1)
         {
             if(Physics.Raycast(transform.position,transform.right,out _hitRight,1))
             {
@@ -73,7 +73,7 @@ public class WallRun : MonoBehaviour {
             }
         }
 
-        if(!_firstPersonRigidbody.Grounded && Input.GetKeyDown(KeyCode.Space))
+        if(!_firstPersonRigidbody.isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             if(_wallLeft == true)
             {

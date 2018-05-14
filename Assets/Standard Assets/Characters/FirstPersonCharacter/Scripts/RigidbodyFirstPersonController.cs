@@ -108,27 +108,32 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private State m_State;
         private State m_PreviousState;
 
-        public Vector3 Velocity
+        public Vector3 velocity
         {
             get { return m_RigidBody.velocity; }
         }
 
-        public bool Grounded
+        public bool isGrounded
         {
             get { return m_State == State.Grounded; }
         }
 
-        public bool Jumping
-        {
-            get { return m_Jumping; }
-        }
-
-        public bool Airborne
+        public bool isAirborne
         {
             get { return m_State == State.Airborne; }
         }
 
-        public bool Running
+        public bool isOnWall
+        {
+            get { return m_State == State.OnWall; }
+        }
+
+        public bool isJumping
+        {
+            get { return m_Jumping; }
+        }
+
+        public bool isRunning
         {
             get
             {
@@ -151,6 +156,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         void Update()
         {
+            RotateBody();
             RotateView();
 
             if (!m_Jump && CrossPlatformInputManager.GetButtonDown("Jump"))
@@ -240,9 +246,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.AddForce(force, ForceMode.Impulse);
                     m_Jumping = true;
                 }
-                else 
+                else
                 {
-                    StickToWallHelper();
+                    StickToWallHelper(); // TODO also use it when detaching without jumping.
                 }
             }
             else if (m_State == State.Airborne)
@@ -257,6 +263,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     }
                 }
             }
+
             m_Jump = false;
         }
 
@@ -296,6 +303,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 CrossPlatformInputManager.GetAxis("Horizontal"),
                 CrossPlatformInputManager.GetAxis("Vertical")
             );
+        }
+
+        private void RotateBody()
+        {
+            Quaternion targetRotation;
+            if (m_State == State.OnWall)
+            {
+                targetRotation = Quaternion.AngleAxis(30f, transform.forward);
+            }
+            else
+            {
+                targetRotation = Quaternion.identity;
+            }
+
+            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, 180f * Time.deltaTime);
         }
 
         private void RotateView()
@@ -371,11 +393,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             Transform cameraTransform = cam.transform;
             Vector3 forward = cameraTransform.forward;
-            Vector3 right   = cameraTransform.right;
+            Vector3 right = cameraTransform.right;
 
-            if (CastAgainstWall(position,  right,   maxDistance, out hitInfo)) return true;
-            if (CastAgainstWall(position, -right,   maxDistance, out hitInfo)) return true;
-            if (CastAgainstWall(position,  forward, maxDistance, out hitInfo)) return true;
+            if (CastAgainstWall(position, right, maxDistance, out hitInfo)) return true;
+            if (CastAgainstWall(position, -right, maxDistance, out hitInfo)) return true;
+            if (CastAgainstWall(position, forward, maxDistance, out hitInfo)) return true;
             if (CastAgainstWall(position, -forward, maxDistance, out hitInfo)) return true;
 
             return false;
