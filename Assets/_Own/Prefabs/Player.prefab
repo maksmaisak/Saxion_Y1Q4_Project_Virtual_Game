@@ -1016,7 +1016,7 @@ MonoBehaviour:
     StrafeSpeed: 4
     RunMultiplier: 2
     RunKey: 304
-    JumpForce: 50
+    JumpForce: 100
     WallJumpUpwardsModifier: 2
     WallJumpSidewaysModifier: 1
     WallJumpAwayFromWallModifier: 1
@@ -1063,7 +1063,7 @@ MonoBehaviour:
     slowDownRate: 20
     airControl: 1
     alwaysForwardWhenAirborne: 0
-    airControlMultiplier: 0.1
+    airControlMultiplier: 0.2
     shellOffset: 0.1
   groundAndWallDetectionLayerMask:
     serializedVersion: 2

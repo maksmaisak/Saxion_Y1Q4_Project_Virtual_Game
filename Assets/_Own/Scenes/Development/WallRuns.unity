@@ -2605,6 +2605,11 @@ Prefab:
       propertyPath: prerequisiteCheckpoints.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114667340359538260, guid: aa6eb2d4b81ff40978374ffdffec143c,
+        type: 2}
+      propertyPath: onActivated.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4238395984445030, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -8.96257
@@ -2661,6 +2666,16 @@ Prefab:
     - target: {fileID: 1798676592363856, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114667340359538260, guid: aa6eb2d4b81ff40978374ffdffec143c,
+        type: 2}
+      propertyPath: onActivated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114667340359538260, guid: aa6eb2d4b81ff40978374ffdffec143c,
+        type: 2}
+      propertyPath: onActivated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
