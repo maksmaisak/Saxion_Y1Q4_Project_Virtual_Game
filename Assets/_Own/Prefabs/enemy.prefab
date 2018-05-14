@@ -35,7 +35,6 @@ GameObject:
   - component: {fileID: 114321984381602372}
   - component: {fileID: 114812728332883278}
   - component: {fileID: 114887561937617366}
-  - component: {fileID: 114078059731327522}
   - component: {fileID: 114104118472234310}
   m_Layer: 0
   m_Name: enemy
@@ -279,31 +278,6 @@ MonoBehaviour:
   maxDistanceToPlayer: 10
   arriveSlowdownDistance: 2
   lookAtPlayerDistance: 15
---- !u!114 &114078059731327522
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1200429050449118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5adbbf77754b1412199c647ece8a6162, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 100
-  _maxHealth: 100
-  destroyOnDeath: 1
-  _canBeReduced: 1
-  OnDeathUnityEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnHealthChangedUnityEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Health+OnHealthChangedEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!114 &114104118472234310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -442,8 +416,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adbbf77754b1412199c647ece8a6162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
-  _maxHealth: 100
+  _health: 1
+  _maxHealth: 1
   destroyOnDeath: 1
   _canBeReduced: 1
   OnDeathUnityEvent:
