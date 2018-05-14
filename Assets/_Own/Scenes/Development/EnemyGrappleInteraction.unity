@@ -547,36 +547,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4053867779087116, guid: 8d2778192b2b444a1bf3332b16fbf956,
     type: 2}
   m_PrefabInternal: {fileID: 1572516340}
---- !u!1 &236577755 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1245565852253206, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-    type: 2}
-  m_PrefabInternal: {fileID: 1261447040}
---- !u!114 &236577756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 236577755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47e0469c0fad947f3963256fb57d33cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallDeathYPos: -50
---- !u!114 &236577765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 236577755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: becb4d1d085104c58965a20f7c22b344, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeTillRestart: 2
-  timeScaleMultiplier: 0.4
 --- !u!1001 &275104352
 Prefab:
   m_ObjectHideFlags: 0
@@ -1817,70 +1787,9 @@ Prefab:
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 2004411827}
-    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
-        type: 2}
-      propertyPath: selectedState
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114159233124540168, guid: 8d2778192b2b444a1bf3332b16fbf956,
-        type: 2}
-      propertyPath: thrustHeightLimit
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114159233124540168, guid: 8d2778192b2b444a1bf3332b16fbf956,
-        type: 2}
-      propertyPath: upThrustStrength
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 114321984381602372, guid: 8d2778192b2b444a1bf3332b16fbf956,
-        type: 2}
-      propertyPath: spottingPlayerDistance
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1251264718 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956,
-    type: 2}
-  m_PrefabInternal: {fileID: 1032832384}
---- !u!114 &1251264734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1251264718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5adbbf77754b1412199c647ece8a6162, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 100
-  _maxHealth: 100
-  destroyOnDeath: 1
-  _canBeReduced: 1
-  OnDeathUnityEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnHealthChangedUnityEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Health+OnHealthChangedEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
---- !u!114 &1251264736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1251264718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d453ebe37a1c540b3a3b2fa76b8c24b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1261447040
 Prefab:
   m_ObjectHideFlags: 0
@@ -1894,11 +1803,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185329038023080, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 18.4
+      value: 6.04
       objectReference: {fileID: 0}
     - target: {fileID: 4185329038023080, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 26.7
+      value: -10.24
       objectReference: {fileID: 0}
     - target: {fileID: 4185329038023080, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1925,10 +1834,10 @@ Prefab:
       propertyPath: crosshairIndicator
       value: 
       objectReference: {fileID: 1960162807}
-    - target: {fileID: 114613365338058248, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+    - target: {fileID: 54529678100293030, guid: 5fbba1f5b94164fad93b3660e56e56cf,
         type: 2}
-      propertyPath: _health
-      value: 100
+      propertyPath: m_Mass
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
