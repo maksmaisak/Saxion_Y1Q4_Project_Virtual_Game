@@ -1043,7 +1043,7 @@ MonoBehaviour:
     StrafeSpeed: 4
     RunMultiplier: 2
     RunKey: 304
-    JumpForce: 100
+    JumpForce: 75
     WallJumpUpwardsModifier: 2
     WallJumpSidewaysModifier: 1
     WallJumpAwayFromWallModifier: 1
