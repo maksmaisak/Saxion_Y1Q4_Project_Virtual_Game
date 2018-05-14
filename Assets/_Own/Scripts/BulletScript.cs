@@ -26,7 +26,7 @@ public class BulletScript : MonoBehaviour
 
         health.DealDamage(bulletDamage);
 
-        bool didDie = health.isDead;
+        bool didDie = health.isDead && wasAlive;
 
         if (didDie)
         {

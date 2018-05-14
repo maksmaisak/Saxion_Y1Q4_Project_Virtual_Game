@@ -40,7 +40,11 @@ public class PlayerDeath : MonoBehaviour
         if (firstPersonController != null) firstPersonController.enabled = false;
 
         var rb = GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = false;
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.freezeRotation = false;
+        }
 
         originalTimeScale = Time.timeScale;
         originalFixedDeltaTime = Time.fixedDeltaTime;

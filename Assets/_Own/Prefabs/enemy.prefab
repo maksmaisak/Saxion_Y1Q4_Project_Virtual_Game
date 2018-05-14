@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolRadius: 10
-  spottingPlayerDistance: 20
+  spottingPlayerDistance: 40
   patrolTime: 5
   newSteeringForce: 50
   patrolPoint: {fileID: 0}

@@ -73,6 +73,7 @@ public class EnemyPatrolState : FSMState<Enemy>
 
         if (distance <= spottingPlayerDistance && shootingController.CanShootAt(Player.Instance.gameObject))
         {
+            Debug.Log("distance from player: " + distance);
             agent.fsm.ChangeState<EnemyStateFollowPlayer>();
         }
     }
