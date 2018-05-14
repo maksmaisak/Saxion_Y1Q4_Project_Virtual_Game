@@ -20,10 +20,10 @@ public class Checkpoint : MonoBehaviour
     // Kinda hacky, must change when we get to the respective user story.
     public static Vector3? LatestActiveCheckpointPosition { get; private set; }
 
-    public event Action<Checkpoint> OnUnlocked;
     public event Action<Checkpoint> OnActivated;
 
-    [SerializeField] private UnityEvent onUnlocked  = new UnityEvent();
+    [SerializeField] private UnityEvent onAllPrerequisiteCheckpointsActive = new UnityEvent();
+    [SerializeField] private UnityEvent onAllRequiredEntitiesDead = new UnityEvent();
     [SerializeField] private UnityEvent onActivated = new UnityEvent();
 
     [Tooltip("All the checkpoints that need to be active for this one to unlock. If none are specified, the checkpoint will unlock immediately.")]
@@ -90,9 +90,6 @@ public class Checkpoint : MonoBehaviour
             if (!system.isPlaying) system.Play();
         }
 
-        if (OnUnlocked != null) OnUnlocked(this);
-        onUnlocked.Invoke();
-
         isLocked = false;
     }
 
@@ -111,6 +108,12 @@ public class Checkpoint : MonoBehaviour
         checkpoint.OnActivated -= OnPrerequisiteCheckpointActivated;
 
         prerequisiteCheckpoints.Remove(checkpoint);
+
+        if (prerequisiteCheckpoints.Count == 0)
+        {
+            onAllPrerequisiteCheckpointsActive.Invoke();
+        }
+
         if (!ShouldBeLocked())
         {
             Unlock();
@@ -122,6 +125,12 @@ public class Checkpoint : MonoBehaviour
         sender.OnDeath -= OnRequiredEntityDied;
 
         needToDieToUnlock.Remove(sender);
+
+        if (needToDieToUnlock.Count == 0)
+        {
+            onAllRequiredEntitiesDead.Invoke();
+        }
+
         if (!ShouldBeLocked())
         {
             Unlock();
