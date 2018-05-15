@@ -69,12 +69,21 @@ public class GrappleController : MonoBehaviour
     {
         if (firstPersonController.isGrounded) return;
 
-        if (grappleLeft.isConnected && Input.GetKey(KeyCode.Q))
+        bool shouldPullLeft = Input.GetKey(KeyCode.Q);
+        bool shouldPullRight = Input.GetKey(KeyCode.E);
+
+        bool onlyOneGrappleConnected = grappleLeft.isConnected != grappleRight.isConnected;
+        if (onlyOneGrappleConnected && (shouldPullLeft || shouldPullRight)) 
+        {
+            shouldPullLeft = shouldPullRight = true;
+        }
+
+        if (shouldPullLeft && grappleLeft.isConnected)
         {
             grappleLeft.ropeLength -= grapplePullingSpeed * Time.deltaTime;
         }
 
-        if (grappleRight.isConnected && Input.GetKey(KeyCode.E))
+        if (shouldPullRight && grappleRight.isConnected)
         {
             grappleRight.ropeLength -= grapplePullingSpeed * Time.deltaTime;
         }

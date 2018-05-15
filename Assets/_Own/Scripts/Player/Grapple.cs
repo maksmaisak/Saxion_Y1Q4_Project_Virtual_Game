@@ -128,11 +128,6 @@ public class Grapple : MonoBehaviour
                 {
                     ropeLength = currentDistance;
                 }
-                /*else if (!firstPersonController.isGrounded)
-                {
-                    ropeLength -= retractionSpeed * Time.fixedDeltaTime;
-                    if (ropeLength < minRopeLength) ropeLength = minRopeLength;
-                }*/
             }
             else
             {
