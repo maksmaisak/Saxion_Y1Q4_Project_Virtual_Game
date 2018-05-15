@@ -103,7 +103,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
-        private float m_YRotation;
         private Vector3 m_SurfaceContactNormal;
         private bool m_Jump, m_Jumping;
         private float m_defaultDrag;

@@ -191,7 +191,7 @@ public class Grapple : MonoBehaviour
         transform.SetParent(attachmentPoint, worldPositionStays: false);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-        transform.localScale = Vector3.one;
+        transform.localScale    = Vector3.one;
 
         state = State.Retracted;
     }
