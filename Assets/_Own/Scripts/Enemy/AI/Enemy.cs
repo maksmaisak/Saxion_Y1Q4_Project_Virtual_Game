@@ -9,15 +9,15 @@ public class Enemy : MonoBehaviour, IAgent
 
     private Grappleable grappleable;
 
-    private Health health;
-
     private float initialHeight;
+
 
     private enum State
     {
         None,
         ThrustUp,
-        Shake
+        Shake,
+        PullPlayer
     }
 
     [SerializeField] private State selectedState;
@@ -29,15 +29,12 @@ public class Enemy : MonoBehaviour, IAgent
 
         fsm = new FSM<Enemy>(this);
 
-        fsm.ChangeState<EnemyPatrolState>();
+        fsm.ChangeState<EnemyMoveRandomlyAroundPoint>();
 
         grappleable = GetComponent<Grappleable>();
-        health = GetComponent<Health>();
 
         grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
-
-        health.OnDeath += RetractOnDestroy;
     }
 
     private void OnGrapple(Grappleable sender)
@@ -50,6 +47,9 @@ public class Enemy : MonoBehaviour, IAgent
             case State.Shake:
                 fsm.ChangeState<EnemyShakeState>();
                 break;
+            case State.PullPlayer:
+                fsm.ChangeState<EnemyPullPlayerState>();
+                break;
         }
 
         GetComponent<Shooting>().enabled = false;
@@ -57,8 +57,7 @@ public class Enemy : MonoBehaviour, IAgent
 
     private void OnRelease(Grappleable sender)
     {
-        fsm.ChangeState<EnemyStateFollowPlayer>();
-        GetComponent<Shooting>().enabled = true;
+        fsm.ChangeState<EnemyFallingToDeathState>();
     }
 
     // Update is called once per frame
@@ -80,13 +79,5 @@ public class Enemy : MonoBehaviour, IAgent
     public float GetInitialHeight()
     {
         return initialHeight;
-    }
-
-    public void RetractOnDestroy(Health sender)
-    {
-        foreach (var grapple in gameObject.GetComponentsInChildren<Grapple>())
-        {
-            grapple.Retract();
-        }
     }
 }

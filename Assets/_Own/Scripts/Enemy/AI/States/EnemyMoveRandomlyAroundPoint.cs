@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPatrolState : FSMState<Enemy>
+public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
 {
     [SerializeField] private float patrolRadius = 5f;
     [SerializeField] private float spottingPlayerDistance = 10f;

@@ -9,7 +9,6 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
     [SerializeField] private float arriveSlowdownDistance = 5f;
     [SerializeField] private float lookAtPlayerDistance = 10f;
 
-    private Rigidbody rb;
     private GameObject target;
     private Shooting shootingController;
     private SteeringManager steeringManager;
@@ -19,7 +18,6 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
         shootingController = GetComponent<Shooting>();
         shootingController.enabled = true;
         target = GameObject.FindGameObjectWithTag("Player");
-        rb = GetComponent<Rigidbody>();
         steeringManager = GetComponent<SteeringManager>();
 
     }
@@ -51,6 +49,10 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
             steeringManager.LookAt(target.transform.position);
         }
     }
-
+    public override void Exit()
+    {
+        base.Exit();
+        shootingController.enabled = false;
+    }
 }
 
