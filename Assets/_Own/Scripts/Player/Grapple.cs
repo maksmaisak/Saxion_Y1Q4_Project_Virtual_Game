@@ -22,7 +22,7 @@ public class Grapple : MonoBehaviour
     [SerializeField] AudioClip throwSound;
     [SerializeField] AudioClip hitSound;
     [Space]
-    [SerializeField] float minDistance = 1f;
+    [SerializeField] float minRopeLength = 1f;
     [SerializeField] float springForce = 1000f;
     [SerializeField] float retractionSpeed = 1f;
     [SerializeField] float maxFlyingDistance = 300f;
@@ -39,6 +39,34 @@ public class Grapple : MonoBehaviour
     public bool isRetracted
     {
         get { return state == State.Retracted; }
+    }
+
+    public bool isConnected
+    {
+        get { return state == State.Connected; }
+    }
+
+    public float ropeLength
+    {
+        get
+        {
+            if (state != State.Connected)
+            {
+                throw new System.InvalidOperationException("Can't get the rope length a grapple that's not grappling anything!");
+            }
+
+            return joint.minDistance;
+        }
+        set 
+        {
+            if (state != State.Connected)
+            {
+                throw new System.InvalidOperationException("Can't set the rope length a grapple that's not grappling anything!");
+            }
+
+            if (value < minRopeLength) return; 
+            joint.minDistance = joint.maxDistance = value;
+        }
     }
 
     void Start()
@@ -92,27 +120,24 @@ public class Grapple : MonoBehaviour
         }
         else if (state == State.Connected)
         {
-            float ropeLength = joint.minDistance;
             float currentDistance = Vector3.Distance(attachmentRigidbody.position, joint.connectedBody.position);
 
-            if (ropeLength > minDistance)
+            if (ropeLength > minRopeLength)
             {
                 if (currentDistance < ropeLength)
                 {
                     ropeLength = currentDistance;
                 }
-                else if (!firstPersonController.isGrounded)
+                /*else if (!firstPersonController.isGrounded)
                 {
                     ropeLength -= retractionSpeed * Time.fixedDeltaTime;
-                    if (ropeLength < minDistance) ropeLength = minDistance;
-                }
+                    if (ropeLength < minRopeLength) ropeLength = minRopeLength;
+                }*/
             }
             else
             {
-                ropeLength = minDistance;
+                ropeLength = minRopeLength;
             }
-
-            joint.minDistance = joint.maxDistance = ropeLength;
         }
     }
 

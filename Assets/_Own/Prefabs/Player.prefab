@@ -851,6 +851,8 @@ MonoBehaviour:
   crosshairIndicator: {fileID: 0}
   grappleShootSpeed: 200
   grappleMaxRange: 40
+  grapplePullingSpeed: 2
+  firstPersonController: {fileID: 114859108289796068}
 --- !u!114 &114505675243747264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -944,7 +946,7 @@ MonoBehaviour:
   attachmentRigidbody: {fileID: 54529678100293030}
   throwSound: {fileID: 8300000, guid: 0f7f8058789fc4a6395efa92230edcc2, type: 3}
   hitSound: {fileID: 8300000, guid: 7073bd622909d4efc8f6575be68aba6c, type: 3}
-  minDistance: 1
+  minRopeLength: 2
   springForce: 1000
   retractionSpeed: 2
   maxFlyingDistance: 100
@@ -963,7 +965,7 @@ MonoBehaviour:
   attachmentRigidbody: {fileID: 54529678100293030}
   throwSound: {fileID: 8300000, guid: 0f7f8058789fc4a6395efa92230edcc2, type: 3}
   hitSound: {fileID: 8300000, guid: 7073bd622909d4efc8f6575be68aba6c, type: 3}
-  minDistance: 1
+  minRopeLength: 2
   springForce: 1000
   retractionSpeed: 2
   maxFlyingDistance: 100
