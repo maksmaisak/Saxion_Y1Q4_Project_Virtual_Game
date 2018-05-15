@@ -33,7 +33,8 @@ public class Grapple : MonoBehaviour
     private LineRenderer lineRenderer;
 
     private State state = State.Retracted;
-    private SpringJoint joint;
+    private SpringJoint chainJoint;
+    private FixedJoint hookJoint;
     private Grappleable grappledGrappleable;
 
     public bool isRetracted
@@ -55,7 +56,7 @@ public class Grapple : MonoBehaviour
                 throw new System.InvalidOperationException("Can't get the rope length a grapple that's not grappling anything!");
             }
 
-            return joint.minDistance;
+            return chainJoint.minDistance;
         }
         set 
         {
@@ -65,7 +66,7 @@ public class Grapple : MonoBehaviour
             }
 
             if (value < minRopeLength) return; 
-            joint.minDistance = joint.maxDistance = value;
+            chainJoint.minDistance = chainJoint.maxDistance = value;
         }
     }
 
@@ -96,7 +97,8 @@ public class Grapple : MonoBehaviour
 
     void Update()
     {
-        if (isRetracted)
+        lineRenderer.enabled = false;
+        /*if (isRetracted)
         {
             lineRenderer.enabled = false;
         }
@@ -106,7 +108,7 @@ public class Grapple : MonoBehaviour
             Vector3 delta = rigidbody.position - attachmentPoint.position;
             lineRenderer.SetPosition(0, attachmentPoint.position - delta.normalized * 1f);
             lineRenderer.SetPosition(1, rigidbody.position);
-        }
+        }*/
     }
 
     void FixedUpdate()
@@ -120,7 +122,7 @@ public class Grapple : MonoBehaviour
         }
         else if (state == State.Connected)
         {
-            float currentDistance = Vector3.Distance(attachmentRigidbody.position, joint.connectedBody.position);
+            float currentDistance = Vector3.Distance(attachmentRigidbody.position, chainJoint.connectedBody.position);
 
             if (ropeLength > minRopeLength)
             {
@@ -143,22 +145,26 @@ public class Grapple : MonoBehaviour
         // Fix in place
         rigidbody.isKinematic = true;
         transform.position = collision.contacts[0].point;
-        transform.SetParent(collision.transform, worldPositionStays: true);
+        hookJoint = rigidbody.gameObject.AddComponent<FixedJoint>();
+        if (collision.rigidbody != null)
+        {
+            hookJoint.connectedBody = collision.rigidbody;
+        }
 
-        // Create the joint
+        // Create the joints
         var targetRigidbody = collision.rigidbody;
         if (targetRigidbody == null) targetRigidbody = rigidbody;
 
-        joint = attachmentRigidbody.gameObject.AddComponent<SpringJoint>();
+        chainJoint = attachmentRigidbody.gameObject.AddComponent<SpringJoint>();
         float currentDistance = Vector3.Distance(attachmentRigidbody.position, targetRigidbody.position);
-        joint.minDistance = joint.maxDistance = currentDistance;
-        joint.autoConfigureConnectedAnchor = false;
-        joint.anchor = Vector3.zero;
-        joint.connectedAnchor = Vector3.zero;
-        joint.spring = springForce;
-        joint.enablePreprocessing = false;
-        joint.enableCollision = true;
-        joint.connectedBody = targetRigidbody;
+        chainJoint.minDistance = chainJoint.maxDistance = currentDistance;
+        chainJoint.autoConfigureConnectedAnchor = false;
+        chainJoint.anchor = Vector3.zero;
+        chainJoint.connectedAnchor = Vector3.zero;
+        chainJoint.spring = springForce;
+        chainJoint.enablePreprocessing = false;
+        chainJoint.enableCollision = true;
+        chainJoint.connectedBody = targetRigidbody;
 
         grappledGrappleable = collision.gameObject.GetComponent<Grappleable>();
         if (grappledGrappleable != null)
@@ -218,10 +224,16 @@ public class Grapple : MonoBehaviour
 
     private void Disconnect()
     {
-        if (joint != null)
+        if (chainJoint != null)
         {
-            Destroy(joint);
-            joint = null;
+            Destroy(chainJoint);
+            chainJoint = null;
+        }
+
+        if (hookJoint != null)
+        {
+            Destroy(hookJoint);
+            hookJoint = null;
         }
 
         if (grappledGrappleable != null)

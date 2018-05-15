@@ -230,7 +230,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 if (m_Jump)
                 {
-                    Vector3 awayFromWall = m_SurfaceContactNormal;
+                    //Vector3 awayFromWall = m_SurfaceContactNormal;
                     Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up);
                     //desiredMove -= Vector3.Project(desiredMove, awayFromWall);
