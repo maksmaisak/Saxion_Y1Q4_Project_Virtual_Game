@@ -101,7 +101,7 @@ public class Grapple : MonoBehaviour
                 {
                     ropeLength = currentDistance;
                 }
-                else if (!firstPersonController.Grounded)
+                else if (!firstPersonController.isGrounded)
                 {
                     ropeLength -= retractionSpeed * Time.fixedDeltaTime;
                     if (ropeLength < minDistance) ropeLength = minDistance;
