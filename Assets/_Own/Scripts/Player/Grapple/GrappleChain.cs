@@ -21,7 +21,7 @@ public class GrappleChain : MonoBehaviour
     private ObjectPool<Transform> linksPool; 
 
     private float oneLinkLength = 0.2f; // full is 0.27f
-    private float currentLength = 0f;
+    private float currentLength { get { return links.Count * oneLinkLength; } }
 
     private Quaternion chainLinkRelativeRotation;
 
@@ -49,7 +49,7 @@ public class GrappleChain : MonoBehaviour
 
         float desiredLength = grapple.isConnected ? grapple.ropeLength : delta.magnitude;
 
-        if (desiredLength > oneLinkLength * 0.5f)
+        if (desiredLength > 0.1f)
         {
             desiredLength += oneLinkLength * 2f;
         }
@@ -59,7 +59,7 @@ public class GrappleChain : MonoBehaviour
             AddLink();
         }
 
-        while (currentLength > desiredLength + oneLinkLength)
+        while (currentLength > desiredLength)
         {
             RemoveLink();
         }
@@ -77,15 +77,11 @@ public class GrappleChain : MonoBehaviour
         link.localRotation = chainLinkRelativeRotation;
         link.gameObject.SetActive(true);
         links.Push(link);
-
-        currentLength += oneLinkLength;
     }
 
     private void RemoveLink()
     {
         Transform link = links.Pop();
         linksPool.ReleaseObject(link);
-
-        currentLength -= oneLinkLength;
     }
 }

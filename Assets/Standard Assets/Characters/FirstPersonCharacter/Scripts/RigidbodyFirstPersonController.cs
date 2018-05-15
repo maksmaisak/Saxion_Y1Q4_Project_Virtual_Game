@@ -322,7 +322,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     0f, 
                     -awayFromWallLeanAngle * Vector3.Dot(cam.transform.forward, wallTangent)
                 );
-                Debug.Log(leanOffset.eulerAngles);
+                //Debug.Log(leanOffset.eulerAngles);
             }
             else
             {
@@ -383,7 +383,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             RaycastHit hitInfo;
             if (RaycastWalls(advancedSettings.wallCheckDistance, out hitInfo))
             {
-                Debug.Log("Went to State.OnWall because of " + hitInfo.collider.gameObject);
+                //Debug.Log("Went to State.OnWall because of " + hitInfo.collider.gameObject);
                 m_State = State.OnWall;
                 m_SurfaceContactNormal = hitInfo.normal;
             }
