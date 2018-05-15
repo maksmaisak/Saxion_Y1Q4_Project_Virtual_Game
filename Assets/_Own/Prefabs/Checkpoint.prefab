@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4834903329951978}
   - component: {fileID: 33686664069288440}
   - component: {fileID: 23859084092469002}
+  - component: {fileID: 64371424449594666}
   m_Layer: 0
   m_Name: placeholder_rune_2
   m_TagString: Untagged
@@ -98,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1798676592363856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.771, y: 7.7703786, z: -18.334768}
+  m_LocalPosition: {x: 33.771, y: 7.5, z: -17.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4834903329951978}
@@ -174,6 +175,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1563567229777996}
   m_Mesh: {fileID: 4300000, guid: 3d563f3f3312948e4916bcd990331793, type: 3}
+--- !u!64 &64371424449594666
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563567229777996}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 3d563f3f3312948e4916bcd990331793, type: 3}
 --- !u!114 &114667340359538260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -185,8 +200,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa164ace14df94c29afbfd14b192504e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onAllPrerequisiteCheckpointsActive:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onAllRequiredEntitiesDead:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   prerequisiteCheckpoints: []
-  needToDieToActivate: []
+  needToDieToUnlock: []
   triggerEvents: {fileID: 0}
 --- !u!114 &114938539444156862
 MonoBehaviour:
@@ -281,7 +311,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2087556473
+  randomSeed: 163184116
   InitialModule:
     serializedVersion: 3
     enabled: 1

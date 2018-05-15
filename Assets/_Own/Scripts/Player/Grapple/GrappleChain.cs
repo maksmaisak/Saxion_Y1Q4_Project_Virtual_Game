@@ -18,6 +18,8 @@ public class GrappleChain : MonoBehaviour
     private Transform linksTransform;
     private Stack<Transform> links = new Stack<Transform>();
 
+    private ObjectPool<Transform> linksPool; 
+
     private float oneLinkLength = 0.2f; // full is 0.27f
     private float currentLength = 0f;
 
@@ -32,6 +34,11 @@ public class GrappleChain : MonoBehaviour
 
         linksTransform = new GameObject("ChainLinks").transform;
         linksTransform.SetParent(transform, worldPositionStays: false);
+
+        linksPool = new ObjectPool<Transform>(
+            () => Instantiate(chainLinkPrefab, linksTransform),
+            link => link.gameObject.SetActive(false)
+        );
     }
 
     void Update()
@@ -39,11 +46,12 @@ public class GrappleChain : MonoBehaviour
         chainLinkRelativeRotation = Quaternion.Euler(chainLinkRelativeRotationEulerAngles);
 
         Vector3 delta = playerEndpoint.position - transform.position;
+
         float desiredLength = grapple.isConnected ? grapple.ropeLength : delta.magnitude;
 
-        if (desiredLength >= oneLinkLength * 0.5f)
+        if (desiredLength > oneLinkLength * 0.5f)
         {
-            linksTransform.rotation = Quaternion.LookRotation(delta.normalized);
+            desiredLength += oneLinkLength * 2f;
         }
 
         while (desiredLength > currentLength)
@@ -55,13 +63,19 @@ public class GrappleChain : MonoBehaviour
         {
             RemoveLink();
         }
+
+        if (desiredLength >= oneLinkLength * 0.5f)
+        {
+            linksTransform.rotation = Quaternion.LookRotation(delta.normalized);
+        }
     }
 
     private void AddLink()
     {
-        Transform link = Instantiate(chainLinkPrefab, linksTransform);
+        Transform link = linksPool.GetObject();
         link.localPosition = Vector3.forward * oneLinkLength * links.Count;
         link.localRotation = chainLinkRelativeRotation;
+        link.gameObject.SetActive(true);
         links.Push(link);
 
         currentLength += oneLinkLength;
@@ -70,7 +84,7 @@ public class GrappleChain : MonoBehaviour
     private void RemoveLink()
     {
         Transform link = links.Pop();
-        Destroy(link.gameObject);
+        linksPool.ReleaseObject(link);
 
         currentLength -= oneLinkLength;
     }
