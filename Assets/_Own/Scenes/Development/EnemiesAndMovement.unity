@@ -1083,6 +1083,24 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &427610204 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956,
+    type: 2}
+  m_PrefabInternal: {fileID: 1032832384}
+--- !u!114 &427610223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 427610204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a25ad74aaa8349a086f885bc2c42761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceFromPulling: 3
+  newSteeringForce: 60
 --- !u!1 &466519316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,23 +1778,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4053867779087116, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -26.3
+      value: -164.57
       objectReference: {fileID: 0}
     - target: {fileID: 4053867779087116, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4053867779087116, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4053867779087116, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4053867779087116, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4053867779087116, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
       propertyPath: m_RootOrder
@@ -1787,53 +1805,58 @@ Prefab:
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 2004411827}
+    - target: {fileID: 114491858908809362, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: newSteeringForce
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
       propertyPath: selectedState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114812728332883278, guid: 8d2778192b2b444a1bf3332b16fbf956,
-        type: 2}
-      propertyPath: forceNeededToDestroy
-      value: 700
-      objectReference: {fileID: 0}
-    - target: {fileID: 114864656048003352, guid: 8d2778192b2b444a1bf3332b16fbf956,
-        type: 2}
-      propertyPath: maxShakingForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114159233124540168, guid: 8d2778192b2b444a1bf3332b16fbf956,
-        type: 2}
-      propertyPath: thrustTime
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
+    - target: {fileID: 114491858908809362, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
-      propertyPath: crashingEnemyEffect
-      value: 
-      objectReference: {fileID: 1568884166417326, guid: 278ab82d167384840a4e45e55cb915ae,
+      propertyPath: circleRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114491858908809362, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
+      propertyPath: heightAbovePlayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114491858908809362, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: desiredTangentSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 54108020166151516, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 114207660364780426, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: maxSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114058244687087694, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: arriveSlowdownDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114207660364780426, guid: 8d2778192b2b444a1bf3332b16fbf956,
+        type: 2}
+      propertyPath: circleRadius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4053867779087116, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1251264718 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956,
-    type: 2}
-  m_PrefabInternal: {fileID: 1032832384}
---- !u!114 &1251264734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1251264718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6e8456b21d674cf7b4ade98a21acc28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circleRadius: 1
-  heightAbovePlayer: 4
 --- !u!1001 &1261447040
 Prefab:
   m_ObjectHideFlags: 0
@@ -1956,7 +1979,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh16216
+  m_Name: pb_Mesh16420
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2

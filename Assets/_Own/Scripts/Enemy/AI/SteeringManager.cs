@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,11 @@ public class SteeringManager : MonoBehaviour
     [SerializeField] private float maxRotationDegreesPerSecond = 180f;
     [SerializeField] private float separationFactor = 1f;
     [SerializeField] private float separationDistance = 5f;
+    [SerializeField] private float circleRadius = 2;
+    [SerializeField] private float circleDistance = 2;
+    [SerializeField] private float wanderAngle = 20;
 
+    private Vector3 displacement;
     private float initialSteeringForce;
     Vector3 steering = Vector3.zero;
     private Rigidbody rb;
@@ -22,6 +26,7 @@ public class SteeringManager : MonoBehaviour
     {
         initialSteeringForce = maxSteeringForce;
         rb = GetComponent<Rigidbody>();
+        displacement = Vector3.forward * circleRadius;
     }
 
 
@@ -41,6 +46,16 @@ public class SteeringManager : MonoBehaviour
     public void Seek(Vector3 desiredPosition, float maxDistanceToPlayer)
     {
         steering += DoSeek(desiredPosition, maxDistanceToPlayer);
+    }
+
+    public void Flee(Vector3 targetToFlee, float distance)
+    {
+        steering -= DoSeek(targetToFlee, distance);
+    }
+
+    public void SeekOnYAxis(float targetHeight)
+    {
+        steering += DoSeekOnYAxis(targetHeight);
     }
 
     public void AvoidObstacles()
@@ -79,6 +94,14 @@ public class SteeringManager : MonoBehaviour
         return force;
     }
 
+    private Vector3 DoSeekOnYAxis(float targetHeight)
+    {
+        float desiredVelocityY = Mathf.Sign(targetHeight - transform.position.y) * maxSpeed;
+        Vector3 force = Vector3.up * (desiredVelocityY - rb.velocity.y);
+
+        return force;
+    }
+
     private Vector3 DoEnemyAvoidance()
     {
         Vector3 totalForce = Vector3.zero;
@@ -93,7 +116,6 @@ public class SteeringManager : MonoBehaviour
         totalForce *= separationFactor;
         return totalForce;
     }
-
 
     private Vector3 DoObstaclesAvoidance()
     {
@@ -168,4 +190,27 @@ public class SteeringManager : MonoBehaviour
         return initialSteeringForce;
     }
 
+    public void Wander()
+    {
+        steering += DoWander();
+    }
+
+    private Vector3 DoWander()
+    {
+        Vector3 circleCenter = rb.velocity.normalized;
+        circleCenter *= circleDistance;
+
+        Vector3 changeOfRotationEulerAngles = new Vector3(Random.Range(-wanderAngle, wanderAngle), Random.Range(-wanderAngle, wanderAngle), Random.Range(-wanderAngle, wanderAngle)) * Time.fixedDeltaTime;
+        Quaternion changeOfRotation = Quaternion.Euler(changeOfRotationEulerAngles);
+
+        Quaternion newRotation =  Quaternion.LookRotation(displacement) * changeOfRotation;
+
+        float angle = 0;
+        newRotation.ToAngleAxis(out angle, out displacement);
+        displacement *= circleRadius;
+
+        return DoSeek(rb.position + circleCenter + transform.TransformVector(displacement));
+    }
+
 }
+

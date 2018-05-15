@@ -9,8 +9,6 @@ public class Enemy : MonoBehaviour, IAgent
 
     private Grappleable grappleable;
 
-    private Health health;
-
     private float initialHeight;
 
 
@@ -19,7 +17,7 @@ public class Enemy : MonoBehaviour, IAgent
         None,
         ThrustUp,
         Shake,
-        CircularMovement
+        PullPlayer
     }
 
     [SerializeField] private State selectedState;
@@ -31,10 +29,9 @@ public class Enemy : MonoBehaviour, IAgent
 
         fsm = new FSM<Enemy>(this);
 
-        fsm.ChangeState<EnemyPatrolState>();
+        fsm.ChangeState<EnemyMoveRandomlyAroundPoint>();
 
         grappleable = GetComponent<Grappleable>();
-        health = GetComponent<Health>();
 
         grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
@@ -50,8 +47,8 @@ public class Enemy : MonoBehaviour, IAgent
             case State.Shake:
                 fsm.ChangeState<EnemyShakeState>();
                 break;
-            case State.CircularMovement:
-                fsm.ChangeState<EnemyCircularMovementState>();
+            case State.PullPlayer:
+                fsm.ChangeState<EnemyPullPlayerState>();
                 break;
         }
 

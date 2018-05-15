@@ -22,7 +22,8 @@ public class EnemyShakeState : FSMState<Enemy>
     {
         if (isShaking)
         {
-            rb.AddForce(new Vector3(Random.Range(-2, 2) * maxShakingForce, Random.Range(-2, 2) * maxShakingForce, Random.Range(-2, 2) * maxShakingForce), ForceMode.Impulse);
+            //rb.AddForce(new Vector3(Random.Range(-2, 2) * maxShakingForce, Random.Range(-2, 2) * maxShakingForce, Random.Range(-2, 2) * maxShakingForce), ForceMode.Impulse);
+            rb.AddForce(Random.onUnitSphere * maxShakingForce, ForceMode.Impulse);
             counter += Time.fixedDeltaTime;
             if (counter >= shakingDuration)
             {
@@ -30,10 +31,15 @@ public class EnemyShakeState : FSMState<Enemy>
                 counter = 0;
             }
         }
+        else
+        {
+            rb.useGravity = true;
+        }
     }
 
     public override void Exit()
     {
         base.Exit();
+        rb.useGravity = false;
     }
 }
