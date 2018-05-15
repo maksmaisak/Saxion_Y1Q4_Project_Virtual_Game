@@ -18,10 +18,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [Serializable]
         public class MovementSettings
         {
-            public float ForwardSpeed = 8.0f;   // Speed when walking forward
+            public float ForwardSpeed  = 8.0f;  // Speed when walking forward
             public float BackwardSpeed = 4.0f;  // Speed when walking backwards
-            public float StrafeSpeed = 4.0f;    // Speed when walking sideways
-            public float RunMultiplier = 2.0f;   // Speed when sprinting
+            public float StrafeSpeed   = 4.0f;  // Speed when walking sideways
+            public float RunMultiplier = 2.0f;  // Speed when sprinting
             public KeyCode RunKey = KeyCode.LeftShift;
             public float JumpForce = 30f;
             public float WallJumpUpwardsModifier = 1f;
@@ -98,10 +98,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public AdvancedSettings advancedSettings = new AdvancedSettings();
         public LayerMask groundAndWallDetectionLayerMask = Physics.DefaultRaycastLayers;
 
+        [Range(0f, 90f)] public float awayFromWallLeanAngle = 10f;
+        public float awayFromWallLeanAngleChangePerSecond = 180f;
+
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
         private float m_YRotation;
-        private Vector3 m_GroundContactNormal;
+        private Vector3 m_SurfaceContactNormal;
         private bool m_Jump, m_Jumping;
         private float m_defaultDrag;
 
@@ -156,7 +159,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         void Update()
         {
-            RotateBody();
             RotateView();
 
             if (!m_Jump && CrossPlatformInputManager.GetButtonDown("Jump"))
@@ -179,7 +181,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 if (m_State == State.Grounded)
                 {
-                    desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
+                    desiredMove = Vector3.ProjectOnPlane(desiredMove, m_SurfaceContactNormal).normalized;
                     desiredMove *= movementSettings.CurrentTargetSpeed;
 
                     // TODO this speed limiting thing should be in other states as well (to some degree)
@@ -229,7 +231,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 if (m_Jump)
                 {
-                    Vector3 awayFromWall = m_GroundContactNormal;
+                    Vector3 awayFromWall = m_SurfaceContactNormal;
                     Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up);
                     //desiredMove -= Vector3.Project(desiredMove, awayFromWall);
@@ -239,7 +241,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     Vector3 force = (
                         Vector3.up * movementSettings.WallJumpUpwardsModifier +
                         desiredMove.normalized * movementSettings.WallJumpSidewaysModifier +
-                        m_GroundContactNormal * movementSettings.WallJumpAwayFromWallModifier
+                        m_SurfaceContactNormal * movementSettings.WallJumpAwayFromWallModifier
                     ) * movementSettings.JumpForce;
 
                     m_RigidBody.drag = m_defaultDrag;
@@ -269,7 +271,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private float SlopeMultiplier()
         {
-            float angle = Vector3.Angle(m_GroundContactNormal, Vector3.up);
+            float angle = Vector3.Angle(m_SurfaceContactNormal, Vector3.up);
             return movementSettings.SlopeCurveModifier.Evaluate(angle);
         }
 
@@ -305,31 +307,37 @@ namespace UnityStandardAssets.Characters.FirstPerson
             );
         }
 
-        private void RotateBody()
-        {
-            Quaternion targetRotation;
-            if (m_State == State.OnWall)
-            {
-                targetRotation = Quaternion.AngleAxis(30f, transform.forward);
-            }
-            else
-            {
-                targetRotation = Quaternion.identity;
-            }
-
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, 180f * Time.deltaTime);
-        }
-
         private void RotateView()
         {
             // avoids the mouse looking if the game is effectively paused
             if (Mathf.Abs(Time.timeScale) < float.Epsilon) return;
 
+            Quaternion leanOffset;
+            if (m_State == State.OnWall)
+            {
+                Vector3 wallNormal = m_SurfaceContactNormal;
+                Vector3 wallTangent = Vector3.Cross(wallNormal, Vector3.up);
+
+                leanOffset = Quaternion.Euler(
+                    awayFromWallLeanAngle * Vector3.Dot(cam.transform.forward, wallNormal), 
+                    0f, 
+                    -awayFromWallLeanAngle * Vector3.Dot(cam.transform.forward, wallTangent)
+                );
+                Debug.Log(leanOffset.eulerAngles);
+            }
+            else
+            {
+                leanOffset = Quaternion.identity;
+            }
+            mouseLook.cameraRotationOffset = Quaternion.RotateTowards(
+                mouseLook.cameraRotationOffset, 
+                leanOffset, 
+                awayFromWallLeanAngleChangePerSecond * Time.deltaTime
+            );
+
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
-
             mouseLook.LookRotation(transform, cam.transform);
-
             if (m_State != State.Airborne || advancedSettings.alwaysForwardWhenAirborne)
             {
                 // Rotate the rigidbody velocity to match the new direction that the character is looking
@@ -362,12 +370,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                                    ((m_Capsule.height / 2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, groundAndWallDetectionLayerMask, QueryTriggerInteraction.Ignore))
             {
                 m_State = State.Grounded;
-                m_GroundContactNormal = hitInfo.normal;
+                m_SurfaceContactNormal = hitInfo.normal;
             }
             else
             {
                 m_State = State.Airborne;
-                m_GroundContactNormal = Vector3.up;
+                m_SurfaceContactNormal = Vector3.up;
             }
         }
 
@@ -378,12 +386,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 Debug.Log("Went to State.OnWall because of " + hitInfo.collider.gameObject);
                 m_State = State.OnWall;
-                m_GroundContactNormal = hitInfo.normal;
+                m_SurfaceContactNormal = hitInfo.normal;
             }
             else
             {
                 m_State = State.Airborne;
-                m_GroundContactNormal = Vector3.up;
+                m_SurfaceContactNormal = Vector3.up;
             }
         }
 

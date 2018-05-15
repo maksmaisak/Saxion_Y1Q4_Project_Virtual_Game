@@ -438,11 +438,6 @@ Prefab:
       propertyPath: crosshairIndicator
       value: 
       objectReference: {fileID: 777177042}
-    - target: {fileID: 54529678100293030, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0
