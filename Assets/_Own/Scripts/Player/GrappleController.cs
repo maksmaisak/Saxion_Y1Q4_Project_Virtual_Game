@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
+using UnityStandardAssets.Characters.FirstPerson;
 
 #pragma warning disable 0649
 
-public class GrappleController : MonoBehaviour {
-
+public class GrappleController : MonoBehaviour
+{
     [SerializeField] Grapple grappleLeft;
     [SerializeField] Grapple grappleRight;
 
@@ -16,36 +17,80 @@ public class GrappleController : MonoBehaviour {
     [SerializeField] float grappleShootSpeed = 100f;
     [SerializeField] float grappleMaxRange = 20f;
 
-    void Start() {
+    [Tooltip("Meters per second")]
+    [SerializeField] float grapplePullingSpeed = 2f;
 
+    [SerializeField] RigidbodyFirstPersonController firstPersonController;
+
+    void Start()
+    {
         Assert.IsNotNull(grappleLeft);
         Assert.IsNotNull(grappleRight);
+        Assert.IsNotNull(firstPersonController);
     }
 
-    void Update() {
+    void Update()
+    {
+        RetractIfNeeded();
+        ShootIfNeeded();
+        PullIfNeeded();
+    }
 
-        if (Input.GetButtonUp("Fire1")) {
+    private void RetractIfNeeded()
+    {
+        if (Input.GetButtonUp("Fire1"))
+        {
             grappleLeft.Retract();
         }
 
-        if (Input.GetButtonUp("Fire2")) {
+        if (Input.GetButtonUp("Fire2"))
+        {
             grappleRight.Retract();
         }
+    }
 
+    private void ShootIfNeeded()
+    {
         Vector3 targetPosition;
         if (!CheckCanShootGrapple(out targetPosition)) return;
 
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetButtonDown("Fire1"))
+        {
             grappleLeft.Shoot(targetPosition, grappleShootSpeed);
         }
 
-        if (Input.GetButtonDown("Fire2")) {
+        if (Input.GetButtonDown("Fire2"))
+        {
             grappleRight.Shoot(targetPosition, grappleShootSpeed);
         }
     }
 
-    private bool CheckCanShootGrapple(out Vector3 targetPosition) {
+    private void PullIfNeeded()
+    {
+        if (firstPersonController.isGrounded) return;
 
+        bool shouldPullLeft = Input.GetKey(KeyCode.Q);
+        bool shouldPullRight = Input.GetKey(KeyCode.E);
+
+        bool onlyOneGrappleConnected = grappleLeft.isConnected != grappleRight.isConnected;
+        if (onlyOneGrappleConnected && (shouldPullLeft || shouldPullRight)) 
+        {
+            shouldPullLeft = shouldPullRight = true;
+        }
+
+        if (shouldPullLeft && grappleLeft.isConnected)
+        {
+            grappleLeft.ropeLength -= grapplePullingSpeed * Time.deltaTime;
+        }
+
+        if (shouldPullRight && grappleRight.isConnected)
+        {
+            grappleRight.ropeLength -= grapplePullingSpeed * Time.deltaTime;
+        }
+    }
+
+    private bool CheckCanShootGrapple(out Vector3 targetPosition)
+    {
         Transform cameraTransform = Camera.main.transform;
         var ray = new Ray(cameraTransform.position, cameraTransform.forward);
 
@@ -56,8 +101,8 @@ public class GrappleController : MonoBehaviour {
             grappleMaxRange
         );
 
-        if (didHit) {
-            
+        if (didHit)
+        {
             crosshairIndicator.color = Color.black;
             targetPosition = hit.point;
             return true;
