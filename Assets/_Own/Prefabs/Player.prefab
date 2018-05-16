@@ -1446,7 +1446,7 @@ MonoBehaviour:
   audioSettings:
     jumpAndLandAudioSource: {fileID: 82747444790422514}
     jumpSound: {fileID: 8300000, guid: 8a60330ee045442b9a932faea36cc180, type: 3}
-    landSound: {fileID: 8300000, guid: a65a0dc539c564db89eec246a329422d, type: 3}
+    landSound: {fileID: 8300000, guid: 77ac7d8f7bde142babd920f8ef37852a, type: 3}
   groundAndWallDetectionLayerMask:
     serializedVersion: 2
     m_Bits: 4294965755
