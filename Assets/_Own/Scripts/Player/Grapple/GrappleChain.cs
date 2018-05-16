@@ -46,7 +46,6 @@ public class GrappleChain : MonoBehaviour
         chainLinkRelativeRotation = Quaternion.Euler(chainLinkRelativeRotationEulerAngles);
 
         Vector3 delta = playerEndpoint.position - transform.position;
-
         float desiredLength = grapple.isConnected ? grapple.ropeLength : delta.magnitude;
 
         if (desiredLength > 0.1f)

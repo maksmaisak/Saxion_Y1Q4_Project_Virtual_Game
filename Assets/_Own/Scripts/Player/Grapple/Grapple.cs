@@ -7,10 +7,10 @@ using UnityStandardAssets.Characters.FirstPerson;
 #pragma warning disable 0649
 
 /// Creates a physics joint between itself and origin upon making contact.
-[RequireComponent(typeof(Rigidbody), typeof(LineRenderer), typeof(AudioSource))]
+[RequireComponent(typeof(Rigidbody), typeof(AudioSource))]
 public class Grapple : MonoBehaviour
 {
-    enum State
+    public enum State
     {
         Retracted,
         Flying,
@@ -19,6 +19,7 @@ public class Grapple : MonoBehaviour
 
     [SerializeField] Transform attachmentPoint;
     [SerializeField] Rigidbody attachmentRigidbody;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip throwSound;
     [SerializeField] AudioClip hitSound;
     [Space]
@@ -29,10 +30,9 @@ public class Grapple : MonoBehaviour
 
     private new Rigidbody rigidbody;
     private RigidbodyFirstPersonController firstPersonController;
-    private AudioSource audioSource;
-    private LineRenderer lineRenderer;
 
-    private State state = State.Retracted;
+    public State state { get; private set; }
+
     private SpringJoint chainJoint;
     private FixedJoint hookJoint;
     private Grappleable grappledGrappleable;
@@ -75,12 +75,13 @@ public class Grapple : MonoBehaviour
         Assert.IsNotNull(attachmentPoint);
         Assert.IsNotNull(attachmentRigidbody);
 
-        rigidbody = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
-        lineRenderer = GetComponent<LineRenderer>();
+        audioSource = audioSource ?? GetComponent<AudioSource>();
+        Assert.IsNotNull(audioSource);
 
         firstPersonController = GetComponentInParent<RigidbodyFirstPersonController>();
         Assert.IsNotNull(firstPersonController);
+
+        rigidbody = GetComponent<Rigidbody>();
 
         // Disable collisions between this and its holder.
         Collider[] ownerColliders = attachmentRigidbody.GetComponentsInChildren<Collider>();
@@ -93,22 +94,6 @@ public class Grapple : MonoBehaviour
                 Physics.IgnoreCollision(ownerCollider, ownCollider);
             }
         }
-    }
-
-    void Update()
-    {
-        lineRenderer.enabled = false;
-        /*if (isRetracted)
-        {
-            lineRenderer.enabled = false;
-        }
-        else
-        {
-            lineRenderer.enabled = true;
-            Vector3 delta = rigidbody.position - attachmentPoint.position;
-            lineRenderer.SetPosition(0, attachmentPoint.position - delta.normalized * 1f);
-            lineRenderer.SetPosition(1, rigidbody.position);
-        }*/
     }
 
     void FixedUpdate()
