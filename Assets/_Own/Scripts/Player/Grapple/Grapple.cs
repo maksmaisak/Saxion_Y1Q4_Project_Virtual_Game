@@ -7,10 +7,10 @@ using UnityStandardAssets.Characters.FirstPerson;
 #pragma warning disable 0649
 
 /// Creates a physics joint between itself and origin upon making contact.
-[RequireComponent(typeof(Rigidbody), typeof(LineRenderer), typeof(AudioSource))]
+[RequireComponent(typeof(Rigidbody), typeof(AudioSource))]
 public class Grapple : MonoBehaviour
 {
-    enum State
+    public enum State
     {
         Retracted,
         Flying,
@@ -19,6 +19,7 @@ public class Grapple : MonoBehaviour
 
     [SerializeField] Transform attachmentPoint;
     [SerializeField] Rigidbody attachmentRigidbody;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip throwSound;
     [SerializeField] AudioClip hitSound;
     [Space]
@@ -29,11 +30,11 @@ public class Grapple : MonoBehaviour
 
     private new Rigidbody rigidbody;
     private RigidbodyFirstPersonController firstPersonController;
-    private AudioSource audioSource;
-    private LineRenderer lineRenderer;
 
-    private State state = State.Retracted;
-    private SpringJoint joint;
+    public State state { get; private set; }
+
+    private SpringJoint chainJoint;
+    private FixedJoint hookJoint;
     private Grappleable grappledGrappleable;
 
     public bool isRetracted
@@ -55,7 +56,7 @@ public class Grapple : MonoBehaviour
                 throw new System.InvalidOperationException("Can't get the rope length a grapple that's not grappling anything!");
             }
 
-            return joint.minDistance;
+            return chainJoint.minDistance;
         }
         set 
         {
@@ -65,7 +66,7 @@ public class Grapple : MonoBehaviour
             }
 
             if (value < minRopeLength) return; 
-            joint.minDistance = joint.maxDistance = value;
+            chainJoint.minDistance = chainJoint.maxDistance = value;
         }
     }
 
@@ -74,12 +75,13 @@ public class Grapple : MonoBehaviour
         Assert.IsNotNull(attachmentPoint);
         Assert.IsNotNull(attachmentRigidbody);
 
-        rigidbody = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
-        lineRenderer = GetComponent<LineRenderer>();
+        audioSource = audioSource ?? GetComponent<AudioSource>();
+        Assert.IsNotNull(audioSource);
 
         firstPersonController = GetComponentInParent<RigidbodyFirstPersonController>();
         Assert.IsNotNull(firstPersonController);
+
+        rigidbody = GetComponent<Rigidbody>();
 
         // Disable collisions between this and its holder.
         Collider[] ownerColliders = attachmentRigidbody.GetComponentsInChildren<Collider>();
@@ -94,21 +96,6 @@ public class Grapple : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (isRetracted)
-        {
-            lineRenderer.enabled = false;
-        }
-        else
-        {
-            lineRenderer.enabled = true;
-            Vector3 delta = rigidbody.position - attachmentPoint.position;
-            lineRenderer.SetPosition(0, attachmentPoint.position - delta.normalized * 1f);
-            lineRenderer.SetPosition(1, rigidbody.position);
-        }
-    }
-
     void FixedUpdate()
     {
         if (state == State.Flying)
@@ -120,7 +107,7 @@ public class Grapple : MonoBehaviour
         }
         else if (state == State.Connected)
         {
-            float currentDistance = Vector3.Distance(attachmentRigidbody.position, joint.connectedBody.position);
+            float currentDistance = Vector3.Distance(attachmentRigidbody.position, chainJoint.connectedBody.position);
 
             if (ropeLength > minRopeLength)
             {
@@ -143,22 +130,30 @@ public class Grapple : MonoBehaviour
         // Fix in place
         rigidbody.isKinematic = true;
         transform.position = collision.contacts[0].point;
-        transform.SetParent(collision.transform, worldPositionStays: true);
 
-        // Create the joint
+        if (collision.rigidbody == null)
+        {
+            hookJoint = rigidbody.gameObject.AddComponent<FixedJoint>();
+        } 
+        else
+        {
+            transform.SetParent(collision.transform);
+        }
+
+        // Create the joints
         var targetRigidbody = collision.rigidbody;
         if (targetRigidbody == null) targetRigidbody = rigidbody;
 
-        joint = attachmentRigidbody.gameObject.AddComponent<SpringJoint>();
+        chainJoint = attachmentRigidbody.gameObject.AddComponent<SpringJoint>();
         float currentDistance = Vector3.Distance(attachmentRigidbody.position, targetRigidbody.position);
-        joint.minDistance = joint.maxDistance = currentDistance;
-        joint.autoConfigureConnectedAnchor = false;
-        joint.anchor = Vector3.zero;
-        joint.connectedAnchor = Vector3.zero;
-        joint.spring = springForce;
-        joint.enablePreprocessing = false;
-        joint.enableCollision = true;
-        joint.connectedBody = targetRigidbody;
+        chainJoint.minDistance = chainJoint.maxDistance = currentDistance;
+        chainJoint.autoConfigureConnectedAnchor = false;
+        chainJoint.anchor = Vector3.zero;
+        chainJoint.connectedAnchor = Vector3.zero;
+        chainJoint.spring = springForce;
+        chainJoint.enablePreprocessing = false;
+        chainJoint.enableCollision = true;
+        chainJoint.connectedBody = targetRigidbody;
 
         grappledGrappleable = collision.gameObject.GetComponent<Grappleable>();
         if (grappledGrappleable != null)
@@ -218,10 +213,16 @@ public class Grapple : MonoBehaviour
 
     private void Disconnect()
     {
-        if (joint != null)
+        if (chainJoint != null)
         {
-            Destroy(joint);
-            joint = null;
+            Destroy(chainJoint);
+            chainJoint = null;
+        }
+
+        if (hookJoint != null)
+        {
+            Destroy(hookJoint);
+            hookJoint = null;
         }
 
         if (grappledGrappleable != null)

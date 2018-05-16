@@ -7,6 +7,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 #pragma warning disable 0649
 
+/// Handles grapple-related player input. 
 public class GrappleController : MonoBehaviour
 {
     [SerializeField] Grapple grappleLeft;
@@ -69,11 +70,13 @@ public class GrappleController : MonoBehaviour
     {
         if (firstPersonController.isGrounded) return;
 
-        bool shouldPullLeft = Input.GetKey(KeyCode.Q);
+        // FIXME Hardcoded keycodes
+        bool shouldPullLeft  = Input.GetKey(KeyCode.Q);
         bool shouldPullRight = Input.GetKey(KeyCode.E);
+        bool shouldPullAtLeastOne = shouldPullLeft || shouldPullRight;
 
         bool onlyOneGrappleConnected = grappleLeft.isConnected != grappleRight.isConnected;
-        if (onlyOneGrappleConnected && (shouldPullLeft || shouldPullRight)) 
+        if (onlyOneGrappleConnected && shouldPullAtLeastOne) 
         {
             shouldPullLeft = shouldPullRight = true;
         }

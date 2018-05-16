@@ -1,17 +1,16 @@
 fileFormatVersion: 2
-guid: 3d563f3f3312948e4916bcd990331793
-timeCreated: 1526043993
+guid: 6eaae2acf2a8b4a5b9231c6b9c3a7184
+timeCreated: 1526400981
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert3
+    2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube1
-    6400000: //RootNode
+    4300000: Chain
   externalObjects: {}
   materials:
     importMaterials: 1

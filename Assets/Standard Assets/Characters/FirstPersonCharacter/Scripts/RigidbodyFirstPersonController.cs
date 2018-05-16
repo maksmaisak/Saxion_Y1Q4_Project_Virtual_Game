@@ -230,7 +230,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 if (m_Jump)
                 {
-                    Vector3 awayFromWall = m_SurfaceContactNormal;
+                    //Vector3 awayFromWall = m_SurfaceContactNormal;
                     Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up);
                     //desiredMove -= Vector3.Project(desiredMove, awayFromWall);
@@ -322,7 +322,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     0f, 
                     -awayFromWallLeanAngle * Vector3.Dot(cam.transform.forward, wallTangent)
                 );
-                Debug.Log(leanOffset.eulerAngles);
+                //Debug.Log(leanOffset.eulerAngles);
             }
             else
             {
@@ -383,7 +383,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             RaycastHit hitInfo;
             if (RaycastWalls(advancedSettings.wallCheckDistance, out hitInfo))
             {
-                Debug.Log("Went to State.OnWall because of " + hitInfo.collider.gameObject);
+                //Debug.Log("Went to State.OnWall because of " + hitInfo.collider.gameObject);
                 m_State = State.OnWall;
                 m_SurfaceContactNormal = hitInfo.normal;
             }
