@@ -68,18 +68,11 @@ public class GrappleChainAudio : MonoBehaviour
 
         if (grapple.isConnected)
         {
-            if (!grappleWasConnectedLastFrame)
+            Vector3 relativeVelocity = playerRigidbody.velocity - ownRigidbody.velocity;
+            if (Random.value < playProbabilityPerFrame && relativeVelocity.sqrMagnitude > minRelativeSpeed * minRelativeSpeed)
             {
                 Play();
-            }
-            else
-            {
-                Vector3 relativeVelocity = playerRigidbody.velocity - ownRigidbody.velocity;
-                if (Random.value < playProbabilityPerFrame && relativeVelocity.sqrMagnitude > minRelativeSpeed * minRelativeSpeed)
-                {
-                    Play();
-                } 
-            }
+            } 
         }
 
         grappleWasConnectedLastFrame = grapple.isConnected;

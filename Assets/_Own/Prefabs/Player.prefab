@@ -1048,10 +1048,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5119d44cc7155400387747902e092e3f, type: 3}
   playerRigidbody: {fileID: 54529678100293030}
   timeTillMaxVolume: 0.1
-  maxVolume: 0.03125
+  maxVolume: 0.0625
   playProbabilityPerFrame: 0.02
-  pitchMin: 0.8
-  pitchMax: 1.1
+  minRelativeSpeed: 2
+  pitchMin: 0.7
+  pitchMax: 0.8
 --- !u!114 &114424999169268392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1159,7 +1160,7 @@ MonoBehaviour:
   attachmentRigidbody: {fileID: 54529678100293030}
   audioSource: {fileID: 82060776753815970}
   throwSound: {fileID: 8300000, guid: 0f7f8058789fc4a6395efa92230edcc2, type: 3}
-  hitSound: {fileID: 8300000, guid: 7073bd622909d4efc8f6575be68aba6c, type: 3}
+  hitSound: {fileID: 8300000, guid: 6cfc43b2040564b81adaee35d70270ba, type: 3}
   minRopeLength: 2
   springForce: 10000
   retractionSpeed: 2
@@ -1179,7 +1180,7 @@ MonoBehaviour:
   attachmentRigidbody: {fileID: 54529678100293030}
   audioSource: {fileID: 82060776753815970}
   throwSound: {fileID: 8300000, guid: 0f7f8058789fc4a6395efa92230edcc2, type: 3}
-  hitSound: {fileID: 8300000, guid: 7073bd622909d4efc8f6575be68aba6c, type: 3}
+  hitSound: {fileID: 8300000, guid: 6cfc43b2040564b81adaee35d70270ba, type: 3}
   minRopeLength: 2
   springForce: 10000
   retractionSpeed: 2
@@ -1201,10 +1202,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5119d44cc7155400387747902e092e3f, type: 3}
   playerRigidbody: {fileID: 54529678100293030}
   timeTillMaxVolume: 0.1
-  maxVolume: 0.03125
+  maxVolume: 0.0625
   playProbabilityPerFrame: 0.02
-  pitchMin: 0.8
-  pitchMax: 1.1
+  minRelativeSpeed: 2
+  pitchMin: 0.7
+  pitchMax: 0.8
 --- !u!114 &114823057689330340
 MonoBehaviour:
   m_ObjectHideFlags: 1
