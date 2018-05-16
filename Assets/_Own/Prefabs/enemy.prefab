@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 135870948589046598}
   - component: {fileID: 23644544252932164}
   - component: {fileID: 54108020166151516}
-  - component: {fileID: 82774312642070784}
   - component: {fileID: 114415618604697572}
   - component: {fileID: 114163407737006916}
   - component: {fileID: 114981167159142292}
@@ -37,6 +36,7 @@ GameObject:
   - component: {fileID: 114887561937617366}
   - component: {fileID: 114894056729156204}
   - component: {fileID: 114570928053248276}
+  - component: {fileID: 82398700281197740}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Enemy
@@ -185,7 +185,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!82 &82774312642070784
+--- !u!82 &82398700281197740
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -194,18 +194,18 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2c91d23871866444caf18f068e624f83, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 2.56
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -215,26 +215,62 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: 0
+      time: 0.030000687
+      value: 1.1
+      inSlope: -20.007967
+      outSlope: -20.007967
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.1
+      value: 0.5
+      inSlope: -5.0019917
+      outSlope: -5.0019917
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.2
+      value: 0.25
+      inSlope: -1.2504979
+      outSlope: -1.2504979
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.4
+      value: 0.125
+      inSlope: -0.31262448
+      outSlope: -0.31262448
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.8
+      value: 0.0625
+      inSlope: -0.07815612
+      outSlope: -0.07815612
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0.05
+      inSlope: -0.05001994
+      outSlope: -0.05001994
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.17499924
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 1
-      value: 0
+      time: 0.4
+      value: 0.56107384
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
     - serializedVersion: 2
-      time: 0
-      value: 0
+      time: 0.93999815
+      value: 0.022150174
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -447,8 +483,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230a0527ce8d344a0975712ae3a61dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crashingEnemyEffect: {fileID: 1568884166417326, guid: 278ab82d167384840a4e45e55cb915ae,
+  crashingEnemyEffect: {fileID: 1758527379866264, guid: 7f840f05283964e6990dcdbdf109b3e8,
     type: 2}
+  fallDeathYPos: -50
+  deathSound: {fileID: 8300000, guid: 6dacedfb288a442d394dade31ee69fe5, type: 3}
 --- !u!114 &114981167159142292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -460,7 +498,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c519062df9d4f8a8b51c98432bdd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedState: 2
+  selectedState: 1
+  enemyGrappeledSound: {fileID: 8300000, guid: ae3a65ad6de904de6b44fce5a2afcea8, type: 3}
 --- !u!135 &135870948589046598
 SphereCollider:
   m_ObjectHideFlags: 1

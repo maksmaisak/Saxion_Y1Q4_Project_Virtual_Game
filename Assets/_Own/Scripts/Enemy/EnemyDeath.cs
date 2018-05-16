@@ -6,12 +6,20 @@ public class EnemyDeath : MonoBehaviour
 {
     [SerializeField]
     private GameObject crashingEnemyEffect;
+    [SerializeField]
+    private float fallDeathYPos = -50;
+    [SerializeField]
+    private AudioClip deathSound;
 
     private Health health;
+    private AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         health = GetComponent<Health>();
+
+        health.OnDeath += PlayDeathSound;
         health.OnDeath += InstantiateExplosionEffectOnDeath;
         health.OnDeath += RetractOnDestroy;
     }
@@ -23,6 +31,8 @@ public class EnemyDeath : MonoBehaviour
         {
             health.DealDamage(100);
         }
+
+        FallingToAbyssDeath();
     }
 
     public void RetractOnDestroy(Health sender)
@@ -37,4 +47,18 @@ public class EnemyDeath : MonoBehaviour
     {
         Instantiate(crashingEnemyEffect, transform.position, Quaternion.identity);
     }
+
+    public void PlayDeathSound(Health sender)
+    {
+        audioSource.PlayOneShot(deathSound);
+    }
+
+    private void FallingToAbyssDeath()
+    {
+        if(transform.position.y <= fallDeathYPos)
+        {
+            health.DealDamage(100);
+        }
+    }
+
 }

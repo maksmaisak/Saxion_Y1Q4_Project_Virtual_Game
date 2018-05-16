@@ -9,8 +9,9 @@ public class Enemy : MonoBehaviour, IAgent
 
     private Grappleable grappleable;
 
-    private float initialHeight;
+    private AudioSource audioSource;
 
+    private float initialHeight;
 
     private enum State
     {
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour, IAgent
     }
 
     [SerializeField] private State selectedState;
+    [SerializeField] private AudioClip enemyGrappeledSound;
 
     // Use this for initialization
     void Start()
@@ -31,6 +33,8 @@ public class Enemy : MonoBehaviour, IAgent
 
         fsm.ChangeState<EnemyMoveRandomlyAroundPoint>();
 
+        audioSource = GetComponent<AudioSource>();
+
         grappleable = GetComponent<Grappleable>();
 
         grappleable.OnGrappled   += OnGrapple;
@@ -39,6 +43,8 @@ public class Enemy : MonoBehaviour, IAgent
 
     private void OnGrapple(Grappleable sender)
     {
+        audioSource.PlayOneShot(enemyGrappeledSound);
+
         switch (selectedState)
         {
             case State.ThrustUp:
