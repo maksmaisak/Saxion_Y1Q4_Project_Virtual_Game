@@ -22,6 +22,8 @@ public class GrappleChainAudio : MonoBehaviour
     private Grapple grapple;
     private Rigidbody ownRigidbody;
 
+    private bool grappleWasConnectedLastFrame;
+
     private float targetVolume;
 
     void Start()
@@ -62,14 +64,25 @@ public class GrappleChainAudio : MonoBehaviour
 
     private void PlayIfNeeded()
     {
-        if (grapple.isConnected && !audioSource.isPlaying)
+        if (audioSource.isPlaying) return;
+
+        if (grapple.isConnected)
         {
-            Vector3 relativeVelocity = playerRigidbody.velocity - ownRigidbody.velocity;
-            if (Random.value < playProbabilityPerFrame && relativeVelocity.sqrMagnitude > minRelativeSpeed * minRelativeSpeed)
+            if (!grappleWasConnectedLastFrame)
             {
                 Play();
             }
+            else
+            {
+                Vector3 relativeVelocity = playerRigidbody.velocity - ownRigidbody.velocity;
+                if (Random.value < playProbabilityPerFrame && relativeVelocity.sqrMagnitude > minRelativeSpeed * minRelativeSpeed)
+                {
+                    Play();
+                } 
+            }
         }
+
+        grappleWasConnectedLastFrame = grapple.isConnected;
     }
 
     private void AdjustVolume()
