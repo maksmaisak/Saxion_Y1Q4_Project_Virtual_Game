@@ -1052,34 +1052,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
-      propertyPath: m_Name
-      value: enemy (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114058244687087694, guid: 8d2778192b2b444a1bf3332b16fbf956,
-        type: 2}
-      propertyPath: arriveSlowdownDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114864656048003352, guid: 8d2778192b2b444a1bf3332b16fbf956,
-        type: 2}
-      propertyPath: shakingDuration
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114981167159142292, guid: 8d2778192b2b444a1bf3332b16fbf956,
-        type: 2}
-      propertyPath: selectedState
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114321984381602372, guid: 8d2778192b2b444a1bf3332b16fbf956,
         type: 2}
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 2004411827}
+    - target: {fileID: 1200429050449118, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
+      propertyPath: m_Name
+      value: enemy (1)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d2778192b2b444a1bf3332b16fbf956, type: 2}
   m_IsPrefabParent: 0
