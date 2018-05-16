@@ -427,7 +427,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1924376573}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &422659494
 MeshRenderer:
@@ -3133,10 +3133,10 @@ Transform:
   - {fileID: 580976052}
   - {fileID: 235197910}
   - {fileID: 1303106354}
-  - {fileID: 331204628}
-  - {fileID: 1540096620}
   - {fileID: 422659493}
   - {fileID: 1961380474}
+  - {fileID: 331204628}
+  - {fileID: 1540096620}
   - {fileID: 1374683310}
   - {fileID: 1118222446}
   - {fileID: 1193115536}
@@ -3274,7 +3274,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1924376573}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1961380475
 Rigidbody:
