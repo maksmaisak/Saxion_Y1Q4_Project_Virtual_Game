@@ -30828,7 +30828,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
@@ -30924,8 +30924,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29a377d39b80426689cfa1c8f0f0556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 10
   explosionForce: 2000
-  radius: 4
+  radius: 2
   upwardsModifier: 0.5
   modifier: 1

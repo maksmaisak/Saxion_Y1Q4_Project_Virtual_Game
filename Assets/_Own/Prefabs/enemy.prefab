@@ -202,8 +202,8 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 2.56
+  Priority: 144
+  DopplerLevel: 2.31
   MinDistance: 1
   MaxDistance: 20
   Pan2D: 0
@@ -257,20 +257,8 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: 0.17499924
+      time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.4
-      value: 0.56107384
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.93999815
-      value: 0.022150174
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -282,7 +270,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 0.097222224
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -483,10 +471,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230a0527ce8d344a0975712ae3a61dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crashingEnemyEffect: {fileID: 1758527379866264, guid: 7f840f05283964e6990dcdbdf109b3e8,
+  crashingEnemyEffectsPrefab: {fileID: 1760512920746192, guid: 522896ef6a0134323a580dc13f129306,
     type: 2}
   fallDeathYPos: -50
-  deathSound: {fileID: 8300000, guid: 6dacedfb288a442d394dade31ee69fe5, type: 3}
 --- !u!114 &114981167159142292
 MonoBehaviour:
   m_ObjectHideFlags: 1
