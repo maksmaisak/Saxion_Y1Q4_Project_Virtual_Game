@@ -107,6 +107,12 @@ public class Grapple : MonoBehaviour
         }
         else if (state == State.Connected)
         {
+            if (chainJoint.connectedBody == null)
+            {
+                Retract();
+                return;
+            }
+
             float currentDistance = Vector3.Distance(attachmentRigidbody.position, chainJoint.connectedBody.position);
 
             if (ropeLength > minRopeLength)
