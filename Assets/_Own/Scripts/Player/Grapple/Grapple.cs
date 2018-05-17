@@ -128,16 +128,19 @@ public class Grapple : MonoBehaviour
         if (state != State.Flying) return;
 
         // Fix in place
-        rigidbody.isKinematic = true;
+        //rigidbody.isKinematic = true;
         transform.position = collision.contacts[0].point;
 
-        if (collision.rigidbody == null)
+        hookJoint = rigidbody.gameObject.AddComponent<FixedJoint>();
+        hookJoint.enablePreprocessing = false;
+        if (collision.rigidbody != null)
         {
-            hookJoint = rigidbody.gameObject.AddComponent<FixedJoint>();
-        } 
+            hookJoint.connectedBody = collision.rigidbody;
+            hookJoint.enableCollision = false;
+        }
         else
         {
-            transform.SetParent(collision.transform);
+            rigidbody.isKinematic = true;
         }
 
         // Create the joints
