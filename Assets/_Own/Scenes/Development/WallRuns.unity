@@ -2340,6 +2340,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114328569735252516, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: footstepSounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4185329038023080, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
       propertyPath: m_LocalPosition.x
       value: -6.32
@@ -2380,13 +2385,48 @@ Prefab:
     - target: {fileID: 114859108289796068, guid: 5fbba1f5b94164fad93b3660e56e56cf,
         type: 2}
       propertyPath: audioSettings.stepInterval
-      value: 10
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 114859108289796068, guid: 5fbba1f5b94164fad93b3660e56e56cf,
         type: 2}
       propertyPath: audioSettings.runStepLengthen
-      value: 0.5
+      value: 0.722
       objectReference: {fileID: 0}
+    - target: {fileID: 114328569735252516, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: footstepVolumeScale
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114859108289796068, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: audioSettings.runStepLengthMultiplier
+      value: 1.722
+      objectReference: {fileID: 0}
+    - target: {fileID: 114328569735252516, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: footstepSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
+    - target: {fileID: 114328569735252516, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: footstepSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a9383dda6cabc047b7a297602e93eb4, type: 3}
+    - target: {fileID: 114328569735252516, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: footstepSounds.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
+    - target: {fileID: 114859108289796068, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: audioSettings.runStepSpeedup
+      value: 1.4285715
+      objectReference: {fileID: 0}
+    - target: {fileID: 114328569735252516, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: footstepSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a9383dda6cabc047b7a297602e93eb4, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0

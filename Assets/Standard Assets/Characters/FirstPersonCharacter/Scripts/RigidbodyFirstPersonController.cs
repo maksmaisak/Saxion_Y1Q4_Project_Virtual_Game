@@ -96,7 +96,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public PlayerAudio playerAudio;
 
             public float stepInterval = 5f;
-            [Range(0f, 1f)] public float runStepLengthen = 0.7f;
+            [Range(0f, 3f)] public float runStepSpeedup = 0.7f;
         }
 
         public Camera cam;
@@ -450,7 +450,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void ProgressStepCycle()
         {
             float speed = movementSettings.CurrentTargetSpeed;
-            if (isRunning) speed *= audioSettings.runStepLengthen;
+            if (isRunning) speed *= audioSettings.runStepSpeedup;
             m_StepCycle += (velocity.magnitude + speed) * Time.fixedDeltaTime;
 
             if (m_StepCycle > audioSettings.stepInterval)

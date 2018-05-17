@@ -41,7 +41,7 @@ public class PlayerAudio : MonoBehaviour
 
     private AudioClip PickFootstepSound()
     {
-        if (footstepSounds.Length == 0) return footstepSounds[0];
+        if (footstepSounds.Length == 1) return footstepSounds[0];
 
         int i = Random.Range(1, footstepSounds.Length);
 
