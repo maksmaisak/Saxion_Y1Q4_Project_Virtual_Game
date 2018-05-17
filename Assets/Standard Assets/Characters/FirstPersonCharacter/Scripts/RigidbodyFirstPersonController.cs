@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.FirstPerson
@@ -37,17 +38,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (input == Vector2.zero) return;
                 if (input.x > 0 || input.x < 0)
                 {
-                    //strafe
                     CurrentTargetSpeed = StrafeSpeed;
                 }
                 if (input.y < 0)
                 {
-                    //backwards
                     CurrentTargetSpeed = BackwardSpeed;
                 }
                 if (input.y > 0)
                 {
-                    //forwards
                     //handled last as if strafing and moving forward at the same time forwards speed should take precedence
                     CurrentTargetSpeed = ForwardSpeed;
                 }
@@ -92,14 +90,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
         }
 
+        [Serializable]
+        public class AudioSettings
+        {
+            public PlayerAudio playerAudio;
+
+            public float stepInterval = 5f;
+            [Range(0f, 3f)] public float runStepSpeedup = 0.7f;
+        }
+
         public Camera cam;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
+        [SerializeField] AudioSettings audioSettings = new AudioSettings();
         public LayerMask groundAndWallDetectionLayerMask = Physics.DefaultRaycastLayers;
 
-        [Range(0f, 90f)] public float awayFromWallLeanAngle = 10f;
-        public float awayFromWallLeanAngleChangePerSecond = 180f;
+        [SerializeField] [Range(0f, 90f)] float awayFromWallLeanAngle = 10f;
+        [SerializeField] float awayFromWallLeanAngleChangePerSecond = 180f;
 
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
@@ -109,6 +117,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private State m_State;
         private State m_PreviousState;
+
+        private float m_StepCycle;
 
         public Vector3 velocity
         {
@@ -154,6 +164,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             mouseLook.Init(transform, cam.transform);
 
             m_defaultDrag = m_RigidBody.drag;
+
+            Assert.IsNotNull(audioSettings.playerAudio);
         }
 
         void Update()
@@ -170,9 +182,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             StateCheck();
 
+            if (m_PreviousState == State.Airborne && m_State != State.Airborne && m_Jumping)
+            {
+                m_Jumping = false;
+                audioSettings.playerAudio.PlayLand();
+            }
+
             Vector2 input = GetInput();
             movementSettings.UpdateDesiredTargetSpeed(input);
 
+            // Handle movement
             if (IsNonZero(input))
             {
                 // Always move along the camera forward as it is the direction that it being aimed at
@@ -207,6 +226,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
             }
 
+            // Handle jumps
+
             if (m_State == State.Grounded)
             {
                 m_RigidBody.drag = 5f;
@@ -216,7 +237,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.drag = m_defaultDrag;
                     m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
                     m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
+
                     m_Jumping = true;
+                    audioSettings.playerAudio.PlayJump();
                 }
 
                 if (!m_Jumping && IsZero(input) && m_RigidBody.velocity.magnitude < 1f)
@@ -246,10 +269,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.drag = m_defaultDrag;
                     m_RigidBody.AddForce(force, ForceMode.Impulse);
                     m_Jumping = true;
+
+                    audioSettings.playerAudio.PlayJump();
                 }
                 else
                 {
-                    StickToWallHelper(); // TODO also use it when detaching without jumping.
+                    StickToWallHelper();
                 }
             }
             else if (m_State == State.Airborne)
@@ -263,6 +288,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         StickToGroundHelper();
                     }
                 }
+            }
+
+            if (!isAirborne && IsNonZero(velocity) && IsNonZero(input))
+            {
+                ProgressStepCycle();
             }
 
             m_Jump = false;
@@ -354,11 +384,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 WallCheck();
             }
-
-            if (m_PreviousState == State.Airborne && m_State != State.Airborne && m_Jumping)
-            {
-                m_Jumping = false;
-            }
         }
 
         /// sphere cast down just beyond the bottom of the capsule to see if the capsule is colliding round the bottom
@@ -420,6 +445,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 layerMask: groundAndWallDetectionLayerMask,
                 queryTriggerInteraction: QueryTriggerInteraction.Ignore
             );
+        }
+
+        private void ProgressStepCycle()
+        {
+            float speed = movementSettings.CurrentTargetSpeed;
+            if (isRunning) speed *= audioSettings.runStepSpeedup;
+            m_StepCycle += (velocity.magnitude + speed) * Time.fixedDeltaTime;
+
+            if (m_StepCycle > audioSettings.stepInterval)
+            {
+                do m_StepCycle -= audioSettings.stepInterval;
+                while (m_StepCycle > audioSettings.stepInterval);
+
+                audioSettings.playerAudio.PlayFootstep();
+            }
         }
 
         private static bool IsNonZero(Vector2 vector)
