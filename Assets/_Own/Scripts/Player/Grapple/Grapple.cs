@@ -56,7 +56,7 @@ public class Grapple : MonoBehaviour
                 throw new System.InvalidOperationException("Can't get the rope length a grapple that's not grappling anything!");
             }
 
-            return chainJoint.minDistance;
+            return chainJoint.maxDistance;
         }
         set 
         {
@@ -66,7 +66,7 @@ public class Grapple : MonoBehaviour
             }
 
             if (value < minRopeLength) return; 
-            chainJoint.minDistance = chainJoint.maxDistance = value;
+            chainJoint.maxDistance = value;
         }
     }
 
@@ -149,7 +149,9 @@ public class Grapple : MonoBehaviour
 
         chainJoint = attachmentRigidbody.gameObject.AddComponent<SpringJoint>();
         float currentDistance = Vector3.Distance(attachmentRigidbody.position, targetRigidbody.position);
-        chainJoint.minDistance = chainJoint.maxDistance = currentDistance;
+        chainJoint.minDistance = 0f;
+        chainJoint.maxDistance = currentDistance;
+
         chainJoint.autoConfigureConnectedAnchor = false;
         chainJoint.anchor = Vector3.zero;
         chainJoint.connectedAnchor = Vector3.zero;
