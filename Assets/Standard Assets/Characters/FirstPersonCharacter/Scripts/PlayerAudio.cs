@@ -3,53 +3,56 @@ using UnityEngine.Assertions;
 
 #pragma warning disable 0649
 
-public class PlayerAudio : MonoBehaviour
+namespace UnityStandardAssets.Characters.FirstPerson 
 {
-    [SerializeField] AudioSource audioSource;
-    [Space]
-    [SerializeField] AudioClip jumpSound;
-    [SerializeField] AudioClip landSound;
-    [Space]
-    [SerializeField] AudioClip[] footstepSounds;
-    [SerializeField] [Range(0f, 2f)] float footstepVolumeScale = 1f;
-
-    void Start()
+    public class PlayerAudio : MonoBehaviour
     {
-        Assert.IsNotNull(audioSource);
-        Assert.IsNotNull(jumpSound);
-        Assert.IsNotNull(landSound);
+        [SerializeField] AudioSource audioSource;
+        [Space]
+        [SerializeField] AudioClip jumpSound;
+        [SerializeField] AudioClip landSound;
+        [Space]
+        [SerializeField] AudioClip[] footstepSounds;
+        [SerializeField] [Range(0f, 2f)] float footstepVolumeScale = 1f;
 
-        Assert.IsNotNull(footstepSounds);
-        Assert.IsTrue(footstepSounds.Length > 0);
-    }
+        void Start()
+        {
+            Assert.IsNotNull(audioSource);
+            Assert.IsNotNull(jumpSound);
+            Assert.IsNotNull(landSound);
 
-    public void PlayJump()
-    {
-        audioSource.PlayOneShot(jumpSound);
-    }
+            Assert.IsNotNull(footstepSounds);
+            Assert.IsTrue(footstepSounds.Length > 0);
+        }
 
-    public void PlayLand()
-    {
-        audioSource.PlayOneShot(landSound);
-    }
+        public void PlayJump()
+        {
+            audioSource.PlayOneShot(jumpSound);
+        }
 
-    public void PlayFootstep()
-    {
-        if (audioSource.isPlaying) return;
-        audioSource.PlayOneShot(PickFootstepSound(), footstepVolumeScale);
-    }
+        public void PlayLand()
+        {
+            audioSource.PlayOneShot(landSound);
+        }
 
-    private AudioClip PickFootstepSound()
-    {
-        if (footstepSounds.Length == 1) return footstepSounds[0];
+        public void PlayFootstep()
+        {
+            if (audioSource.isPlaying) return;
+            audioSource.PlayOneShot(PickFootstepSound(), footstepVolumeScale);
+        }
 
-        int i = Random.Range(1, footstepSounds.Length);
+        private AudioClip PickFootstepSound()
+        {
+            if (footstepSounds.Length == 1) return footstepSounds[0];
 
-        // Move the picked sound to index 0 so it's not picked next time
-        AudioClip clip = footstepSounds[i];
-        footstepSounds[i] = footstepSounds[0];
-        footstepSounds[0] = clip;
+            int i = Random.Range(1, footstepSounds.Length);
 
-        return clip;
+            // Move the picked sound to index 0 so it's not picked next time
+            AudioClip clip = footstepSounds[i];
+            footstepSounds[i] = footstepSounds[0];
+            footstepSounds[0] = clip;
+
+            return clip;
+        }
     }
 }

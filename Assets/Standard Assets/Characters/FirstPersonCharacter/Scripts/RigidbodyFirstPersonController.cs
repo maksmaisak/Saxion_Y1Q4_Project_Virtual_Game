@@ -95,8 +95,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             public PlayerAudio playerAudio;
 
-            public float stepInterval = 5f;
-            [Range(0f, 3f)] public float runStepSpeedup = 0.7f;
+            public float stepInterval = 0.5f;
+            [Range(0f, 3f)] public float runStepSpeedup = 0.722f;
         }
 
         public Camera cam;
