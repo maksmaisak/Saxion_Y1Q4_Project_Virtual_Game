@@ -9,5 +9,8 @@ EditorBuildSettings:
     path: Assets/_Own/Scenes/Development/BasicGrapple.unity
     guid: 50adee5a3a217426db43c2510db4fb7f
   - enabled: 1
-    path: Assets/_Own/Scenes/Development/EnemyGrappleInteraction.unity
+    path: Assets/_Own/Scenes/Development/EnemiesAndMovement.unity
     guid: 7e5d556fe7171460ea54467bc153b875
+  - enabled: 1
+    path: Assets/_Own/Scenes/Development/WallRuns.unity
+    guid: 11c81f6f8f7f44af6af03d062fab2a4c
