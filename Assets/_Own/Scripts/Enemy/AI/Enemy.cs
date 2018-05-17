@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour, IAgent
 
     private AudioSource audioSource;
 
+    private ParticleManager particleManager;
+
     private float initialHeight;
 
     private enum State
@@ -21,6 +23,7 @@ public class Enemy : MonoBehaviour, IAgent
         PullPlayer
     }
 
+    [SerializeField] private GameObject grappledParticleGroup;
     [SerializeField] private State selectedState;
     [SerializeField] private AudioClip enemyGrappeledSound;
 
@@ -30,6 +33,8 @@ public class Enemy : MonoBehaviour, IAgent
         initialHeight = transform.position.y;
 
         fsm = new FSM<Enemy>(this);
+
+        particleManager = GetComponentInChildren<ParticleManager>();
 
         fsm.ChangeState<EnemyMoveRandomlyAroundPoint>();
 
@@ -44,6 +49,11 @@ public class Enemy : MonoBehaviour, IAgent
     private void OnGrapple(Grappleable sender)
     {
         audioSource.PlayOneShot(enemyGrappeledSound);
+
+        if (fsm.GetCurrentState() != FindObjectOfType<EnemyFallingToDeathState>())
+        {
+            particleManager.ChangeParticleGroup(grappledParticleGroup);
+        }
 
         switch (selectedState)
         {

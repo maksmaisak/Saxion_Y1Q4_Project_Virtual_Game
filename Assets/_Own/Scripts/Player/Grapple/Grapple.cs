@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -108,6 +108,12 @@ public class Grapple : MonoBehaviour
         }
         else if (state == State.Connected)
         {
+            if (chainJoint.connectedBody == null)
+            {
+                Retract();
+                return;
+            }
+
             float currentDistance = Vector3.Distance(attachmentRigidbody.position, rigidbody.position);
 
             if (ropeLength > minRopeLength)

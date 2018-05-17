@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class EnemyFallingToDeathState : FSMState<Enemy> {
 
+    [SerializeField] private GameObject fallingParticleGroup;
+
     private Rigidbody rb;
     private Health health;
+    private ParticleManager particleManager;
 
 	public override void Enter()
     {
         base.Enter();
+        particleManager = GetComponentInChildren<ParticleManager>();
         health = GetComponent<Health>();
         rb = GetComponent<Rigidbody>();
+        particleManager.ChangeParticleGroup(fallingParticleGroup);
         rb.useGravity = true;
     }
-	
-	// Update is called once per frame
-	void Update () 
-    {
-		
-	}
 
     public override void Exit()
     {
@@ -29,9 +28,12 @@ public class EnemyFallingToDeathState : FSMState<Enemy> {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject != gameObject)
+        if(collision.gameObject != gameObject && collision.gameObject.layer != 10)
         {
-            health.DealDamage(100);
+            if (health != null)
+            {
+                health.DealDamage(100);
+            }
         }
     }
 }
