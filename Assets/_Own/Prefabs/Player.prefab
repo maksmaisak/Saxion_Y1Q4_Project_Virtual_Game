@@ -1139,11 +1139,9 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: 8a60330ee045442b9a932faea36cc180, type: 3}
   landSound: {fileID: 8300000, guid: 77ac7d8f7bde142babd920f8ef37852a, type: 3}
   footstepSounds:
-  - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
-  - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   - {fileID: 8300000, guid: 5a9383dda6cabc047b7a297602e93eb4, type: 3}
   - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
-  footstepVolumeScale: 0.5
+  footstepVolumeScale: 0.25
 --- !u!114 &114350367893716576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1159,6 +1157,7 @@ MonoBehaviour:
   grappleRight: {fileID: 114746154259358212}
   crosshairIndicator: {fileID: 0}
   grappleShootSpeed: 200
+  grappleMinRange: 0.6
   grappleMaxRange: 40
   grapplePullingSpeed: 2
   firstPersonController: {fileID: 114859108289796068}
@@ -1294,8 +1293,8 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 6cfc43b2040564b81adaee35d70270ba, type: 3}
   minRopeLength: 2
   springForce: 10000
-  retractionSpeed: 2
-  maxFlyingDistance: 100
+  retractionSpeed: 100
+  maxFlyingDistance: 40
 --- !u!114 &114774150361057274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1314,8 +1313,8 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 6cfc43b2040564b81adaee35d70270ba, type: 3}
   minRopeLength: 2
   springForce: 10000
-  retractionSpeed: 2
-  maxFlyingDistance: 100
+  retractionSpeed: 100
+  maxFlyingDistance: 40
 --- !u!114 &114804136138691650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1466,8 +1465,8 @@ MonoBehaviour:
     shellOffset: 0.1
   audioSettings:
     playerAudio: {fileID: 114328569735252516}
-    stepInterval: 5
-    runStepLengthen: 0.7
+    stepInterval: 2
+    runStepSpeedup: 1.4285715
   groundAndWallDetectionLayerMask:
     serializedVersion: 2
     m_Bits: 4294965755

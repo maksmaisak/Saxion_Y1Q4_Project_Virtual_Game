@@ -449,9 +449,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void ProgressStepCycle()
         {
-            float speed = movementSettings.CurrentTargetSpeed;
+            float speed = velocity.magnitude;
             if (isRunning) speed *= audioSettings.runStepSpeedup;
-            m_StepCycle += (velocity.magnitude + speed) * Time.fixedDeltaTime;
+            m_StepCycle += speed * Time.fixedDeltaTime;
 
             if (m_StepCycle > audioSettings.stepInterval)
             {
