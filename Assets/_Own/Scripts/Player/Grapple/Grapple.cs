@@ -26,7 +26,7 @@ public class Grapple : MonoBehaviour
     [SerializeField] float minRopeLength = 1f;
     [SerializeField] float springForce = 1000f;
     [SerializeField] float retractionSpeed = 1f;
-    [SerializeField] float maxFlyingDistance = 300f;
+    [SerializeField] float maxFlyingDistance = 40f;
 
     private new Rigidbody rigidbody;
     private RigidbodyFirstPersonController firstPersonController;

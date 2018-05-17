@@ -16,7 +16,8 @@ public class GrappleController : MonoBehaviour
     [SerializeField] Image crosshairIndicator;
 
     [SerializeField] float grappleShootSpeed = 100f;
-    [SerializeField] float grappleMaxRange = 20f;
+    [SerializeField] float grappleMinRange = 0.6f;
+    [SerializeField] float grappleMaxRange = 40f;
 
     [Tooltip("Meters per second")]
     [SerializeField] float grapplePullingSpeed = 2f;
@@ -106,13 +107,24 @@ public class GrappleController : MonoBehaviour
 
         if (didHit)
         {
+            if (hit.distance < grappleMinRange)
+            {
+                crosshairIndicator.color = Color.gray;
+                targetPosition = Vector3.zero;
+                return false;
+            }
+
             crosshairIndicator.color = Color.black;
             targetPosition = hit.point;
             return true;
         }
 
         crosshairIndicator.color = Color.gray;
+        targetPosition = ray.GetPoint(grappleMaxRange);
+        return true;
+
+        /*crosshairIndicator.color = Color.gray;
         targetPosition = Vector3.zero;
-        return false;
+        return false;*/
     }
 }
