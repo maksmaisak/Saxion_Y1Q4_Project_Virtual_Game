@@ -35,8 +35,8 @@ GameObject:
   - component: {fileID: 114812728332883278}
   - component: {fileID: 114887561937617366}
   - component: {fileID: 114894056729156204}
-  - component: {fileID: 114570928053248276}
   - component: {fileID: 82398700281197740}
+  - component: {fileID: 114620044950778390}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Enemy
@@ -67,8 +67,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1200429050449118}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 30.02, y: 8.04, z: -21.2}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 14.98, y: 8.4, z: -35.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4809562751316360}
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistanceToPlayer: 10
-  arriveSlowdownDistance: 2
+  arriveSlowdownDistance: 6
   lookAtPlayerDistance: 15
 --- !u!114 &114159233124540168
 MonoBehaviour:
@@ -384,19 +384,6 @@ MonoBehaviour:
   obstacleDetectionLayerMask:
     serializedVersion: 2
     m_Bits: 256
---- !u!114 &114570928053248276
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1200429050449118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a25ad74aaa8349a086f885bc2c42761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distanceFromPulling: 3
-  newSteeringForce: 80
 --- !u!114 &114590443844130900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -410,6 +397,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingRange: 40
   reloadTime: 2
+--- !u!114 &114620044950778390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200429050449118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a25ad74aaa8349a086f885bc2c42761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceFromPulling: 4
+  newSteeringForce: 100
 --- !u!114 &114812728332883278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c519062df9d4f8a8b51c98432bdd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedState: 1
+  selectedState: 3
   enemyGrappeledSound: {fileID: 8300000, guid: ae3a65ad6de904de6b44fce5a2afcea8, type: 3}
 --- !u!135 &135870948589046598
 SphereCollider:
