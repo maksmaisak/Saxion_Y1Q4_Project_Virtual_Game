@@ -5,13 +5,19 @@ using UnityEngine;
 public class EnemyDeath : MonoBehaviour
 {
     [SerializeField]
-    private GameObject crashingEnemyEffect;
+    private GameObject crashingEnemyEffectsPrefab;
+
+    [SerializeField]
+    private float fallDeathYPos = -50;
 
     private Health health;
+    private AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         health = GetComponent<Health>();
+
         health.OnDeath += InstantiateExplosionEffectOnDeath;
         health.OnDeath += RetractOnDestroy;
     }
@@ -23,6 +29,8 @@ public class EnemyDeath : MonoBehaviour
         {
             health.DealDamage(100);
         }
+
+        FallingToAbyssDeath();
     }
 
     public void RetractOnDestroy(Health sender)
@@ -35,6 +43,15 @@ public class EnemyDeath : MonoBehaviour
 
     public void InstantiateExplosionEffectOnDeath(Health sender)
     {
-        Instantiate(crashingEnemyEffect, transform.position, Quaternion.identity);
+        Instantiate(crashingEnemyEffectsPrefab, transform.position, Quaternion.identity);
     }
+
+    private void FallingToAbyssDeath()
+    {
+        if(transform.position.y <= fallDeathYPos)
+        {
+            health.DealDamage(100);
+        }
+    }
+
 }

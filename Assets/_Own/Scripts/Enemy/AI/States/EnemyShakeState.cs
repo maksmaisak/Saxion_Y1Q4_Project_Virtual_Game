@@ -9,16 +9,26 @@ public class EnemyShakeState : FSMState<Enemy>
 
     private bool isShaking;
     private float counter = 0;
+    private SteeringManager steering;
     private Rigidbody rb;
 
     public override void Enter()
     {
         base.Enter();
         rb = GetComponent<Rigidbody>();
+        steering = GetComponent<SteeringManager>();
         isShaking = true;
     }
 
     void FixedUpdate()
+    {
+        Shake();
+        steering.AvoidEnemies();
+        steering.AvoidObstacles();
+
+    }
+
+    private void Shake()
     {
         if (isShaking)
         {
@@ -35,6 +45,7 @@ public class EnemyShakeState : FSMState<Enemy>
         {
             rb.useGravity = true;
         }
+
     }
 
     public override void Exit()
