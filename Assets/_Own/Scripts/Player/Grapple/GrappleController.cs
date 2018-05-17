@@ -42,12 +42,12 @@ public class GrappleController : MonoBehaviour
     {
         if (Input.GetButtonUp("Fire1"))
         {
-            grappleLeft.Retract();
+            grappleLeft.RetractImmediate();
         }
 
         if (Input.GetButtonUp("Fire2"))
         {
-            grappleRight.Retract();
+            grappleRight.RetractImmediate();
         }
     }
 

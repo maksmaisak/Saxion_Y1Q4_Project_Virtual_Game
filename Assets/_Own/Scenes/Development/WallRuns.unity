@@ -2377,20 +2377,15 @@ Prefab:
       propertyPath: crosshairIndicator
       value: 
       objectReference: {fileID: 777177042}
-    - target: {fileID: 114746154259358212, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: maxFlyingDistance
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 114774150361057274, guid: 5fbba1f5b94164fad93b3660e56e56cf,
         type: 2}
-      propertyPath: maxFlyingDistance
-      value: 40
+      propertyPath: retractionSpeed
+      value: 200
       objectReference: {fileID: 0}
-    - target: {fileID: 114859108289796068, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+    - target: {fileID: 114746154259358212, guid: 5fbba1f5b94164fad93b3660e56e56cf,
         type: 2}
-      propertyPath: audioSettings.stepInterval
-      value: 2
+      propertyPath: retractionSpeed
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
@@ -2534,7 +2529,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1398360312}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 78.9, y: 14.3, z: -22.7}
+  m_LocalPosition: {x: 78.9, y: 27.3, z: -22.7}
   m_LocalScale: {x: 1.0000005, y: 20, z: 20.000008}
   m_Children: []
   m_Father: {fileID: 1924376573}
@@ -3058,7 +3053,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1724231483}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 87.4, y: 14.3, z: -6.2}
+  m_LocalPosition: {x: 87.4, y: 27.3, z: -6.2}
   m_LocalScale: {x: 1.0000005, y: 20, z: 20.000017}
   m_Children: []
   m_Father: {fileID: 1924376573}

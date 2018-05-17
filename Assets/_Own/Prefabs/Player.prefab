@@ -1293,8 +1293,8 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 6cfc43b2040564b81adaee35d70270ba, type: 3}
   minRopeLength: 2
   springForce: 10000
-  retractionSpeed: 2
-  maxFlyingDistance: 100
+  retractionSpeed: 100
+  maxFlyingDistance: 40
 --- !u!114 &114774150361057274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1313,8 +1313,8 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 6cfc43b2040564b81adaee35d70270ba, type: 3}
   minRopeLength: 2
   springForce: 10000
-  retractionSpeed: 2
-  maxFlyingDistance: 100
+  retractionSpeed: 100
+  maxFlyingDistance: 40
 --- !u!114 &114804136138691650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1465,7 +1465,7 @@ MonoBehaviour:
     shellOffset: 0.1
   audioSettings:
     playerAudio: {fileID: 114328569735252516}
-    stepInterval: 0.5
+    stepInterval: 2
     runStepSpeedup: 1.4285715
   groundAndWallDetectionLayerMask:
     serializedVersion: 2

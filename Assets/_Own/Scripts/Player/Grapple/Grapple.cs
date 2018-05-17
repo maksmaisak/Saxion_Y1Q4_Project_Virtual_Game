@@ -14,7 +14,8 @@ public class Grapple : MonoBehaviour
     {
         Retracted,
         Flying,
-        Connected
+        Connected,
+        Retracting
     }
 
     [SerializeField] Transform attachmentPoint;
@@ -25,7 +26,7 @@ public class Grapple : MonoBehaviour
     [Space]
     [SerializeField] float minRopeLength = 1f;
     [SerializeField] float springForce = 1000f;
-    [SerializeField] float retractionSpeed = 1f;
+    [SerializeField] float retractionSpeed = 100f;
     [SerializeField] float maxFlyingDistance = 40f;
 
     private new Rigidbody rigidbody;
@@ -107,7 +108,7 @@ public class Grapple : MonoBehaviour
         }
         else if (state == State.Connected)
         {
-            float currentDistance = Vector3.Distance(attachmentRigidbody.position, chainJoint.connectedBody.position);
+            float currentDistance = Vector3.Distance(attachmentRigidbody.position, rigidbody.position);
 
             if (ropeLength > minRopeLength)
             {
@@ -119,6 +120,28 @@ public class Grapple : MonoBehaviour
             else
             {
                 ropeLength = minRopeLength;
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (state == State.Retracting)
+        {
+            float maxDistanceChange = retractionSpeed * Time.deltaTime;
+            float currentDistance = Vector3.Distance(attachmentPoint.position, transform.position);
+
+            if (currentDistance < maxDistanceChange)
+            {
+                RetractImmediate();
+            }
+            else
+            {
+                transform.position = Vector3.MoveTowards(
+                    transform.position,
+                    attachmentPoint.position,
+                    maxDistanceChange
+                );
             }
         }
     }
@@ -186,7 +209,7 @@ public class Grapple : MonoBehaviour
 
     public void Shoot(Vector3 targetPosition, float speed)
     {
-        if (!isRetracted) Retract();
+        if (!isRetracted) RetractImmediate();
 
         transform.SetParent(null, worldPositionStays: true);
 
@@ -201,7 +224,7 @@ public class Grapple : MonoBehaviour
         state = State.Flying;
     }
 
-    public void Retract()
+    public void RetractImmediate()
     {
         if (state == State.Retracted) return;
         if (state == State.Connected) Disconnect();
@@ -214,6 +237,19 @@ public class Grapple : MonoBehaviour
         transform.localScale    = Vector3.one;
 
         state = State.Retracted;
+    }
+
+    public void Retract()
+    {
+        if (state == State.Retracted) return;
+        if (state == State.Retracting) return;
+        if (state == State.Connected) Disconnect();
+
+        rigidbody.isKinematic = true;
+
+        transform.SetParent(null);
+
+        state = State.Retracting;
     }
 
     private void Disconnect()

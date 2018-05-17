@@ -37,7 +37,7 @@ public class EnemyDeath : MonoBehaviour
     {
         foreach (var grapple in gameObject.GetComponentsInChildren<Grapple>())
         {
-            grapple.Retract();
+            grapple.RetractImmediate();
         }
     }
 
