@@ -93,9 +93,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [Serializable]
         public class AudioSettings
         {
-            public AudioSource jumpAndLandAudioSource;
-            public AudioClip jumpSound;
-            public AudioClip landSound;
+            public PlayerAudio playerAudio;
+
+            public float stepInterval = 5f;
+            [Range(0f, 1f)] public float runStepLengthen = 0.7f;
         }
 
         public Camera cam;
@@ -116,6 +117,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private State m_State;
         private State m_PreviousState;
+
+        private float m_StepCycle;
 
         public Vector3 velocity
         {
@@ -162,9 +165,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_defaultDrag = m_RigidBody.drag;
 
-            Assert.IsNotNull(audioSettings.jumpAndLandAudioSource);
-            Assert.IsNotNull(audioSettings.jumpSound);
-            Assert.IsNotNull(audioSettings.landSound);
+            Assert.IsNotNull(audioSettings.playerAudio);
         }
 
         void Update()
@@ -184,7 +185,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_PreviousState == State.Airborne && m_State != State.Airborne && m_Jumping)
             {
                 m_Jumping = false;
-                audioSettings.jumpAndLandAudioSource.PlayOneShot(audioSettings.landSound);
+                audioSettings.playerAudio.PlayLand();
             }
 
             Vector2 input = GetInput();
@@ -238,7 +239,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
 
                     m_Jumping = true;
-                    audioSettings.jumpAndLandAudioSource.PlayOneShot(audioSettings.jumpSound);
+                    audioSettings.playerAudio.PlayJump();
                 }
 
                 if (!m_Jumping && IsZero(input) && m_RigidBody.velocity.magnitude < 1f)
@@ -269,7 +270,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.AddForce(force, ForceMode.Impulse);
                     m_Jumping = true;
 
-                    audioSettings.jumpAndLandAudioSource.PlayOneShot(audioSettings.jumpSound);
+                    audioSettings.playerAudio.PlayJump();
                 }
                 else
                 {
@@ -287,6 +288,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         StickToGroundHelper();
                     }
                 }
+            }
+
+            if (!isAirborne && IsNonZero(velocity) && IsNonZero(input))
+            {
+                ProgressStepCycle();
             }
 
             m_Jump = false;
@@ -439,6 +445,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 layerMask: groundAndWallDetectionLayerMask,
                 queryTriggerInteraction: QueryTriggerInteraction.Ignore
             );
+        }
+
+        private void ProgressStepCycle()
+        {
+            float speed = movementSettings.CurrentTargetSpeed;
+            if (isRunning) speed *= audioSettings.runStepLengthen;
+            m_StepCycle += (velocity.magnitude + speed) * Time.fixedDeltaTime;
+
+            if (m_StepCycle > audioSettings.stepInterval)
+            {
+                do m_StepCycle -= audioSettings.stepInterval;
+                while (m_StepCycle > audioSettings.stepInterval);
+
+                audioSettings.playerAudio.PlayFootstep();
+            }
         }
 
         private static bool IsNonZero(Vector2 vector)
