@@ -8171,7 +8171,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 82dda44d553ee934fbd25c8fb5ae774e, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 82dda44d553ee934fbd25c8fb5ae774e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -8252,6 +8252,21 @@ Prefab:
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 1940918241}
+    - target: {fileID: 114678622159133466, guid: de07efe3ec9e68445ae76912b05f3235,
+        type: 2}
+      propertyPath: arriveSlowdownDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114678622159133466, guid: de07efe3ec9e68445ae76912b05f3235,
+        type: 2}
+      propertyPath: maxDistanceToPlayer
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114678622159133466, guid: de07efe3ec9e68445ae76912b05f3235,
+        type: 2}
+      propertyPath: lookAtPlayerDistance
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de07efe3ec9e68445ae76912b05f3235, type: 2}
   m_IsPrefabParent: 0
@@ -11925,6 +11940,10 @@ Prefab:
       propertyPath: fallDeathYPos
       value: -100
       objectReference: {fileID: 0}
+    - target: {fileID: 4560335279793534, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0
@@ -15502,7 +15521,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8f18f573f85d97a44a8f0c20878c4f22, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8f18f573f85d97a44a8f0c20878c4f22, type: 3}
       propertyPath: m_LocalScale.x
@@ -16269,6 +16288,21 @@ Prefab:
       propertyPath: InitialModule.startSize.scalar
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114528877649072034, guid: e5188d4bc450a084f96612cac723598f,
+        type: 2}
+      propertyPath: maxDistanceToPlayer
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114528877649072034, guid: e5188d4bc450a084f96612cac723598f,
+        type: 2}
+      propertyPath: arriveSlowdownDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114528877649072034, guid: e5188d4bc450a084f96612cac723598f,
+        type: 2}
+      propertyPath: lookAtPlayerDistance
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5188d4bc450a084f96612cac723598f, type: 2}
   m_IsPrefabParent: 0
@@ -16621,6 +16655,21 @@ Prefab:
         type: 2}
       propertyPath: InitialModule.startSize.scalar
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114528877649072034, guid: e5188d4bc450a084f96612cac723598f,
+        type: 2}
+      propertyPath: maxDistanceToPlayer
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114528877649072034, guid: e5188d4bc450a084f96612cac723598f,
+        type: 2}
+      propertyPath: arriveSlowdownDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114528877649072034, guid: e5188d4bc450a084f96612cac723598f,
+        type: 2}
+      propertyPath: lookAtPlayerDistance
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5188d4bc450a084f96612cac723598f, type: 2}

@@ -542,8 +542,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2511120f5579142beaa181756657b53a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistanceToPlayer: 10
-  arriveSlowdownDistance: 6
+  maxDistanceToPlayer: 15
+  arriveSlowdownDistance: 8
   lookAtPlayerDistance: 15
 --- !u!114 &114680566377073106
 MonoBehaviour:
