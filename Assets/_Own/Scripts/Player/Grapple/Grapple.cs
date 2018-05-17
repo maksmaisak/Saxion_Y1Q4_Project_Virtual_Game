@@ -209,7 +209,7 @@ public class Grapple : MonoBehaviour
 
     public void Shoot(Vector3 targetPosition, float speed)
     {
-        if (!isRetracted) RetractImmediate();
+        if (state != State.Retracted) RetractImmediate();
 
         transform.SetParent(null, worldPositionStays: true);
 
