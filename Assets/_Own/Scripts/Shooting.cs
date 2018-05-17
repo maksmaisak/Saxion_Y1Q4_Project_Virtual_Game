@@ -7,16 +7,18 @@ public class Shooting : MonoBehaviour
 
     [SerializeField] private float shootingRange = 10;
     [SerializeField] private float reloadTime = 2;
+    [SerializeField] private GameObject shootingParticleGroup;
 
     private float counter;
     private bool reloading;
-
+    private ParticleManager particleManager;
     private ShootingController shootingController;
     private GameObject target;
 
     void Start()
     {
         shootingController = GetComponent<ShootingController>();
+        particleManager = GetComponentInChildren<ParticleManager>();
         target = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -42,6 +44,14 @@ public class Shooting : MonoBehaviour
             else
             {
                 counter += Time.deltaTime;
+                if(reloadTime - counter >= 0.5f)
+                {
+                    particleManager.ChangeParticleGroup(shootingParticleGroup);
+                }
+                else
+                {
+                    particleManager.ChangeParticleGroup(particleManager.GetToPlayerParticalGroup());
+                }
                 if (counter >= reloadTime)
                 {
                     reloading = false;

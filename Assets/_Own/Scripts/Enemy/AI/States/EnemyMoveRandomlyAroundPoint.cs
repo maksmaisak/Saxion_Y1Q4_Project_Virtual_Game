@@ -9,7 +9,9 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
     [SerializeField] private float patrolTime = 5;
     [SerializeField] private float newSteeringForce = 50;
     [SerializeField] private GameObject patrolPoint;
+    [SerializeField] private GameObject wanderingParticleGroup;
 
+    private ParticleManager particleManager;
     private SteeringManager steering;
     private ShootingController shootingController;
     Vector3 newPos;
@@ -20,10 +22,12 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
     {
         base.Enter();
         GetComponent<Shooting>().enabled = false;
+        particleManager = GetComponentInChildren<ParticleManager>();
         shootingController = GetComponent<ShootingController>();
         steering = GetComponent<SteeringManager>();
         steering.SetMaxSteeringForce(newSteeringForce);
         counter = patrolTime;
+        particleManager.ChangeParticleGroup(wanderingParticleGroup);
     }
 
     private void FixedUpdate()
@@ -55,8 +59,8 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
     {
         base.Exit();
         GetComponent<Shooting>().enabled = true;
-
         steering.SetMaxSteeringForce(steering.GetInitalSteeringForce());
+        particleManager.DisableAllParticleGroups();
     }
 
     private void Patrol(Vector3 randomPos)
