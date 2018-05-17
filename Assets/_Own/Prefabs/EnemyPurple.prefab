@@ -834,7 +834,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1338080296417402}
   m_LocalRotation: {x: -0, y: -0.9957243, z: -0, w: 0.092374705}
-  m_LocalPosition: {x: 37.01821, y: -2.3899994, z: 18.137539}
+  m_LocalPosition: {x: -46.2, y: -2.3899994, z: 82.5}
   m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Children:
   - {fileID: 4533280825880884}
@@ -1307,7 +1307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grappledParticleGroup: {fileID: 1628661265142684}
-  selectedState: 3
+  grappleReactionBehaviour: 2
   enemyGrappeledSound: {fileID: 8300000, guid: ae3a65ad6de904de6b44fce5a2afcea8, type: 3}
 --- !u!114 &114157227089556866
 MonoBehaviour:
@@ -1439,8 +1439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a25ad74aaa8349a086f885bc2c42761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceFromPulling: 4
-  newSteeringForce: 100
+  newSteeringForce: 200
 --- !u!114 &114460555324477812
 MonoBehaviour:
   m_ObjectHideFlags: 1

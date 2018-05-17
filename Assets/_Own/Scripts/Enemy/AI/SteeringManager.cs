@@ -48,9 +48,9 @@ public class SteeringManager : MonoBehaviour
         steering += DoSeek(desiredPosition, maxDistanceToPlayer);
     }
 
-    public void Flee(Vector3 targetToFlee, float distance)
+    public void Flee(Vector3 targetToFlee)
     {
-        steering -= DoSeek(targetToFlee, distance);
+        steering += DoFlee(targetToFlee);
     }
 
     public void SeekOnYAxis(float targetHeight)
@@ -90,7 +90,14 @@ public class SteeringManager : MonoBehaviour
         }
 
         Vector3 force = desiredVelocity - rb.velocity;
+        return force;
+    }
 
+    private Vector3 DoFlee(Vector3 target)
+    {
+        Vector3 fromTarget = transform.position - target;
+        Vector3 desiredVelocity = fromTarget.normalized * maxSpeed;
+        Vector3 force = desiredVelocity - rb.velocity;
         return force;
     }
 

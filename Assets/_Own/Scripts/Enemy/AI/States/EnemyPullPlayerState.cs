@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyPullPlayerState : FSMState<Enemy> {
 
-    [SerializeField] private float distanceFromPulling;
     [SerializeField] private float newSteeringForce;
     private SteeringManager steering;
 
@@ -17,8 +16,8 @@ public class EnemyPullPlayerState : FSMState<Enemy> {
 
     private void FixedUpdate()
     {
-        steering.Wander();
-        steering.Flee(Player.Instance.transform.position,distanceFromPulling);
+        //steering.Wander();
+        steering.Flee(Player.Instance.transform.position);
         steering.LookWhereGoing();
         steering.AvoidEnemies();
         steering.AvoidObstacles();

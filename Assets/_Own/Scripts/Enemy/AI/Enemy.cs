@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour, IAgent
     }
 
     [SerializeField] private GameObject grappledParticleGroup;
-    [SerializeField] private State selectedState;
+    [SerializeField] private State grappleReactionBehaviour;
     [SerializeField] private AudioClip enemyGrappeledSound;
 
     // Use this for initialization
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour, IAgent
             particleManager.ChangeParticleGroup(grappledParticleGroup);
         }
 
-        switch (selectedState)
+        switch (grappleReactionBehaviour)
         {
             case State.ThrustUp:
                 fsm.ChangeState<EnemyThrustUpState>();

@@ -28,7 +28,7 @@ public class EnemyFallingToDeathState : FSMState<Enemy> {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject != gameObject && collision.gameObject.layer != 10)
+        if(collision.gameObject != gameObject && collision.gameObject.layer != 10) // FIXME THIS IS HORRIBLE! DON'T hardcode layer numbers jesus...
         {
             if (health != null)
             {

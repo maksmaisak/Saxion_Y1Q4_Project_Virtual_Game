@@ -25,6 +25,7 @@ public class Grapple : MonoBehaviour
     [SerializeField] AudioClip hitSound;
     [Space]
     [SerializeField] float minRopeLength = 1f;
+    [SerializeField] float moveTolerance = 2f;
     [SerializeField] float springForce = 1000f;
     [SerializeField] float retractionSpeed = 100f;
     [SerializeField] float maxFlyingDistance = 40f;
@@ -68,6 +69,7 @@ public class Grapple : MonoBehaviour
 
             if (value < minRopeLength) return; 
             chainJoint.maxDistance = value;
+            chainJoint.minDistance = Mathf.Max(minRopeLength, value - moveTolerance);
         }
     }
 
@@ -178,8 +180,8 @@ public class Grapple : MonoBehaviour
 
         chainJoint = attachmentRigidbody.gameObject.AddComponent<SpringJoint>();
         float currentDistance = Vector3.Distance(attachmentRigidbody.position, targetRigidbody.position);
-        chainJoint.minDistance = 0f;
         chainJoint.maxDistance = currentDistance;
+        chainJoint.minDistance = Mathf.Max(minRopeLength, currentDistance - moveTolerance);
 
         chainJoint.autoConfigureConnectedAnchor = false;
         chainJoint.anchor = Vector3.zero;
