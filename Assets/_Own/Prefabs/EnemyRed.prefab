@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 114482226488478640}
   - component: {fileID: 136431608344799344}
   - component: {fileID: 114702083273955262}
+  - component: {fileID: 114378136776984076}
   m_Layer: 0
   m_Name: EnemyRed
   m_TagString: Enemy
@@ -1359,6 +1360,18 @@ MonoBehaviour:
   upThrustStrength: 300
   thrustTime: 4
   newSteeringStrength: 300
+--- !u!114 &114378136776984076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1240417907676068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a570806967cd7483d90247b791b82867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: f664129b08af14a179cc4cb1b6cf8ed5, type: 3}
 --- !u!114 &114378763617192162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1396,7 +1409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779e69d7fc1eb4e68b53254f7c388259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1263102816374688, guid: 43a399c034e7544d387897d2c87839e5,
+  bulletPrefab: {fileID: 1866996225132080, guid: a8bcbdfad8859b645a20252acc88c2be,
     type: 2}
   muzzleSpeed: 20
   shootSound: {fileID: 8300000, guid: 075d06e8080754f0d9a15c97ec83c6ac, type: 3}

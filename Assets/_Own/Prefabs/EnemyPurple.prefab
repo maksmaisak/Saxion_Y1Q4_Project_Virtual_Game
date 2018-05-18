@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 114157227089556866}
   - component: {fileID: 136333615633779370}
   - component: {fileID: 114205534239405364}
+  - component: {fileID: 114424624555610738}
   m_Layer: 0
   m_Name: EnemyPurple
   m_TagString: Enemy
@@ -1428,6 +1429,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDuration: 8
   maxDuration: 10
+--- !u!114 &114424624555610738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1338080296417402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a570806967cd7483d90247b791b82867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: f664129b08af14a179cc4cb1b6cf8ed5, type: 3}
 --- !u!114 &114435163358301462
 MonoBehaviour:
   m_ObjectHideFlags: 1
