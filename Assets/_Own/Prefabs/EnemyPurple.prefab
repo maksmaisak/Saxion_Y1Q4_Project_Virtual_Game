@@ -1321,7 +1321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779e69d7fc1eb4e68b53254f7c388259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1263102816374688, guid: 43a399c034e7544d387897d2c87839e5,
+  bulletPrefab: {fileID: 1866996225132080, guid: a8bcbdfad8859b645a20252acc88c2be,
     type: 2}
   muzzleSpeed: 20
   shootSound: {fileID: 8300000, guid: 075d06e8080754f0d9a15c97ec83c6ac, type: 3}
