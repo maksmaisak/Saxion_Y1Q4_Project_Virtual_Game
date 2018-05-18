@@ -6,8 +6,8 @@ using UnityEngine;
 #pragma warning disable 0649
 
 [RequireComponent(typeof(AudioSource))]
-public class ShootingController : MonoBehaviour {
-
+public class ShootingController : MonoBehaviour
+{
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float muzzleSpeed = 100f;
     [SerializeField] AudioClip shootSound;
@@ -16,16 +16,17 @@ public class ShootingController : MonoBehaviour {
 
     AudioSource audioSource;
 
-    void Start() {
-
+    void Start()
+    {
         audioSource = GetComponent<AudioSource>();
     }
 
-    public bool CanShootAt(GameObject target) {
+    public bool CanShootAt(GameObject target)
+    {
 
         Vector3? startVelocity = Ballistics.GetStartVelocity(
-            transform.position, 
-            target.transform.position, 
+            transform.position,
+            target.transform.position,
             muzzleSpeed
         );
 
@@ -48,7 +49,8 @@ public class ShootingController : MonoBehaviour {
         return true;
     }
 
-    public bool ShootAt(GameObject target) {
+    public bool ShootAt(GameObject target)
+    {
 
         /*Vector3 delta = target.transform.position - transform.position;
         Vector3 direction = delta.normalized;
@@ -80,13 +82,14 @@ public class ShootingController : MonoBehaviour {
         return true;
     }
 
-    private void Shoot(Vector3 position, Vector3 startVelocity) {
-
+    private void Shoot(Vector3 position, Vector3 startVelocity)
+    {
         Instantiate(bulletPrefab, position, Quaternion.identity)
             .GetComponent<Rigidbody>()
             .AddForce(startVelocity, ForceMode.VelocityChange);
 
-        if (shootSound != null) {
+        if (shootSound != null)
+        {
             audioSource.PlayOneShot(shootSound);
         }
     }

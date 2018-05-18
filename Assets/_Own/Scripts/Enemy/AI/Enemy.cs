@@ -7,15 +7,13 @@ public class Enemy : MonoBehaviour, IAgent
 {
     public FSM<Enemy> fsm { get; private set; }
 
-    private Grappleable grappleable;
-
     private AudioSource audioSource;
 
     private ParticleManager particleManager;
 
     private float initialHeight;
 
-    private enum State
+    private enum GrappleReactionBehaviour
     {
         None,
         ThrustUp,
@@ -24,8 +22,8 @@ public class Enemy : MonoBehaviour, IAgent
     }
 
     [SerializeField] private GameObject grappledParticleGroup;
-    [SerializeField] private State grappleReactionBehaviour;
-    [SerializeField] private AudioClip enemyGrappeledSound;
+    [SerializeField] private GrappleReactionBehaviour grappleReactionBehaviour;
+    [SerializeField] private AudioClip enemyGrappledSound;
 
     // Use this for initialization
     void Start()
@@ -40,7 +38,7 @@ public class Enemy : MonoBehaviour, IAgent
 
         audioSource = GetComponent<AudioSource>();
 
-        grappleable = GetComponent<Grappleable>();
+        var grappleable = GetComponent<Grappleable>();
 
         grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
@@ -48,23 +46,25 @@ public class Enemy : MonoBehaviour, IAgent
 
     private void OnGrapple(Grappleable sender)
     {
-        if (fsm.GetCurrentState() != FindObjectOfType<EnemyFallingToDeathState>())
+        if (fsm.GetCurrentState().GetType() == typeof(EnemyFallingToDeathState))
         {
-            particleManager.ChangeParticleGroup(grappledParticleGroup);
-            audioSource.PlayOneShot(enemyGrappeledSound);
+            return;
+        }
 
-            switch (grappleReactionBehaviour)
-            {
-                case State.ThrustUp:
-                    fsm.ChangeState<EnemyThrustUpState>();
-                    break;
-                case State.Shake:
-                    fsm.ChangeState<EnemyShakeState>();
-                    break;
-                case State.PullPlayer:
-                    fsm.ChangeState<EnemyPullPlayerState>();
-                    break;
-            }
+        audioSource.PlayOneShot(enemyGrappledSound);
+        particleManager.ChangeParticleGroup(grappledParticleGroup);
+
+        switch (grappleReactionBehaviour)
+        {
+            case GrappleReactionBehaviour.ThrustUp:
+                fsm.ChangeState<EnemyThrustUpState>();
+                break;
+            case GrappleReactionBehaviour.Shake:
+                fsm.ChangeState<EnemyShakeState>();
+                break;
+            case GrappleReactionBehaviour.PullPlayer:
+                fsm.ChangeState<EnemyPullPlayerState>();
+                break;
         }
 
         GetComponent<Shooting>().enabled = false;
