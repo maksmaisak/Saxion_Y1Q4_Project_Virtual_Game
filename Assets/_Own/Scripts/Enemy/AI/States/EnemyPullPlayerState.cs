@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable 0649
+
 public class EnemyPullPlayerState : FSMState<Enemy> {
 
     [SerializeField] private float newSteeringForce;
@@ -16,11 +18,13 @@ public class EnemyPullPlayerState : FSMState<Enemy> {
 
     private void FixedUpdate()
     {
-        //steering.Wander();
+        steering.Wander();
         steering.Flee(Player.Instance.transform.position);
-        steering.LookWhereGoing();
         steering.AvoidEnemies();
         steering.AvoidObstacles();
+        steering.CompensateExternalForces();
+
+        steering.LookWhereGoing();
     }
 
     public override void Exit()

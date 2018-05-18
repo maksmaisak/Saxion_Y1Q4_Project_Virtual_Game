@@ -18,9 +18,11 @@ public class SteeringManager : MonoBehaviour
 
     private Vector3 displacement;
     private float initialSteeringForce;
-    Vector3 steering = Vector3.zero;
+    private Vector3 steering = Vector3.zero;
     private Rigidbody rb;
 
+    private Vector3 previousVelocity;
+    private Vector3 previousSteering;
 
     private void Start()
     {
@@ -29,16 +31,21 @@ public class SteeringManager : MonoBehaviour
         displacement = Vector3.forward * circleRadius;
     }
 
-
     private void FixedUpdate()
     {
         Debug.DrawRay(transform.position, rb.velocity, Color.red);
 
-        steering = Vector3.ClampMagnitude(steering, maxSteeringForce);
+        if (maxSteeringForce > 0f)
+        {
+            steering = Vector3.ClampMagnitude(steering, maxSteeringForce);
+        }
         Debug.DrawRay(transform.position, steering, Color.blue);
 
         rb.AddForce(steering, ForceMode.Acceleration);
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+
+        previousVelocity = rb.velocity;
+        previousSteering = steering;
 
         steering = Vector3.zero;
     }
@@ -71,6 +78,11 @@ public class SteeringManager : MonoBehaviour
     public void ThrustUp(float thrustStrength)
     {
         steering += DoThrustUp(thrustStrength);
+    }
+
+    public void CompensateExternalForces()
+    {
+        steering += DoCompensateExternalForces();
     }
 
     private Vector3 DoThrustUp(float thrustStrength)
@@ -168,11 +180,18 @@ public class SteeringManager : MonoBehaviour
         return force;
     }
 
+    private Vector3 DoCompensateExternalForces()
+    {
+        Vector3 acceleration = rb.velocity - previousVelocity;
+        Vector3 externalAcceleration = acceleration - previousSteering;
+        return -externalAcceleration;
+    }
+
     public void LookWhereGoing()
     {
         if (rb.velocity != Vector3.zero)
         {
-            SmoothRotateTowards(Quaternion.LookRotation(rb.velocity, Vector3.up));
+            SmoothRotateTowards(Quaternion.LookRotation(rb.velocity));
         }
     }
 

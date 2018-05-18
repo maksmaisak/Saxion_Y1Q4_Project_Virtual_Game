@@ -847,7 +847,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240417907676068}
   m_LocalRotation: {x: -0, y: -0.9957243, z: -0, w: 0.092374705}
-  m_LocalPosition: {x: 33.6, y: -2.0199995, z: 16.099998}
+  m_LocalPosition: {x: -38.87, y: -2.0199995, z: 39.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4619509834128058}
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   thrustHeightLimit: 50
   upThrustStrength: 300
   thrustTime: 4
-  newSteeringStrength: 300
+  newSteeringStrength: 1000
 --- !u!114 &114378136776984076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1429,6 +1429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakingDuration: 5
   maxShakingForce: 6
+  maxSteeringForce: 1000
 --- !u!114 &114539821364694194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1527,7 +1528,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240417907676068}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a25ad74aaa8349a086f885bc2c42761, type: 3}
   m_Name: 

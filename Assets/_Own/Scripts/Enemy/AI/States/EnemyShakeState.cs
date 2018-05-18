@@ -6,6 +6,7 @@ public class EnemyShakeState : FSMState<Enemy>
 {
     [SerializeField] private float shakingDuration = 3;
     [SerializeField] private float maxShakingForce = 5;
+    [SerializeField] private float maxSteeringForce = 1000f;
 
     private bool isShaking;
     private float counter = 0;
@@ -18,6 +19,8 @@ public class EnemyShakeState : FSMState<Enemy>
         rb = GetComponent<Rigidbody>();
         steering = GetComponent<SteeringManager>();
         isShaking = true;
+
+        steering.SetMaxSteeringForce(maxSteeringForce);
     }
 
     void FixedUpdate()
@@ -25,7 +28,8 @@ public class EnemyShakeState : FSMState<Enemy>
         Shake();
         steering.AvoidEnemies();
         steering.AvoidObstacles();
-
+        steering.CompensateExternalForces();
+        steering.LookWhereGoing();
     }
 
     private void Shake()
@@ -45,12 +49,13 @@ public class EnemyShakeState : FSMState<Enemy>
         {
             rb.useGravity = true;
         }
-
     }
 
     public override void Exit()
     {
         base.Exit();
         rb.useGravity = false;
+
+        steering.SetMaxSteeringForce(steering.GetInitalSteeringForce());
     }
 }

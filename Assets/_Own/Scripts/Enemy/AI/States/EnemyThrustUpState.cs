@@ -27,6 +27,7 @@ public class EnemyThrustUpState : FSMState<Enemy>
     void FixedUpdate()
     {
         ThrustUp();
+        steering.LookWhereGoing();
     }
 
     private void ThrustUp()
@@ -34,6 +35,8 @@ public class EnemyThrustUpState : FSMState<Enemy>
         if (isThrusting && transform.position.y <= thrustHeightLimit + enemyComponent.GetInitialHeight())
         {
             steering.ThrustUp(upThrustStrength);
+            steering.CompensateExternalForces();
+
             counter += Time.fixedDeltaTime;
             if (counter >= thrustTime)
             {
