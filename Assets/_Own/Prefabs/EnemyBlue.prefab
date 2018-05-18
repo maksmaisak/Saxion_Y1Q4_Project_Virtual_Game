@@ -1403,7 +1403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230a0527ce8d344a0975712ae3a61dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crashingEnemyEffectsPrefab: {fileID: 1465239002246202, guid: 14ff858d6f75c4820bf3f11452769f88,
+  crashingEnemyEffectsPrefab: {fileID: 1595754406937374, guid: cb7c46f153acfe041b6958f66ae60280,
     type: 2}
   fallDeathYPos: -50
 --- !u!114 &114425496914756420

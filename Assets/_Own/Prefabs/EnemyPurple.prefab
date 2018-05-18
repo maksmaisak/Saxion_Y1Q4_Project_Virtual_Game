@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1388126464662700
 GameObject:
   m_ObjectHideFlags: 1
@@ -1553,7 +1553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230a0527ce8d344a0975712ae3a61dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crashingEnemyEffectsPrefab: {fileID: 1465239002246202, guid: 14ff858d6f75c4820bf3f11452769f88,
+  crashingEnemyEffectsPrefab: {fileID: 1809833198154278, guid: f9e983f76217b9a4a9370c897d95938c,
     type: 2}
   fallDeathYPos: -50
 --- !u!114 &114817468986348712
