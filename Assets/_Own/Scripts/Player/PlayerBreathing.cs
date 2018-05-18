@@ -11,8 +11,9 @@ public class PlayerBreathing : MonoBehaviour
 {
     [SerializeField] AudioSource audioSource;
     [SerializeField] RigidbodyFirstPersonController playerController;
+    [Tooltip("The minimum speed with which the player needs to have moved before panting is possible.")]
     [SerializeField] float minSpeed = 10f;
-    [SerializeField] float minDelayBetweenPlays = 10f;
+    [SerializeField] float minDelayBetweenBreaths = 10f;
 
     private bool didExceedMinSpeed;
 
@@ -25,7 +26,7 @@ public class PlayerBreathing : MonoBehaviour
 
         while (true)
         {
-            yield return new WaitForSeconds(minDelayBetweenPlays);
+            yield return new WaitForSeconds(minDelayBetweenBreaths);
             yield return new WaitUntil(CanPlay);
 
             audioSource.Play();
