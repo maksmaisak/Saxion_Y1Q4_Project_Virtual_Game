@@ -197,10 +197,13 @@ public class Grapple : MonoBehaviour
             grappledGrappleable.Grapple();
         }
 
-        // Play the hit sound
-        if (hitSound != null)
+        // Play a hit sound
+        var customSound = collision.gameObject.GetComponentInParent<CustomGrappleHookHitSound>();
+        var sound = customSound != null ? customSound.audioClip : hitSound;
+        sound = sound ?? hitSound;
+        if (sound != null)
         {
-            audioSource.PlayOneShot(hitSound);
+            audioSource.PlayOneShot(sound);
         }
 
         // Change state
