@@ -8043,7 +8043,7 @@ Prefab:
       objectReference: {fileID: 1940918241}
     - target: {fileID: 1328074967465180, guid: 4cc0174a6a7f3b848bfdb46e9feec139, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114794551097297468, guid: 4cc0174a6a7f3b848bfdb46e9feec139,
         type: 2}
@@ -20283,6 +20283,10 @@ Prefab:
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 1940918241}
+    - target: {fileID: 1240417907676068, guid: de07efe3ec9e68445ae76912b05f3235, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de07efe3ec9e68445ae76912b05f3235, type: 2}
   m_IsPrefabParent: 0
