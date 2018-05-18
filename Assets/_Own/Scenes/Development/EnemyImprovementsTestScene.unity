@@ -8041,14 +8041,10 @@ Prefab:
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 1940918241}
-    - target: {fileID: 1328074967465180, guid: 4cc0174a6a7f3b848bfdb46e9feec139, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114794551097297468, guid: 4cc0174a6a7f3b848bfdb46e9feec139,
+    - target: {fileID: 114331112826112892, guid: 4cc0174a6a7f3b848bfdb46e9feec139,
         type: 2}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: maxSpeed
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4cc0174a6a7f3b848bfdb46e9feec139, type: 2}

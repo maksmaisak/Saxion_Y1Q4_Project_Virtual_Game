@@ -1407,7 +1407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSteeringForce: 10
-  maxSpeed: 12
+  maxSpeed: 24
   collisionAvoidanceMultiplier: 20
   collisionAvoidanceRange: 2
   maxRotationDegreesPerSecond: 90
