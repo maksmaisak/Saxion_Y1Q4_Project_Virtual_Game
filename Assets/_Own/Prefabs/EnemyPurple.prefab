@@ -834,7 +834,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1338080296417402}
   m_LocalRotation: {x: -0, y: -0.9957243, z: -0, w: 0.092374705}
-  m_LocalPosition: {x: -46.2, y: -2.3899994, z: 82.5}
+  m_LocalPosition: {x: 37.01821, y: -2.3899994, z: 18.137539}
   m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Children:
   - {fileID: 4533280825880884}
@@ -4992,7 +4992,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1876405344
+  randomSeed: 1723071575
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5082,7 +5082,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6027025, g: 0.071366794, b: 0.88235295, a: 0.322}
+      maxColor: {r: 0.6027025, g: 0.071366794, b: 0.88235295, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5144,7 +5144,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 5.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5894,8 +5894,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.1, g: 0, b: 0.85294116, a: 1}
-        key1: {r: 0, g: 0.25517225, b: 1, a: 1}
+        key0: {r: 1, g: 0.5808823, b: 0.9710954, a: 1}
+        key1: {r: 0.7793107, g: 0, b: 1, a: 1}
         key2: {r: 0, g: 0.13103437, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -8353,7 +8353,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1559751277
+  randomSeed: -216022521
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8443,7 +8443,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.12808174, g: 0.13242151, b: 0.75735295, a: 0.166}
+      maxColor: {r: 0.12808174, g: 0.13242151, b: 0.75735295, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9255,8 +9255,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.5261157, g: 0, b: 0.9191176, a: 1}
-        key1: {r: 0.94482756, g: 0, b: 1, a: 1}
+        key0: {r: 0.97079104, g: 0.4705882, b: 1, a: 1}
+        key1: {r: 0.5046144, g: 0, b: 0.6838235, a: 1}
         key2: {r: 0.9485294, g: 0.46031573, b: 0.46031573, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -15102,7 +15102,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1525464828
+  randomSeed: -161044771
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -15192,7 +15192,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.32479674, b: 0.77205884, a: 0.322}
+      maxColor: {r: 0, g: 0.32479674, b: 0.77205884, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -16004,8 +16004,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.066582315, b: 0.74264705, a: 1}
-        key1: {r: 0, g: 0.6939653, b: 0.875, a: 1}
+        key0: {r: 1, g: 0.5, b: 0.9448278, a: 1}
+        key1: {r: 0.6183063, g: 0, b: 0.6544118, a: 1}
         key2: {r: 0.9485294, g: 0.46031573, b: 0.46031573, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -25029,7 +25029,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1609993353
+  randomSeed: 90095605
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -25181,7 +25181,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6
+      scalar: 6.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -25931,8 +25931,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.122058995, g: 0, b: 0.6102941, a: 1}
-        key1: {r: 0, g: 0.04827571, b: 1, a: 1}
+        key0: {r: 0.922921, g: 0.44117647, b: 1, a: 1}
+        key1: {r: 0.35603452, g: 0, b: 0.875, a: 1}
         key2: {r: 0.9485294, g: 0.46031573, b: 0.46031573, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -28390,7 +28390,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -356588081
+  randomSeed: 1050264194
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -28480,7 +28480,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.38413006, g: 0.12808174, b: 0.75735295, a: 0.166}
+      maxColor: {r: 0.12808174, g: 0.3407321, b: 0.75735295, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -28542,7 +28542,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 8
+      scalar: 8.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -29292,8 +29292,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.19168353, g: 0, b: 0.7941176, a: 1}
-        key1: {r: 0.53103447, g: 0, b: 1, a: 1}
+        key0: {r: 0.6397059, g: 0.05174093, b: 0.5504973, a: 1}
+        key1: {r: 0.4896555, g: 0, b: 1, a: 1}
         key2: {r: 0.73017246, g: 0, b: 0.8897059, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -31751,7 +31751,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1627574991
+  randomSeed: -1512653330
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -31841,7 +31841,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.41861117, g: 0, b: 0.9338235, a: 0.328}
+      maxColor: {r: 0.41861117, g: 0, b: 0.9338235, a: 0.566}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -32653,7 +32653,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.07413824, g: 0, b: 0.63235295, a: 1}
+        key0: {r: 0.8014706, g: 0.20626082, b: 0.7357922, a: 1}
         key1: {r: 0.3123732, g: 0, b: 0.58823526, a: 1}
         key2: {r: 0.9485294, g: 0.46031573, b: 0.46031573, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -38395,7 +38395,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1319652439
+  randomSeed: 310393583
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -38485,7 +38485,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.33671376, g: 0, b: 0.58823526, a: 0.353}
+      maxColor: {r: 0.33671376, g: 0, b: 0.58823526, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -38547,7 +38547,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 6
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -39297,9 +39297,9 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.12794106, g: 0, b: 0.6397059, a: 1}
-        key1: {r: 0.034482956, g: 0, b: 1, a: 1}
-        key2: {r: 0.9485294, g: 0.46031573, b: 0.46031573, a: 0}
+        key0: {r: 0.97363085, g: 0.52205884, b: 1, a: 1}
+        key1: {r: 0.5768257, g: 0, b: 0.6691177, a: 1}
+        key2: {r: 0.5768257, g: 0, b: 0.6691177, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -39307,7 +39307,7 @@ ParticleSystem:
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 7517
         ctime1: 42405
-        ctime2: 42020
+        ctime2: 42405
         ctime3: 0
         ctime4: 0
         ctime5: 0
@@ -41756,7 +41756,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1877257751
+  randomSeed: 1378284169
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -41846,7 +41846,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.26587233, b: 0.78676474, a: 0.534}
+      maxColor: {r: 0.092241384, g: 0, b: 0.78676474, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -41908,7 +41908,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6
+      scalar: 8
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -42658,9 +42658,9 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.24822518, b: 0.6544118, a: 1}
-        key1: {r: 0, g: 0.8758622, b: 1, a: 1}
-        key2: {r: 0.8267241, g: 0, b: 0.875, a: 0}
+        key0: {r: 1, g: 0.3897059, b: 0.9326572, a: 1}
+        key1: {r: 0.28488836, g: 0, b: 0.7794118, a: 1}
+        key2: {r: 0.28488836, g: 0, b: 0.7794118, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -48400,7 +48400,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1563749036
+  randomSeed: 1281501642
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -48552,7 +48552,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6
+      scalar: 7
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -49302,8 +49302,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.12601443, g: 0, b: 0.52205884, a: 1}
-        key1: {r: 0, g: 0.4753044, b: 0.75735295, a: 1}
+        key0: {r: 0.9909737, g: 0.3455882, b: 1, a: 1}
+        key1: {r: 0.55344844, g: 0, b: 0.75, a: 1}
         key2: {r: 0.9485294, g: 0.46031573, b: 0.46031573, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -51761,7 +51761,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -704911262
+  randomSeed: -971435463
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -51851,7 +51851,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.43620783, g: 0.12808174, b: 0.75735295, a: 0.322}
+      maxColor: {r: 0.43620783, g: 0.12808174, b: 0.75735295, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -52663,8 +52663,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.28600386, g: 0, b: 0.88235295, a: 1}
-        key1: {r: 0.55692655, g: 0.13321798, b: 0.8235294, a: 1}
+        key0: {r: 1, g: 0.45588237, b: 0.8724138, a: 1}
+        key1: {r: 0.6303244, g: 0, b: 0.8088235, a: 1}
         key2: {r: 0.9485294, g: 0.46031573, b: 0.46031573, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -52672,7 +52672,7 @@ ParticleSystem:
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 8288
-        ctime1: 42212
+        ctime1: 42020
         ctime2: 42020
         ctime3: 0
         ctime4: 0
