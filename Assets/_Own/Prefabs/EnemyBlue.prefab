@@ -684,8 +684,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1328074967465180}
   m_LocalRotation: {x: -0, y: -0.9957243, z: -0, w: 0.092374705}
-  m_LocalPosition: {x: 32.01, y: -2.3899994, z: 18.137539}
-  m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
+  m_LocalPosition: {x: -38.87, y: -2.0199995, z: 39.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4832712692589530}
   - {fileID: 4690060028670104}
@@ -1357,7 +1357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSteeringForce: 10
-  maxSpeed: 12
+  maxSpeed: 24
   collisionAvoidanceMultiplier: 20
   collisionAvoidanceRange: 2
   maxRotationDegreesPerSecond: 90
@@ -1540,6 +1540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakingDuration: 5
   maxShakingForce: 6
+  maxSteeringForce: 1000
 --- !u!114 &114665075099057920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1604,7 +1605,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1328074967465180}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a25ad74aaa8349a086f885bc2c42761, type: 3}
   m_Name: 

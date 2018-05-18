@@ -117,18 +117,7 @@ public class Grapple : MonoBehaviour
             }
 
             float currentDistance = Vector3.Distance(attachmentRigidbody.position, rigidbody.position);
-
-            if (ropeLength > minRopeLength)
-            {
-                if (currentDistance < ropeLength)
-                {
-                    ropeLength = currentDistance;
-                }
-            }
-            else
-            {
-                ropeLength = minRopeLength;
-            }
+            ropeLength = Mathf.Max(minRopeLength, Mathf.Min(ropeLength, currentDistance));
         }
     }
 
@@ -182,7 +171,7 @@ public class Grapple : MonoBehaviour
         float currentDistance = Vector3.Distance(attachmentRigidbody.position, targetRigidbody.position);
         chainJoint.maxDistance = currentDistance;
         chainJoint.minDistance = Mathf.Max(minRopeLength, currentDistance - moveTolerance);
-
+        chainJoint.tolerance = 0.5f;
         chainJoint.autoConfigureConnectedAnchor = false;
         chainJoint.anchor = Vector3.zero;
         chainJoint.connectedAnchor = Vector3.zero;
