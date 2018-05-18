@@ -46,11 +46,11 @@ public class Shooting : MonoBehaviour
                 counter += Time.deltaTime;
                 if(reloadTime - counter >= 0.5f)
                 {
-                    particleManager.ChangeParticleGroup(shootingParticleGroup);
+                    shootingParticleGroup.SetActive(true);
                 }
                 else
                 {
-                    particleManager.ChangeParticleGroup(particleManager.GetToPlayerParticalGroup());
+                    shootingParticleGroup.SetActive(false);
                 }
                 if (counter >= reloadTime)
                 {

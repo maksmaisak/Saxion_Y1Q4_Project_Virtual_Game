@@ -41,4 +41,10 @@ public class ParticleManager : MonoBehaviour
     {
         return toPlayerParticleGroup;
     }
+
+    public void UnparentParticleGroup(GameObject particleGroup)
+    {
+        particleGroup.AddComponent<AutoDestroyParticleSystem>();
+        particleGroup.transform.parent = null;
+    }
 }

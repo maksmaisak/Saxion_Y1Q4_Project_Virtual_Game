@@ -18,6 +18,8 @@ public class EnemyFallingToDeathState : FSMState<Enemy> {
         rb = GetComponent<Rigidbody>();
         particleManager.ChangeParticleGroup(fallingParticleGroup);
         rb.useGravity = true;
+
+        health.OnDeath += UnparentDeathParticleGroup;
     }
 
     public override void Exit()
@@ -35,5 +37,10 @@ public class EnemyFallingToDeathState : FSMState<Enemy> {
                 health.DealDamage(100);
             }
         }
+    }
+
+    private void UnparentDeathParticleGroup(Health sender)
+    {
+        particleManager.UnparentParticleGroup(fallingParticleGroup);
     }
 }
