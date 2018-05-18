@@ -72,6 +72,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4073889661598564}
+  - component: {fileID: 114620929706974264}
   m_Layer: 0
   m_Name: BulletExplosionParticle
   m_TagString: Untagged
@@ -190,6 +191,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 1
+--- !u!114 &114620929706974264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1696113148562732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cad6d1a6da4c4e42943bb1f61b42de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198236669624021502
 ParticleSystem:
   m_ObjectHideFlags: 1

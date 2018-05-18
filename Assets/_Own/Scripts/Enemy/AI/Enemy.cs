@@ -48,24 +48,23 @@ public class Enemy : MonoBehaviour, IAgent
 
     private void OnGrapple(Grappleable sender)
     {
-        audioSource.PlayOneShot(enemyGrappeledSound);
-
         if (fsm.GetCurrentState() != FindObjectOfType<EnemyFallingToDeathState>())
         {
             particleManager.ChangeParticleGroup(grappledParticleGroup);
-        }
+            audioSource.PlayOneShot(enemyGrappeledSound);
 
-        switch (grappleReactionBehaviour)
-        {
-            case State.ThrustUp:
-                fsm.ChangeState<EnemyThrustUpState>();
-                break;
-            case State.Shake:
-                fsm.ChangeState<EnemyShakeState>();
-                break;
-            case State.PullPlayer:
-                fsm.ChangeState<EnemyPullPlayerState>();
-                break;
+            switch (grappleReactionBehaviour)
+            {
+                case State.ThrustUp:
+                    fsm.ChangeState<EnemyThrustUpState>();
+                    break;
+                case State.Shake:
+                    fsm.ChangeState<EnemyShakeState>();
+                    break;
+                case State.PullPlayer:
+                    fsm.ChangeState<EnemyPullPlayerState>();
+                    break;
+            }
         }
 
         GetComponent<Shooting>().enabled = false;
