@@ -22,7 +22,7 @@ public class Grapple : MonoBehaviour
     [SerializeField] Rigidbody attachmentRigidbody;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip throwSound;
-    [SerializeField] AudioClip hitSound;
+    [SerializeField] AudioClip defaultHookHitSound;
     [Space]
     [SerializeField] float minRopeLength = 1f;
     [SerializeField] float moveTolerance = 2f;
@@ -199,8 +199,8 @@ public class Grapple : MonoBehaviour
 
         // Play a hit sound
         var customSound = collision.gameObject.GetComponentInParent<CustomGrappleHookHitSound>();
-        var sound = customSound != null ? customSound.audioClip : hitSound;
-        sound = sound ?? hitSound;
+        var sound = customSound != null ? customSound.audioClip : defaultHookHitSound;
+        sound = sound ?? defaultHookHitSound;
         if (sound != null)
         {
             audioSource.PlayOneShot(sound);
