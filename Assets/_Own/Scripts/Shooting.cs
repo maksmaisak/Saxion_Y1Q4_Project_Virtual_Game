@@ -7,12 +7,14 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyAudio))]
 public class Shooting : MonoBehaviour
 {
-    [SerializeField] private float shootingRange = 10;
-    [SerializeField] private float reloadTime = 2;
-    [SerializeField] private GameObject shootingParticleGroup;
+    [SerializeField] float shootingRange = 10;
+    [SerializeField] float reloadTime = 2;
+    [SerializeField] GameObject shootingParticleGroup;
+
+    [SerializeField] bool startWithReloading;
 
     private float counter;
-    private bool reloading;
+    private bool isReloading;
     private ShootingController shootingController;
     private ParticleManager particleManager;
     new private EnemyAudio audio;
@@ -26,6 +28,8 @@ public class Shooting : MonoBehaviour
         audio = GetComponent<EnemyAudio>();
 
         target = Player.Instance.gameObject;
+
+        isReloading = startWithReloading;
     }
 
     void Update()
@@ -40,12 +44,12 @@ public class Shooting : MonoBehaviour
     {
         if (shootingController.CanShootAt(target))
         {
-            if (!reloading)
+            if (!isReloading)
             {
                 shootingController.ShootAt(target);
                 audio.PlayOnShoot();
 
-                reloading = true;
+                isReloading = true;
             }
             else
             {
@@ -55,7 +59,7 @@ public class Shooting : MonoBehaviour
 
                 if (counter >= reloadTime)
                 {
-                    reloading = false;
+                    isReloading = false;
                     counter = 0f;
                 }
             }
