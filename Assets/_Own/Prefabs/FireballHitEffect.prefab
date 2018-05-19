@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 82321277980272504}
   - component: {fileID: 114620929706974264}
   m_Layer: 0
-  m_Name: BulletExplosionParticle
+  m_Name: FireballHitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cb5ebda96ae7546bbaa0e094059176a7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f5d31f10e62194e24b093c4ff73c5241, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.25
   m_Pitch: 1

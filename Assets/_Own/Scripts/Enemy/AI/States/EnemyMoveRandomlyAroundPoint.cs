@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable 0649
+
 public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
 {
     [SerializeField] private float patrolRadius = 5f;
@@ -41,7 +43,7 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
             counter = 0f;
         }
 
-        if(Vector3.Distance(transform.position,newPos) <= 0f)
+        if (Vector3.Distance(transform.position, newPos) <= 0f)
         {
             counter = patrolTime;
         }
@@ -51,8 +53,7 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
             Patrol(newPos);
         }
 
-        CheckForDistanceWithPlayer();
-       
+        CheckDetectPlayer();
     }
 
     public override void Exit()
@@ -71,13 +72,15 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
         steering.LookWhereGoing();
     }
 
-    private void CheckForDistanceWithPlayer()
+    private void CheckDetectPlayer()
     {
         float distance = (Player.Instance.transform.position - transform.position).magnitude;
 
         if (distance <= spottingPlayerDistance && shootingController.CanShootAt(Player.Instance.gameObject))
         {
-            Debug.Log("distance from player: " + distance);
+            Debug.Log("Detected the player, distance: " + distance);
+
+            agent.audio.PlayOnDetectedPlayer();
             agent.fsm.ChangeState<EnemyStateFollowPlayer>();
         }
     }

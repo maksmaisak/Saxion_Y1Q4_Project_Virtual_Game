@@ -87,6 +87,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4778540047007450}
+  - component: {fileID: 82230274184885636}
   m_Layer: 0
   m_Name: Particles
   m_TagString: Untagged
@@ -106,7 +107,6 @@ GameObject:
   - component: {fileID: 135952282471648068}
   - component: {fileID: 23941350114058516}
   - component: {fileID: 114401719117850302}
-  - component: {fileID: 82031155416134838}
   - component: {fileID: 54418901442025266}
   m_Layer: 0
   m_Name: Fireball
@@ -254,12 +254,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!82 &82031155416134838
+--- !u!82 &82230274184885636
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1866996225132080}
+  m_GameObject: {fileID: 1575184175400896}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}

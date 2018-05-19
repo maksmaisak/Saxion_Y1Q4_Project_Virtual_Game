@@ -2,14 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
+#pragma warning disable 0649
+
+[RequireComponent(typeof(EnemyAudio))]
 public class Enemy : MonoBehaviour, IAgent
 {
+    [SerializeField] private GrappleReactionBehaviour grappleReactionBehaviour;
+    [SerializeField] private GameObject grappledParticleGroup;
+
     public FSM<Enemy> fsm { get; private set; }
 
-    private AudioSource audioSource;
+    new public EnemyAudio audio { get; private set; }
+    public ParticleManager particleManager { get; private set; }
 
-    private ParticleManager particleManager;
+    private AudioSource audioSource;
 
     private float initialHeight;
 
@@ -21,10 +29,6 @@ public class Enemy : MonoBehaviour, IAgent
         PullPlayer
     }
 
-    [SerializeField] private GameObject grappledParticleGroup;
-    [SerializeField] private GrappleReactionBehaviour grappleReactionBehaviour;
-    [SerializeField] private AudioClip enemyGrappledSound;
-
     // Use this for initialization
     void Start()
     {
@@ -32,6 +36,7 @@ public class Enemy : MonoBehaviour, IAgent
 
         fsm = new FSM<Enemy>(this);
 
+        audio = GetComponent<EnemyAudio>();
         particleManager = GetComponentInChildren<ParticleManager>();
 
         fsm.ChangeState<EnemyMoveRandomlyAroundPoint>();
@@ -39,19 +44,19 @@ public class Enemy : MonoBehaviour, IAgent
         audioSource = GetComponent<AudioSource>();
 
         var grappleable = GetComponent<Grappleable>();
-
         grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
     }
 
     private void OnGrapple(Grappleable sender)
     {
+        // Meh, but works.
         if (fsm.GetCurrentState().GetType() == typeof(EnemyFallingToDeathState))
         {
             return;
         }
 
-        audioSource.PlayOneShot(enemyGrappledSound);
+        audio.PlayOnGrappled();
         particleManager.ChangeParticleGroup(grappledParticleGroup);
 
         switch (grappleReactionBehaviour)

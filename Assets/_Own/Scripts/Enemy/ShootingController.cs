@@ -5,25 +5,15 @@ using UnityEngine;
 
 #pragma warning disable 0649
 
-[RequireComponent(typeof(AudioSource))]
+/// A ballistics-based projectile shooting helper.
 public class ShootingController : MonoBehaviour
 {
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float muzzleSpeed = 100f;
-    [SerializeField] AudioClip shootSound;
-
     [SerializeField] LayerMask obstacleDetectionLayerMask;
-
-    AudioSource audioSource;
-
-    void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
 
     public bool CanShootAt(GameObject target)
     {
-
         Vector3? startVelocity = Ballistics.GetStartVelocity(
             transform.position,
             target.transform.position,
@@ -49,17 +39,9 @@ public class ShootingController : MonoBehaviour
         return true;
     }
 
+    /// Returns true if successful
     public bool ShootAt(GameObject target)
     {
-
-        /*Vector3 delta = target.transform.position - transform.position;
-        Vector3 direction = delta.normalized;
-
-        Shoot(
-            position: transform.position + direction * 1.2f, 
-            startVelocity: direction * muzzleSpeed
-        );*/
-
         Vector3 delta = target.transform.position - transform.position;
         Vector3 flatDelta = new Vector3(delta.x, 0f, delta.z);
         Vector3 direction = flatDelta.normalized;
@@ -87,10 +69,5 @@ public class ShootingController : MonoBehaviour
         Instantiate(bulletPrefab, position, Quaternion.identity)
             .GetComponent<Rigidbody>()
             .AddForce(startVelocity, ForceMode.VelocityChange);
-
-        if (shootSound != null)
-        {
-            audioSource.PlayOneShot(shootSound);
-        }
     }
 }
