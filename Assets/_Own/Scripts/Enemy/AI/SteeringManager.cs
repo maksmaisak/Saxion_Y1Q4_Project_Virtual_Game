@@ -1,4 +1,4 @@
-﻿
+﻿using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,9 +70,9 @@ public class SteeringManager : MonoBehaviour
         steering += DoObstaclesAvoidance();
     }
 
-    public void AvoidEnemies()
+    public void FlockingSeparation(IEnumerable<SteeringManager> others)
     {
-        steering += DoEnemyAvoidance();
+        steering += DoFlockingSeparation(others);
     }
 
     public void ThrustUp(float thrustStrength)
@@ -87,7 +87,7 @@ public class SteeringManager : MonoBehaviour
 
     private Vector3 DoThrustUp(float thrustStrength)
     {
-        return new Vector3(0, thrustStrength, 0);
+        return new Vector3(0f, thrustStrength, 0f);
     }
 
     private Vector3 DoSeek(Vector3 target, float slowingRadius = 0f)
@@ -121,18 +121,27 @@ public class SteeringManager : MonoBehaviour
         return force;
     }
 
-    private Vector3 DoEnemyAvoidance()
+    private Vector3 DoFlockingSeparation(IEnumerable<SteeringManager> others)
     {
         Vector3 totalForce = Vector3.zero;
-        foreach (GameObject enemy in FlockManager.enemyList)
+        float sqrSeparationDistance = separationDistance * separationDistance;
+
+        foreach (SteeringManager other in others)
         {
-            if (gameObject != enemy && Vector3.Distance(transform.position, enemy.transform.position) <= separationDistance)
+            if (this == other) continue;
+
+            Vector3 position = transform.position;
+            Vector3 otherPosition = other.transform.position;
+
+            Vector3 delta = position - otherPosition;
+            if (delta.sqrMagnitude <= sqrSeparationDistance)
             {
-                Vector3 headingVector = transform.position - enemy.transform.position;
-                totalForce += headingVector;
+                totalForce += position - otherPosition;
             }
         }
+
         totalForce *= separationFactor;
+
         return totalForce;
     }
 

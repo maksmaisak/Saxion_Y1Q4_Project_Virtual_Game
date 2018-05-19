@@ -67,7 +67,7 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
     private void Patrol(Vector3 randomPos)
     {
         steering.Seek(randomPos, 0f);
-        steering.AvoidEnemies();
+        steering.FlockingSeparation(Enemy.allSteerables);
         steering.AvoidObstacles();
         steering.LookWhereGoing();
     }

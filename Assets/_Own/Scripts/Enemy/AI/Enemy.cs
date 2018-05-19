@@ -6,9 +6,12 @@ using DG.Tweening;
 
 #pragma warning disable 0649
 
-[RequireComponent(typeof(EnemyAudio))]
+[RequireComponent(typeof(EnemyAudio), typeof(SteeringManager), typeof(Grappleable))]
 public class Enemy : MonoBehaviour, IAgent
 {
+    private static List<SteeringManager> _steerables = new List<SteeringManager>();
+    public static IEnumerable<SteeringManager> allSteerables { get { return _steerables.AsReadOnly(); } }
+
     [SerializeField] private GrappleReactionBehaviour grappleReactionBehaviour;
     [SerializeField] private GameObject grappledParticleGroup;
 
@@ -17,7 +20,7 @@ public class Enemy : MonoBehaviour, IAgent
     new public EnemyAudio audio { get; private set; }
     public ParticleManager particleManager { get; private set; }
 
-    private AudioSource audioSource;
+    private SteeringManager steeringManager;
 
     private float initialHeight;
 
@@ -39,13 +42,25 @@ public class Enemy : MonoBehaviour, IAgent
         audio = GetComponent<EnemyAudio>();
         particleManager = GetComponentInChildren<ParticleManager>();
 
+        steeringManager = GetComponent<SteeringManager>();
+        _steerables.Add(steeringManager);
+
         fsm.ChangeState<EnemyMoveRandomlyAroundPoint>();
 
-        audioSource = GetComponent<AudioSource>();
-
         var grappleable = GetComponent<Grappleable>();
-        grappleable.OnGrappled   += OnGrapple;
+        grappleable.OnGrappled += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        fsm.Update();
+    }
+
+    void OnDestroy()
+    {
+        _steerables.Remove(steeringManager);
     }
 
     private void OnGrapple(Grappleable sender)
@@ -80,20 +95,9 @@ public class Enemy : MonoBehaviour, IAgent
         fsm.ChangeState<EnemyFallingToDeathState>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        fsm.Update();
-    }
-
     public void Print(string message)
     {
         Debug.Log(message);
-    }
-
-    private void OnDestroy()
-    {
-        FlockManager.enemyList.Remove(gameObject);
     }
 
     public float GetInitialHeight()

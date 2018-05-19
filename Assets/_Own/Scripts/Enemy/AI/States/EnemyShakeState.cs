@@ -26,7 +26,7 @@ public class EnemyShakeState : FSMState<Enemy>
     void FixedUpdate()
     {
         Shake();
-        steering.AvoidEnemies();
+        steering.FlockingSeparation(Enemy.allSteerables);
         steering.AvoidObstacles();
         steering.CompensateExternalForces();
         steering.LookWhereGoing();
