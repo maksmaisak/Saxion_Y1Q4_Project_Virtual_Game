@@ -7875,7 +7875,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185329038023080, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.25
+      value: -0.72
       objectReference: {fileID: 0}
     - target: {fileID: 4185329038023080, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
       propertyPath: m_LocalPosition.z
@@ -7953,6 +7953,25 @@ Prefab:
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 1940918241}
+    - target: {fileID: 1328074967465180, guid: 4cc0174a6a7f3b848bfdb46e9feec139, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114531305613148724, guid: 4cc0174a6a7f3b848bfdb46e9feec139,
+        type: 2}
+      propertyPath: muzzleSpeed
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 82760397670337138, guid: 4cc0174a6a7f3b848bfdb46e9feec139,
+        type: 2}
+      propertyPath: DopplerLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 82760397670337138, guid: 4cc0174a6a7f3b848bfdb46e9feec139,
+        type: 2}
+      propertyPath: MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4cc0174a6a7f3b848bfdb46e9feec139, type: 2}
   m_IsPrefabParent: 0
@@ -15556,7 +15575,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4014318027980050, guid: a8bcbdfad8859b645a20252acc88c2be, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 70.33227
+      value: -17.5
       objectReference: {fileID: 0}
     - target: {fileID: 4014318027980050, guid: a8bcbdfad8859b645a20252acc88c2be, type: 2}
       propertyPath: m_LocalPosition.y
@@ -15564,7 +15583,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4014318027980050, guid: a8bcbdfad8859b645a20252acc88c2be, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -16.164152
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4014318027980050, guid: a8bcbdfad8859b645a20252acc88c2be, type: 2}
       propertyPath: m_LocalRotation.x
@@ -20357,29 +20376,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 198992033148080652, guid: b9a9cbbfc86126a41940b1946b456149,
-        type: 2}
-      propertyPath: lengthInSec
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 198992033148080652, guid: b9a9cbbfc86126a41940b1946b456149,
-        type: 2}
-      propertyPath: randomSeed
-      value: -1484510216
-      objectReference: {fileID: 0}
-    - target: {fileID: 1352565006406656, guid: b9a9cbbfc86126a41940b1946b456149, type: 2}
+    - target: {fileID: 1696113148562732, guid: b9a9cbbfc86126a41940b1946b456149, type: 2}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198236669624021502, guid: b9a9cbbfc86126a41940b1946b456149,
-        type: 2}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 198236669624021502, guid: b9a9cbbfc86126a41940b1946b456149,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1342503714
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9a9cbbfc86126a41940b1946b456149, type: 2}
@@ -27879,7 +27878,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300004, guid: 96a5354803d9f26448d4633bdd71d90a, type: 3}

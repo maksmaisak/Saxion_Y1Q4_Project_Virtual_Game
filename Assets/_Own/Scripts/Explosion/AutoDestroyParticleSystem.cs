@@ -9,7 +9,10 @@ public class AutoDestroyParticleSystem : MonoBehaviour
     void Start()
     {
         float duration = Mathf.Max(GetParticlesDuration(), GetAudioDuration());
-        Destroy(gameObject, duration);
+        if (!float.IsPositiveInfinity(duration))
+        {
+            Destroy(gameObject, duration);
+        }
     }
 
     private float GetParticlesDuration()

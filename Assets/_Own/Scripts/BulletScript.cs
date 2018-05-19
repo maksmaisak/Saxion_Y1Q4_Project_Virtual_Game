@@ -1,20 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
+#pragma warning disable 0649
 
 public class BulletScript : MonoBehaviour
 {
     [SerializeField] private int bulletDamage = 100;
     [SerializeField] private GameObject explosion;
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject != gameObject)
         {
             DealDamage(collision);
             Instantiate(explosion, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            Destroy();
         }
     }
 
@@ -22,10 +23,9 @@ public class BulletScript : MonoBehaviour
     {
         var health = collision.gameObject.GetComponent<Health>();
         if (health == null) return;
+
         bool wasAlive = health.isAlive;
-
         health.DealDamage(bulletDamage);
-
         bool didDie = health.isDead && wasAlive;
 
         if (didDie)
@@ -38,4 +38,23 @@ public class BulletScript : MonoBehaviour
         }
     }
 
+    private void Destroy()
+    {
+        foreach (ParticleSystem system in GetComponentsInChildren<ParticleSystem>())
+        {
+            system.Stop(withChildren: true, stopBehavior: ParticleSystemStopBehavior.StopEmitting);
+        }
+
+        for (int i = 0; i < transform.childCount; ++i)
+        {
+            Transform child = transform.GetChild(i);
+            if (!child.GetComponent<AutoDestroyParticleSystem>() == null)
+            {
+                child.gameObject.AddComponent<AutoDestroyParticleSystem>();
+            }
+        }
+        transform.DetachChildren();
+
+        Destroy(gameObject);
+    }
 }
