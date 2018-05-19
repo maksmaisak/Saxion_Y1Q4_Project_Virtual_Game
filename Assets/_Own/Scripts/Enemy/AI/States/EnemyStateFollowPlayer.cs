@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable 0649
+
 public class EnemyStateFollowPlayer : FSMState<Enemy>
 {
     [SerializeField] private float maxDistanceToPlayer = 5f;
@@ -39,10 +41,10 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
         Vector3 toPlayer = target.transform.position - transform.position;
         Vector3 desiredPos = target.transform.position - toPlayer.normalized * maxDistanceToPlayer;
 
-
         steeringManager.Seek(desiredPos, arriveSlowdownDistance);
         steeringManager.AvoidEnemies();
         steeringManager.AvoidObstacles();
+        steeringManager.Wander();
 
         if (toPlayer.magnitude > lookAtPlayerDistance)
         {

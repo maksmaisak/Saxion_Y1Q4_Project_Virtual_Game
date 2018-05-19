@@ -7,11 +7,12 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyAudio))]
 public class Shooting : MonoBehaviour
 {
-    [SerializeField] float shootingRange = 10;
-    [SerializeField] float reloadTime = 2;
-    [SerializeField] GameObject shootingParticleGroup;
-
+    [SerializeField] float shootingRange = 10f;
+    [SerializeField] float reloadTime = 2f;
+    [SerializeField] float effectTimeBeforeShooting = 0.2f;
     [SerializeField] bool startWithReloading;
+
+    [SerializeField] GameObject shootingParticleGroup;
 
     private float counter;
     private bool isReloading;
@@ -55,7 +56,7 @@ public class Shooting : MonoBehaviour
             {
                 counter += Time.deltaTime;
 
-                shootingParticleGroup.SetActive(reloadTime - counter >= 0.5f);
+                shootingParticleGroup.SetActive(reloadTime - counter <= effectTimeBeforeShooting);
 
                 if (counter >= reloadTime)
                 {

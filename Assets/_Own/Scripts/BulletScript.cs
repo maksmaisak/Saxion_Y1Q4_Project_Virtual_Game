@@ -36,7 +36,7 @@ public class BulletScript : MonoBehaviour
             var rb = collision.collider.attachedRigidbody;
             if (rb != null)
             {
-                rb.AddForce(-collision.impulse, ForceMode.Impulse);
+                rb.AddForceAtPosition(-collision.impulse, collision.contacts[0].point, ForceMode.Impulse);
             }
         }
     }
