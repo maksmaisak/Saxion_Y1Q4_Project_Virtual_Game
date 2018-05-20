@@ -7,6 +7,7 @@ using DG.Tweening;
 #pragma warning disable 0649
 
 [RequireComponent(typeof(EnemyAudio), typeof(SteeringManager), typeof(Grappleable))]
+[RequireComponent(typeof(ShootingController))]
 public class Enemy : MonoBehaviour, IAgent
 {
     private static List<SteeringManager> steeringManagers = new List<SteeringManager>();
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour, IAgent
     new public EnemyAudio audio { get; private set; }
     public ParticleManager particleManager { get; private set; }
     public SteeringManager steering { get; private set; }
+    public ShootingController shootingController { get; private set; }
 
     private float initialHeight;
 
@@ -44,11 +46,13 @@ public class Enemy : MonoBehaviour, IAgent
         steering = GetComponent<SteeringManager>();
         steeringManagers.Add(steering);
 
-        fsm.ChangeState<EnemyMoveRandomlyAroundPoint>();
+        shootingController = GetComponent<ShootingController>();
 
         var grappleable = GetComponent<Grappleable>();
         grappleable.OnGrappled += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
+
+        fsm.ChangeState<EnemyMoveRandomlyAroundPoint>();
     }
 
     // Update is called once per frame

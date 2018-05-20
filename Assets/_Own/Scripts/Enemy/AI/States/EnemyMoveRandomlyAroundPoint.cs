@@ -17,44 +17,22 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
     private ParticleManager particleManager;
     private ShootingController shootingController;
     private SteeringManager steering;
-    Vector3 newPos;
-    private bool patrol;
-    private float counter;
 
     public override void Enter()
     {
         base.Enter();
         GetComponent<Shooting>().enabled = false;
-        particleManager = GetComponentInChildren<ParticleManager>();
-        shootingController = GetComponent<ShootingController>();
+
+        particleManager = agent.particleManager;
+        shootingController = agent.shootingController;
         steering = agent.steering;
 
         steering.SetMaxSteeringForce(newSteeringForce);
-        counter = patrolTime;
         particleManager.ChangeParticleGroup(wanderingParticleGroup);
     }
 
     private void FixedUpdate()
     {
-        /*counter += Time.fixedDeltaTime;
-
-        if (counter >= patrolTime)
-        {
-            newPos = Random.onUnitSphere * patrolRadius + patrolPoint.position;
-            patrol = true;
-            counter = 0f;
-        }
-
-        if (Vector3.Distance(transform.position, newPos) <= 0f)
-        {
-            counter = patrolTime;
-        }
-
-        if (patrol)
-        {
-            Patrol(newPos);
-        }*/
-
         SteerToStayInArea();
         steering.Wander();
 
@@ -74,27 +52,6 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
         particleManager.DisableAllParticleGroups();
     }
 
-    private void Patrol(Vector3 randomPos)
-    {
-        steering.Seek(randomPos, 0f);
-        steering.FlockingSeparation(Enemy.allAsSteerables);
-        steering.AvoidObstacles();
-        steering.LookWhereGoing();
-    }
-
-    private void CheckDetectPlayer()
-    {
-        float distance = (Player.Instance.transform.position - transform.position).magnitude;
-
-        if (distance <= spottingPlayerDistance && shootingController.CanShootAt(Player.Instance.gameObject))
-        {
-            Debug.Log("Detected the player, distance: " + distance);
-
-            agent.audio.PlayOnDetectedPlayer();
-            agent.fsm.ChangeState<EnemyStateFollowPlayer>();
-        }
-    }
-
     private void SteerToStayInArea()
     {
         Vector3 toCenter = patrolPoint.position - transform.position;
@@ -102,6 +59,18 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
         if (distance >= patrolRadius - minDistanceFromAreaBorder)
         {
             steering.Seek(patrolPoint.position);
+        }
+    }
+
+    private void CheckDetectPlayer()
+    {
+        float distance = (Player.Instance.transform.position - transform.position).magnitude;
+        if (distance <= spottingPlayerDistance && shootingController.CanShootAt(Player.Instance.gameObject))
+        {
+            Debug.Log("Detected the player, distance: " + distance);
+
+            agent.audio.PlayOnDetectedPlayer();
+            agent.fsm.ChangeState<EnemyStateFollowPlayer>();
         }
     }
 }
