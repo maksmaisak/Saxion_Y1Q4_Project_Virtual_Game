@@ -24,6 +24,14 @@ public class SteeringManager : MonoBehaviour
     private Vector3 previousVelocity;
     private Vector3 previousSteering;
 
+    public Vector3 velocity 
+    {
+        get 
+        {
+            return rb.velocity;
+        }
+    }
+
     private void Start()
     {
         initialSteeringForce = maxSteeringForce;
@@ -50,9 +58,9 @@ public class SteeringManager : MonoBehaviour
         steering = Vector3.zero;
     }
 
-    public void Seek(Vector3 desiredPosition, float maxDistanceToPlayer)
+    public void Seek(Vector3 desiredPosition, float slowingRadius = 0f)
     {
-        steering += DoSeek(desiredPosition, maxDistanceToPlayer);
+        steering += DoSeek(desiredPosition, slowingRadius);
     }
 
     public void Flee(Vector3 targetToFlee)
@@ -84,6 +92,12 @@ public class SteeringManager : MonoBehaviour
     {
         steering += DoCompensateExternalForces();
     }
+
+    public void Custom(Vector3 customSteeringForce)
+    {
+        steering += customSteeringForce;
+    }
+
 
     private Vector3 DoThrustUp(float thrustStrength)
     {

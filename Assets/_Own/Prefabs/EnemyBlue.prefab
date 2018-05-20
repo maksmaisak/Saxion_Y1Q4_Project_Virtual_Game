@@ -259,7 +259,6 @@ GameObject:
   - component: {fileID: 114486483251140928}
   - component: {fileID: 114718428804302490}
   - component: {fileID: 114416111637657494}
-  - component: {fileID: 114670395591286288}
   - component: {fileID: 114143242088639916}
   - component: {fileID: 114086382120106354}
   - component: {fileID: 114556990606479094}
@@ -267,6 +266,7 @@ GameObject:
   - component: {fileID: 114331112826112892}
   - component: {fileID: 114507126039491542}
   - component: {fileID: 114058439005861812}
+  - component: {fileID: 114670395591286288}
   - component: {fileID: 114794551097297468}
   - component: {fileID: 114654135682362664}
   - component: {fileID: 114929314515309032}
@@ -1486,7 +1486,7 @@ MonoBehaviour:
   maxSpeed: 24
   collisionAvoidanceMultiplier: 20
   collisionAvoidanceRange: 2
-  maxRotationDegreesPerSecond: 90
+  maxRotationDegreesPerSecond: 180
   separationFactor: 15
   separationDistance: 4
   circleRadius: 0.5
@@ -1709,10 +1709,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbf65e2be56b45f5ae17f42c5d2df53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolRadius: 7
+  patrolRadius: 16
   spottingPlayerDistance: 40
   patrolTime: 5
   newSteeringForce: 50
+  minDistanceFromAreaBorder: 4
   patrolPoint: {fileID: 0}
   wanderingParticleGroup: {fileID: 1783759284303750}
 --- !u!114 &114718428804302490

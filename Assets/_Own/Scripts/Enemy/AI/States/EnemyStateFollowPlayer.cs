@@ -42,7 +42,7 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
         Vector3 desiredPos = target.transform.position - toPlayer.normalized * maxDistanceToPlayer;
 
         steeringManager.Seek(desiredPos, arriveSlowdownDistance);
-        steeringManager.FlockingSeparation(Enemy.allSteerables);
+        steeringManager.FlockingSeparation(Enemy.allAsSteerables);
         steeringManager.AvoidObstacles();
         steeringManager.Wander();
 

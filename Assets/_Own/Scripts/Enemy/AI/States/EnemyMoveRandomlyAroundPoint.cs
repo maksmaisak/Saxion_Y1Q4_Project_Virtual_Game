@@ -10,12 +10,13 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
     [SerializeField] private float spottingPlayerDistance = 10f;
     [SerializeField] private float patrolTime = 5;
     [SerializeField] private float newSteeringForce = 50;
-    [SerializeField] private GameObject patrolPoint;
+    [SerializeField] private float minDistanceFromAreaBorder = 4f;
+    [SerializeField] private Transform patrolPoint;
     [SerializeField] private GameObject wanderingParticleGroup;
 
     private ParticleManager particleManager;
-    private SteeringManager steering;
     private ShootingController shootingController;
+    private SteeringManager steering;
     Vector3 newPos;
     private bool patrol;
     private float counter;
@@ -26,7 +27,8 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
         GetComponent<Shooting>().enabled = false;
         particleManager = GetComponentInChildren<ParticleManager>();
         shootingController = GetComponent<ShootingController>();
-        steering = GetComponent<SteeringManager>();
+        steering = agent.steering;
+
         steering.SetMaxSteeringForce(newSteeringForce);
         counter = patrolTime;
         particleManager.ChangeParticleGroup(wanderingParticleGroup);
@@ -34,11 +36,11 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
 
     private void FixedUpdate()
     {
-        counter += Time.fixedDeltaTime;
+        /*counter += Time.fixedDeltaTime;
 
         if (counter >= patrolTime)
         {
-            newPos = Random.onUnitSphere * patrolRadius + patrolPoint.transform.position;
+            newPos = Random.onUnitSphere * patrolRadius + patrolPoint.position;
             patrol = true;
             counter = 0f;
         }
@@ -51,7 +53,15 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
         if (patrol)
         {
             Patrol(newPos);
-        }
+        }*/
+
+        SteerToStayInArea();
+        steering.Wander();
+
+        steering.AvoidObstacles();
+        steering.FlockingSeparation(Enemy.allAsSteerables);
+
+        steering.LookWhereGoing();
 
         CheckDetectPlayer();
     }
@@ -67,7 +77,7 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
     private void Patrol(Vector3 randomPos)
     {
         steering.Seek(randomPos, 0f);
-        steering.FlockingSeparation(Enemy.allSteerables);
+        steering.FlockingSeparation(Enemy.allAsSteerables);
         steering.AvoidObstacles();
         steering.LookWhereGoing();
     }
@@ -82,6 +92,16 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
 
             agent.audio.PlayOnDetectedPlayer();
             agent.fsm.ChangeState<EnemyStateFollowPlayer>();
+        }
+    }
+
+    private void SteerToStayInArea()
+    {
+        Vector3 toCenter = patrolPoint.position - transform.position;
+        float distance = toCenter.magnitude;
+        if (distance >= patrolRadius - minDistanceFromAreaBorder)
+        {
+            steering.Seek(patrolPoint.position);
         }
     }
 }

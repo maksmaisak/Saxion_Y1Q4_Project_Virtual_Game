@@ -9,8 +9,8 @@ using DG.Tweening;
 [RequireComponent(typeof(EnemyAudio), typeof(SteeringManager), typeof(Grappleable))]
 public class Enemy : MonoBehaviour, IAgent
 {
-    private static List<SteeringManager> _steerables = new List<SteeringManager>();
-    public static IEnumerable<SteeringManager> allSteerables { get { return _steerables.AsReadOnly(); } }
+    private static List<SteeringManager> steeringManagers = new List<SteeringManager>();
+    public static IEnumerable<SteeringManager> allAsSteerables { get { return steeringManagers.AsReadOnly(); } }
 
     [SerializeField] private GrappleReactionBehaviour grappleReactionBehaviour;
     [SerializeField] private GameObject grappledParticleGroup;
@@ -19,8 +19,7 @@ public class Enemy : MonoBehaviour, IAgent
 
     new public EnemyAudio audio { get; private set; }
     public ParticleManager particleManager { get; private set; }
-
-    private SteeringManager steeringManager;
+    public SteeringManager steering { get; private set; }
 
     private float initialHeight;
 
@@ -42,8 +41,8 @@ public class Enemy : MonoBehaviour, IAgent
         audio = GetComponent<EnemyAudio>();
         particleManager = GetComponentInChildren<ParticleManager>();
 
-        steeringManager = GetComponent<SteeringManager>();
-        _steerables.Add(steeringManager);
+        steering = GetComponent<SteeringManager>();
+        steeringManagers.Add(steering);
 
         fsm.ChangeState<EnemyMoveRandomlyAroundPoint>();
 
@@ -60,7 +59,7 @@ public class Enemy : MonoBehaviour, IAgent
 
     void OnDestroy()
     {
-        _steerables.Remove(steeringManager);
+        steeringManagers.Remove(steering);
     }
 
     private void OnGrapple(Grappleable sender)
