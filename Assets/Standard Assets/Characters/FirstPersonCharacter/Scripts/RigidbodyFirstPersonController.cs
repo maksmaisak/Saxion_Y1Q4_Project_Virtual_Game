@@ -80,6 +80,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float stickToWallHelperDistance = 0.5f;
             public float stickToWallHelperForce = 1f;
 
+            public float onSurfaceRigidbodyDrag = 5f;
+
             public float slowDownRate = 20f; // rate at which the controller comes to a stop when there is no input
             public bool airControl;
             [Tooltip("When in the air, should it change its velocity to move where the camera is looking?")]
@@ -229,8 +231,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // Handle jumps
 
             if (m_State == State.Grounded)
-            {
-                m_RigidBody.drag = 5f;
+            { 
+                m_RigidBody.drag = advancedSettings.onSurfaceRigidbodyDrag;
 
                 if (m_Jump)
                 {
@@ -249,7 +251,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else if (m_State == State.OnWall)
             {
-                m_RigidBody.drag = 5f;
+                m_RigidBody.drag = advancedSettings.onSurfaceRigidbodyDrag;
 
                 if (m_Jump)
                 {
