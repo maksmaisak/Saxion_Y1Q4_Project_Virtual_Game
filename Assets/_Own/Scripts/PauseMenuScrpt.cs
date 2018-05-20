@@ -65,8 +65,8 @@ public class PauseMenuScrpt : MonoBehaviour
     {
         Time.timeScale = 1f;
         isPaused = false;
-        SceneManager.LoadScene(menuScene);
-        AudioListener.volume = audioListenerInitialVolume;
+        AsyncOperation asyncOperation =  SceneManager.LoadSceneAsync(menuScene);
+        asyncOperation.completed += op => AudioListener.volume = audioListenerInitialVolume;
     }
 
     protected void OnTransitionIn()
@@ -106,4 +106,5 @@ public class PauseMenuScrpt : MonoBehaviour
             .SetEase(Ease.InExpo)
             .SetUpdate(isIndependentUpdate: true);
     }
+
 }
