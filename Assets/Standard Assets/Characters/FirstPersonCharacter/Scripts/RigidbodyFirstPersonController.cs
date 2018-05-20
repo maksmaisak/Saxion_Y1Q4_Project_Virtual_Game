@@ -182,7 +182,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             StateCheck();
 
-            if (m_PreviousState == State.Airborne && m_State != State.Airborne && m_Jumping)
+            if (m_PreviousState == State.Airborne && m_State != State.Airborne)
             {
                 m_Jumping = false;
                 audioSettings.playerAudio.PlayLand();
