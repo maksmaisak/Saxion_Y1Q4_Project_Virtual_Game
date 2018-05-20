@@ -12,11 +12,13 @@ public class PauseMenuScrpt : MonoBehaviour
     [SerializeField] private float maxScale = 2f;
 
     private CanvasGroup canvasGroup;
+    private float audioListenerInitialVolume;
     public RigidbodyFirstPersonController rbFirstPersonController;
     public static bool isPaused = false;
 
     void Start()
     {
+        audioListenerInitialVolume = AudioListener.volume;
         canvasGroup = GetComponent<CanvasGroup>();
         rbFirstPersonController = Player.Instance.GetComponent<RigidbodyFirstPersonController>();
     }
@@ -38,6 +40,7 @@ public class PauseMenuScrpt : MonoBehaviour
 
     public void Pause()
     {
+        AudioListener.volume = 0;
         rbFirstPersonController.mouseLook.SetCursorLock(false);
         OnTransitionIn();
         isPaused = true;
@@ -46,6 +49,7 @@ public class PauseMenuScrpt : MonoBehaviour
 
     public void Resume()
     {
+        AudioListener.volume = audioListenerInitialVolume;
         rbFirstPersonController.mouseLook.SetCursorLock(true);
         OnTransitionOut();
         isPaused = false;
