@@ -1,27 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.Characters.FirstPerson;
 using DG.Tweening;
 using UnityEngine;
 
-public class PauseMenuScrpt : MonoBehaviour {
+public class PauseMenuScrpt : MonoBehaviour
+{
 
     [SerializeField] private float transitionDuration = 1f;
     [SerializeField] private float maxScale = 2f;
-    private CanvasGroup canvasGroup;
 
+    private CanvasGroup canvasGroup;
+    public RigidbodyFirstPersonController rbFirstPersonController;
     public static bool isPaused = false;
 
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        rbFirstPersonController = Player.Instance.GetComponent<RigidbodyFirstPersonController>();
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(isPaused)
+            if (isPaused)
             {
                 Resume();
             }
@@ -34,6 +38,7 @@ public class PauseMenuScrpt : MonoBehaviour {
 
     public void Pause()
     {
+        rbFirstPersonController.mouseLook.SetCursorLock(false);
         OnTransitionIn();
         isPaused = true;
         Time.timeScale = 0f;
@@ -41,6 +46,7 @@ public class PauseMenuScrpt : MonoBehaviour {
 
     public void Resume()
     {
+        rbFirstPersonController.mouseLook.SetCursorLock(true);
         OnTransitionOut();
         isPaused = false;
         Time.timeScale = 1f;
@@ -53,6 +59,8 @@ public class PauseMenuScrpt : MonoBehaviour {
 
     public void GoToMenu(string menuScene)
     {
+        Time.timeScale = 1f;
+        isPaused = false;
         SceneManager.LoadScene(menuScene);
     }
 
