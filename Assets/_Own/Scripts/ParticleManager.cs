@@ -14,35 +14,31 @@ public class ParticleManager : MonoBehaviour
 
     private List<GameObject> particleGroupsList;
 
-    // Use this for initialization
-    void Start()
+    void Awake()
     {
         particleGroupsList = new List<GameObject>()
         {wanderParticleGroup,toPlayerParticleGroup,shootingParticleGroup,grappledParticleGroup,fallingToDeathParticleGroup};
     }
 
-    public void ChangeParticleGroup(GameObject newParticleGroup)
+    public void SwitchWandering() {ChangeParticleGroup(wanderParticleGroup);}
+    public void SwitchActive()    {ChangeParticleGroup(toPlayerParticleGroup);}
+    public void SwitchGrappled()  {ChangeParticleGroup(grappledParticleGroup);}
+    public void SwitchToFalling() {ChangeParticleGroup(fallingToDeathParticleGroup);}
+
+    public void SetShootingEffectsActive(bool isActive = true) 
     {
-        if (particleGroupsList == null) return;
-        DisableAllParticleGroups();
-        newParticleGroup.SetActive(true);
+        shootingParticleGroup.SetActive(isActive);
     }
 
     public void DisableAllParticleGroups()
     {
-        if (particleGroupsList == null) return;
         foreach (GameObject particleGroup in particleGroupsList)
         {
             particleGroup.SetActive(false);
         }
     }
 
-    public GameObject GetToPlayerParticalGroup()
-    {
-        return toPlayerParticleGroup;
-    }
-
-    public void DetachFromParent()
+    public void DetachParticleSystemsFromParent()
     {
         foreach (ParticleSystem system in GetComponentsInChildren<ParticleSystem>())
         {
@@ -57,9 +53,17 @@ public class ParticleManager : MonoBehaviour
         transform.SetParent(null);
     }
 
-    public void UnparentParticleGroup(GameObject particleGroup)
+    private void ChangeParticleGroup(GameObject newParticleGroup, bool disableOthers = true)
     {
-        particleGroup.AddComponent<AutoDestroyParticleSystem>();
-        particleGroup.transform.parent = null;
+        if (disableOthers)
+        {
+            foreach (GameObject particleGroup in particleGroupsList)
+            {
+                if (particleGroup == newParticleGroup) continue;
+                particleGroup.SetActive(false);
+            }
+        }
+
+        newParticleGroup.SetActive(true);
     }
 }

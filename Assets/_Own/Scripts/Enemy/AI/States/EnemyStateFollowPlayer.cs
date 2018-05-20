@@ -10,7 +10,6 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
     [SerializeField] private float maxDistanceToPlayer = 5f;
     [SerializeField] private float arriveSlowdownDistance = 5f;
     [SerializeField] private float lookAtPlayerDistance = 10f;
-    [SerializeField] private GameObject toPlayerParticleGroup;
 
     private ParticleManager particleManager;
     private GameObject target;
@@ -21,11 +20,10 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
     {
         shootingController = GetComponent<Shooting>();
         shootingController.enabled = true;
-        target = GameObject.FindGameObjectWithTag("Player");
+        target = Player.Instance.gameObject;
         steeringManager = GetComponent<SteeringManager>();
         particleManager = GetComponentInChildren<ParticleManager>();
-        particleManager.ChangeParticleGroup(toPlayerParticleGroup);
-
+        particleManager.SwitchActive();
     }
 
     private void FixedUpdate()

@@ -60,7 +60,6 @@ public class EnemyDeath : MonoBehaviour
 
     private void UnparentDeathParticleGroup(Health sender)
     {
-        particleManager.DetachFromParent();
-        //particleManager.UnparentParticleGroup(fallingParticleGroup);
+        particleManager.DetachParticleSystemsFromParent();
     }
 }

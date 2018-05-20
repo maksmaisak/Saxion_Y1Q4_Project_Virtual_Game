@@ -4,10 +4,8 @@ using UnityEngine;
 
 #pragma warning disable 0649
 
-public class EnemyFallingToDeathState : FSMState<Enemy> {
-
-    [SerializeField] private GameObject fallingParticleGroup;
-
+public class EnemyFallingToDeathState : FSMState<Enemy> 
+{
     private Rigidbody rb;
     private Health health;
     private ParticleManager particleManager;
@@ -16,11 +14,13 @@ public class EnemyFallingToDeathState : FSMState<Enemy> {
 	public override void Enter()
     {
         base.Enter();
+
         particleManager = GetComponentInChildren<ParticleManager>();
-        health = GetComponent<Health>();
+        particleManager.SwitchToFalling();
+
+        health = agent.health;
         rb = GetComponent<Rigidbody>();
-        steeringManager = GetComponent<SteeringManager>();
-        particleManager.ChangeParticleGroup(fallingParticleGroup);
+        steeringManager = agent.steering;
         rb.useGravity = true;
 
         StartCoroutine(WhileFallingScreamCoroutine());

@@ -12,8 +12,6 @@ public class Shooting : MonoBehaviour
     [SerializeField] float effectTimeBeforeShooting = 0.2f;
     [SerializeField] bool startWithReloading;
 
-    [SerializeField] GameObject shootingParticleGroup;
-
     private float counter;
     private bool isReloading;
     private ShootingController shootingController;
@@ -56,7 +54,7 @@ public class Shooting : MonoBehaviour
             {
                 counter += Time.deltaTime;
 
-                shootingParticleGroup.SetActive(reloadTime - counter <= effectTimeBeforeShooting);
+                particleManager.SetShootingEffectsActive(reloadTime - counter <= effectTimeBeforeShooting);
 
                 if (counter >= reloadTime)
                 {

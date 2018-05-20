@@ -8,11 +8,9 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
 {
     [SerializeField] private float patrolRadius = 5f;
     [SerializeField] private float spottingPlayerDistance = 10f;
-    [SerializeField] private float patrolTime = 5;
     [SerializeField] private float newSteeringForce = 50;
     [SerializeField] private float minDistanceFromAreaBorder = 4f;
     [SerializeField] private Transform patrolPoint;
-    [SerializeField] private GameObject wanderingParticleGroup;
 
     private ParticleManager particleManager;
     private ShootingController shootingController;
@@ -28,7 +26,7 @@ public class EnemyMoveRandomlyAroundPoint : FSMState<Enemy>
         steering = agent.steering;
 
         steering.SetMaxSteeringForce(newSteeringForce);
-        particleManager.ChangeParticleGroup(wanderingParticleGroup);
+        particleManager.SwitchWandering();
     }
 
     private void FixedUpdate()

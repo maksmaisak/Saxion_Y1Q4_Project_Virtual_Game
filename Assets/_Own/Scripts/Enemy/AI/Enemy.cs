@@ -6,7 +6,9 @@ using DG.Tweening;
 
 #pragma warning disable 0649
 
-[RequireComponent(typeof(EnemyAudio), typeof(SteeringManager))]
+[RequireComponent(typeof(EnemyAudio))]
+[RequireComponent(typeof(SteeringManager))]
+[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ShootingController))]
 [RequireComponent(typeof(Grappleable))]
 [RequireComponent(typeof(Health))]
@@ -16,7 +18,6 @@ public class Enemy : MonoBehaviour, IAgent
     public static IEnumerable<SteeringManager> allAsSteerables { get { return steeringManagers.AsReadOnly(); } }
 
     [SerializeField] private GrappleReactionBehaviour grappleReactionBehaviour;
-    [SerializeField] private GameObject grappledParticleGroup;
 
     public FSM<Enemy> fsm { get; private set; }
 
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour, IAgent
     public ShootingController shootingController { get; private set; }
     public Health health { get; private set; }
     public Grappleable grappleable { get; private set; }
+    new public Rigidbody rigidbody { get; private set; }
 
     private float initialHeight;
 
@@ -47,6 +49,8 @@ public class Enemy : MonoBehaviour, IAgent
         audio = GetComponent<EnemyAudio>();
         particleManager = GetComponentInChildren<ParticleManager>();
         health = GetComponent<Health>();
+
+        rigidbody = GetComponent<Rigidbody>();
 
         steering = GetComponent<SteeringManager>();
         steeringManagers.Add(steering);
@@ -103,7 +107,7 @@ public class Enemy : MonoBehaviour, IAgent
         }
 
         audio.PlayOnGrappled();
-        particleManager.ChangeParticleGroup(grappledParticleGroup);
+        particleManager.SwitchGrappled();
 
         switch (grappleReactionBehaviour)
         {
