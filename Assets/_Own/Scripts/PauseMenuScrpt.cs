@@ -66,6 +66,7 @@ public class PauseMenuScrpt : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
         SceneManager.LoadScene(menuScene);
+        AudioListener.volume = audioListenerInitialVolume;
     }
 
     protected void OnTransitionIn()
