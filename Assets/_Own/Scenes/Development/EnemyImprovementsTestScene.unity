@@ -4581,10 +4581,6 @@ Prefab:
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 1940918242}
-    - target: {fileID: 1328074967465180, guid: 4cc0174a6a7f3b848bfdb46e9feec139, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4cc0174a6a7f3b848bfdb46e9feec139, type: 2}
   m_IsPrefabParent: 0
