@@ -19,7 +19,7 @@ public class Grappleable : MonoBehaviour
     public event Action<Grappleable> OnUngrappled;
     public event Action<Grappleable> OnReleased;
 
-    private int numConnectedGrapples = 0;
+    public int numConnectedGrapples { get; private set; }
     public bool isGrappled { get { return numConnectedGrapples > 0; } }
 
     public void Grapple()

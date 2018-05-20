@@ -24,6 +24,8 @@ public class EnemyFallingToDeathState : FSMState<Enemy> {
         rb.useGravity = true;
 
         health.OnDeath += UnparentDeathParticleGroup;
+
+        StartCoroutine(WhileFallingScreamCoroutine());
     }
 
     void FixedUpdate()
@@ -33,7 +35,7 @@ public class EnemyFallingToDeathState : FSMState<Enemy> {
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject != gameObject && collision.gameObject.layer != 10) // FIXME THIS IS HORRIBLE! DON'T hardcode layer numbers jesus...
+        if (collision.gameObject != gameObject && collision.gameObject.layer != 10) // FIXME THIS IS HORRIBLE! DON'T hardcode layer numbers jesus...
         {
             if (health != null)
             {
@@ -41,11 +43,22 @@ public class EnemyFallingToDeathState : FSMState<Enemy> {
             }
         }
     }
+
+    IEnumerator WhileFallingScreamCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(1f, 2f));
+            agent.audio.PlayScreamWhileFallingToDeath();
+        }
+    }
     
     public override void Exit()
     {
         base.Exit();
         rb.useGravity = false;
+
+        StopAllCoroutines();
     }
 
     private void UnparentDeathParticleGroup(Health sender)

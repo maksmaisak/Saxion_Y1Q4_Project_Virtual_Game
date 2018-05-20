@@ -15,6 +15,8 @@ public class EnemyAudio : MonoBehaviour
     [SerializeField] AudioClip onDetectedPlayer;
     [SerializeField] AudioClip onShoot;
     [SerializeField] AudioClip onGrappled;
+    [SerializeField] AudioClip screamWhileGrappled;
+    [SerializeField] AudioClip screamWhileFallingToDeath;
 
     void Start()
     {
@@ -48,5 +50,15 @@ public class EnemyAudio : MonoBehaviour
     public void PlayOnGrappled()
     {
         audioSourceScreams.PlayOneShot(onGrappled);
+    }
+
+    public void PlayScreamWhileGrappled()
+    {
+        audioSourceScreams.PlayOneShot(screamWhileGrappled);
+    }
+
+    public void PlayScreamWhileFallingToDeath()
+    {
+        audioSourceScreams.PlayOneShot(screamWhileFallingToDeath);
     }
 }

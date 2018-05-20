@@ -6,8 +6,10 @@ using DG.Tweening;
 
 #pragma warning disable 0649
 
-[RequireComponent(typeof(EnemyAudio), typeof(SteeringManager), typeof(Grappleable))]
+[RequireComponent(typeof(EnemyAudio), typeof(SteeringManager))]
 [RequireComponent(typeof(ShootingController))]
+[RequireComponent(typeof(Grappleable))]
+[RequireComponent(typeof(Health))]
 public class Enemy : MonoBehaviour, IAgent
 {
     private static List<SteeringManager> steeringManagers = new List<SteeringManager>();
@@ -22,6 +24,8 @@ public class Enemy : MonoBehaviour, IAgent
     public ParticleManager particleManager { get; private set; }
     public SteeringManager steering { get; private set; }
     public ShootingController shootingController { get; private set; }
+    public Health health { get; private set; }
+    public Grappleable grappleable { get; private set; }
 
     private float initialHeight;
 
@@ -42,17 +46,20 @@ public class Enemy : MonoBehaviour, IAgent
 
         audio = GetComponent<EnemyAudio>();
         particleManager = GetComponentInChildren<ParticleManager>();
+        health = GetComponent<Health>();
 
         steering = GetComponent<SteeringManager>();
         steeringManagers.Add(steering);
 
         shootingController = GetComponent<ShootingController>();
 
-        var grappleable = GetComponent<Grappleable>();
-        grappleable.OnGrappled += OnGrapple;
+        grappleable = GetComponent<Grappleable>();
+        grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
 
         fsm.ChangeState<EnemyMoveRandomlyAroundPoint>();
+
+        StartCoroutine(WhileGrappledScreamCoroutine());
     }
 
     // Update is called once per frame
@@ -64,6 +71,27 @@ public class Enemy : MonoBehaviour, IAgent
     void OnDestroy()
     {
         steeringManagers.Remove(steering);
+    }
+
+    IEnumerator WhileGrappledScreamCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 2f));
+            // Seriously meh.
+            yield return new WaitUntil(() => grappleable.isGrappled && fsm.GetCurrentState().GetType() != typeof(EnemyFallingToDeathState));
+            audio.PlayScreamWhileGrappled();
+        }
+    }
+
+    public void Print(string message)
+    {
+        Debug.Log(message);
+    }
+
+    public float GetInitialHeight()
+    {
+        return initialHeight;
     }
 
     private void OnGrapple(Grappleable sender)
@@ -96,15 +124,5 @@ public class Enemy : MonoBehaviour, IAgent
     private void OnRelease(Grappleable sender)
     {
         fsm.ChangeState<EnemyFallingToDeathState>();
-    }
-
-    public void Print(string message)
-    {
-        Debug.Log(message);
-    }
-
-    public float GetInitialHeight()
-    {
-        return initialHeight;
     }
 }
