@@ -6,18 +6,18 @@ using UnityEngine;
 
 public class PauseMenuScrpt : MonoBehaviour {
 
-    [SerializeField] private float transitionDuration = 1;
-    [SerializeField] private float maxScale = 2;
+    [SerializeField] private float transitionDuration = 1f;
+    [SerializeField] private float maxScale = 2f;
     private CanvasGroup canvasGroup;
 
     public static bool isPaused = false;
 
-    private void Start()
+    void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    private void Update()
+    void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
@@ -32,9 +32,34 @@ public class PauseMenuScrpt : MonoBehaviour {
         }
     }
 
+    public void Pause()
+    {
+        OnTransitionIn();
+        isPaused = true;
+        Time.timeScale = 0;
+    }
+
+    public void Resume()
+    {
+        OnTransitionOut();
+        isPaused = false;
+        Time.timeScale = 1;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void GoToMenu(string menuScene)
+    {
+        SceneManager.LoadScene(menuScene);
+    }
+
     protected void OnTransitionIn()
     {
         canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
         canvasGroup.DOKill();
         canvasGroup
             .DOFade(1f, transitionDuration)
@@ -55,6 +80,7 @@ public class PauseMenuScrpt : MonoBehaviour {
     protected void OnTransitionOut()
     {
         canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
         canvasGroup.DOKill();
         canvasGroup
             .DOFade(0f, transitionDuration)
@@ -66,28 +92,5 @@ public class PauseMenuScrpt : MonoBehaviour {
             .DOScale(maxScale, transitionDuration)
             .SetEase(Ease.InExpo)
             .SetUpdate(isIndependentUpdate: true);
-    }
-
-    public void Pause()
-    {
-        OnTransitionIn();
-        isPaused = true;
-        Time.timeScale = 0;
-    }
-    public void Resume()
-    {
-        OnTransitionOut();
-        isPaused = false;
-        Time.timeScale = 1;
-    }
-
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
-    public void GoToMenu(string menuScene)
-    {
-        SceneManager.LoadScene(menuScene);
     }
 }
