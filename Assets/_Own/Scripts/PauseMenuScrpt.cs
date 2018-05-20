@@ -36,14 +36,14 @@ public class PauseMenuScrpt : MonoBehaviour {
     {
         OnTransitionIn();
         isPaused = true;
-        Time.timeScale = 0;
+        Time.timeScale = 0f;
     }
 
     public void Resume()
     {
         OnTransitionOut();
         isPaused = false;
-        Time.timeScale = 1;
+        Time.timeScale = 1f;
     }
 
     public void Quit()
