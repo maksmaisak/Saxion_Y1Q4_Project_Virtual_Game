@@ -1485,7 +1485,7 @@ MonoBehaviour:
   maxSteeringForce: 10
   maxSpeed: 24
   collisionAvoidanceMultiplier: 20
-  collisionAvoidanceRange: 2
+  collisionAvoidanceRange: 8
   maxRotationDegreesPerSecond: 180
   separationFactor: 15
   separationDistance: 4
@@ -1709,7 +1709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbf65e2be56b45f5ae17f42c5d2df53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolRadius: 16
+  patrolRadius: 12
   spottingPlayerDistance: 40
   patrolTime: 5
   newSteeringForce: 50
