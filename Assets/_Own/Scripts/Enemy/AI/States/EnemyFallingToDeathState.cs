@@ -23,8 +23,6 @@ public class EnemyFallingToDeathState : FSMState<Enemy> {
         particleManager.ChangeParticleGroup(fallingParticleGroup);
         rb.useGravity = true;
 
-        health.OnDeath += UnparentDeathParticleGroup;
-
         StartCoroutine(WhileFallingScreamCoroutine());
     }
 
@@ -59,10 +57,5 @@ public class EnemyFallingToDeathState : FSMState<Enemy> {
         rb.useGravity = false;
 
         StopAllCoroutines();
-    }
-
-    private void UnparentDeathParticleGroup(Health sender)
-    {
-        particleManager.UnparentParticleGroup(fallingParticleGroup);
     }
 }

@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 82438192577524324}
   - component: {fileID: 114576717765151716}
   m_Layer: 0
-  m_Name: PurpleEnemyDestroyedParticle
+  m_Name: EnemyPurpleDestroyedParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4fa6540d44cd14230ab10cbd9ae1538c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: bc807a77caa8c41a392592b98ca36003, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.24
   m_Pitch: 1

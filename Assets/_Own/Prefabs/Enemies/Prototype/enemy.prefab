@@ -303,6 +303,7 @@ MonoBehaviour:
   maxDistanceToPlayer: 10
   arriveSlowdownDistance: 6
   lookAtPlayerDistance: 15
+  toPlayerParticleGroup: {fileID: 0}
 --- !u!114 &114159233124540168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,7 +366,9 @@ MonoBehaviour:
   spottingPlayerDistance: 40
   patrolTime: 5
   newSteeringForce: 50
+  minDistanceFromAreaBorder: 4
   patrolPoint: {fileID: 0}
+  wanderingParticleGroup: {fileID: 0}
 --- !u!114 &114415618604697572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -380,7 +383,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1263102816374688, guid: 43a399c034e7544d387897d2c87839e5,
     type: 2}
   muzzleSpeed: 20
-  shootSound: {fileID: 8300000, guid: 075d06e8080754f0d9a15c97ec83c6ac, type: 3}
   obstacleDetectionLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -397,6 +399,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingRange: 40
   reloadTime: 2
+  effectTimeBeforeShooting: 0.2
+  startWithReloading: 0
+  shootingParticleGroup: {fileID: 0}
 --- !u!114 &114620044950778390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -408,7 +413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a25ad74aaa8349a086f885bc2c42761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceFromPulling: 4
   newSteeringForce: 100
 --- !u!114 &114812728332883278
 MonoBehaviour:
@@ -435,6 +439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakingDuration: 5
   maxShakingForce: 6
+  maxSteeringForce: 1000
 --- !u!114 &114887561937617366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -485,8 +490,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c519062df9d4f8a8b51c98432bdd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedState: 3
-  enemyGrappeledSound: {fileID: 8300000, guid: ae3a65ad6de904de6b44fce5a2afcea8, type: 3}
+  grappleReactionBehaviour: 0
+  grappledParticleGroup: {fileID: 0}
 --- !u!135 &135870948589046598
 SphereCollider:
   m_ObjectHideFlags: 1
