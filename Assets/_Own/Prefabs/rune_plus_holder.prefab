@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 4027540302869568}
   m_Layer: 0
   m_Name: Chains
-  m_TagString: Untagged
+  m_TagString: CheckpointChain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -290,6 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4044407512931368}
   - component: {fileID: 114358987065519846}
+  - component: {fileID: 114428641490233804}
   m_Layer: 0
   m_Name: rune_plus_holder
   m_TagString: Checkpoint
@@ -477,7 +478,7 @@ GameObject:
   - component: {fileID: 4760109689827080}
   m_Layer: 0
   m_Name: Chains3
-  m_TagString: Untagged
+  m_TagString: CheckpointChain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -544,8 +545,25 @@ GameObject:
   - component: {fileID: 4348136559252230}
   m_Layer: 0
   m_Name: Chains2
-  m_TagString: Untagged
+  m_TagString: CheckpointChain
   m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1855556608320992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4610180557094486}
+  - component: {fileID: 135414706471283010}
+  - component: {fileID: 114341349812638508}
+  m_Layer: 2
+  m_Name: ActivationTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -655,7 +673,7 @@ Transform:
   - {fileID: 4858549229743452}
   - {fileID: 4433446898923892}
   m_Father: {fileID: 4044407512931368}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4044407512931368
 Transform:
@@ -663,16 +681,17 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1412540263599186}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.0198, y: 0.01, z: -19.632}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -48.1, y: 1.8599999, z: 41.5}
   m_LocalScale: {x: 1.3310499, y: 1.3310497, z: 1.3310497}
   m_Children:
-  - {fileID: 4203517885334968}
-  - {fileID: 4887675246224988}
+  - {fileID: 4610180557094486}
   - {fileID: 4027540302869568}
+  - {fileID: 4887675246224988}
   - {fileID: 4348136559252230}
-  - {fileID: 4760109689827080}
   - {fileID: 4101915864582426}
+  - {fileID: 4760109689827080}
+  - {fileID: 4203517885334968}
   - {fileID: 4089770961622156}
   - {fileID: 4447342750040670}
   - {fileID: 4859505559468546}
@@ -703,7 +722,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4044407512931368}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4098902531198694
 Transform:
@@ -729,7 +748,7 @@ Transform:
   m_LocalScale: {x: 0.96141857, y: 0.96141857, z: 0.96141857}
   m_Children: []
   m_Father: {fileID: 4044407512931368}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4186246672519338
 Transform:
@@ -755,7 +774,7 @@ Transform:
   m_LocalScale: {x: 0.7512866, y: 0, z: 0.75128675}
   m_Children: []
   m_Father: {fileID: 4044407512931368}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4308374019568962
 Transform:
@@ -881,7 +900,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4044407512931368}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4472710348886872
 Transform:
@@ -920,6 +939,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4760109689827080}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4610180557094486
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855556608320992}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7512866, y: 0, z: 0.75128675}
+  m_Children: []
+  m_Father: {fileID: 4044407512931368}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4657553231571126
@@ -994,7 +1026,7 @@ Transform:
   - {fileID: 4431870899129948}
   - {fileID: 4410637180994008}
   m_Father: {fileID: 4044407512931368}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4779461254325656
 Transform:
@@ -1085,7 +1117,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4044407512931368}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4887675246224988
 Transform:
@@ -1098,7 +1130,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4044407512931368}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
 --- !u!4 &4922290450104226
 Transform:
@@ -2460,6 +2492,27 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114341349812638508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855556608320992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28fafa6297f34a44a25547dcbc583eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TriggerEvents+TriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  _onPlayerTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114358987065519846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2483,12 +2536,37 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   onActivated:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114428641490233804}
+        m_MethodName: ExplodeChains
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   prerequisiteCheckpoints: []
   needToDieToUnlock: []
   triggerEvents: {fileID: 114921866407207010}
+--- !u!114 &114428641490233804
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1412540263599186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 644b869f595ba44abaf91bacdd6aa989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionForce: 30
+  explosionRadius: 10
+  upwardsModifier: 2
 --- !u!114 &114921866407207010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2516,6 +2594,18 @@ SphereCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509478605167778}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135414706471283010
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855556608320992}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
