@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 114748918889401058}
   - component: {fileID: 114008411048695138}
   - component: {fileID: 114249881878999974}
-  - component: {fileID: 114058785449976756}
+  - component: {fileID: 114362040704792426}
   - component: {fileID: 114333352209413356}
   - component: {fileID: 114921187812293926}
   - component: {fileID: 114709471259720036}
@@ -1499,22 +1499,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDuration: 8
   maxDuration: 10
---- !u!114 &114058785449976756
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1272451542320998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cbf65e2be56b45f5ae17f42c5d2df53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolRadius: 8
-  spottingPlayerDistance: 40
-  newSteeringForce: 50
-  minDistanceFromAreaBorder: 4
-  patrolPoint: {fileID: 0}
 --- !u!114 &114071130282288718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1612,6 +1596,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newSteeringForce: 1000
+--- !u!114 &114362040704792426
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272451542320998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2832fdc11209e41b284f943480b5db01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolRadius: 8
+  spottingPlayerDistance: 40
+  newSteeringForce: 50
+  minDistanceFromAreaBorder: 4
+  point: {fileID: 0}
 --- !u!114 &114473557701769336
 MonoBehaviour:
   m_ObjectHideFlags: 1

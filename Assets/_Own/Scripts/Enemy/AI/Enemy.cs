@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour, IAgent
         grappleable.OnGrappled   += OnGrapple;
         grappleable.OnUngrappled += OnRelease;
 
-        fsm.ChangeState<EnemyMoveRandomlyAroundPoint>();
+        fsm.ChangeState<EnemyMoveRandomlyAroundPointState>();
 
         StartCoroutine(WhileGrappledScreamCoroutine());
     }
