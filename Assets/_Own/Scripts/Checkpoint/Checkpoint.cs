@@ -40,6 +40,9 @@ public class Checkpoint : MonoBehaviour
 
     void Start()
     {
+        prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null);
+        needToDieToUnlock.RemoveAll(health => health == null);
+
         EnsureTrigger();
         triggerEvents.onPlayerTriggerStay.AddListener(OnPlayerTriggerStay);
 
@@ -48,9 +51,8 @@ public class Checkpoint : MonoBehaviour
         {
             onAllPrerequisiteCheckpointsActive.Invoke();
         }
-        else 
+        else
         {
-            prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null);
             foreach (Checkpoint checkpoint in prerequisiteCheckpoints)
             {
                 checkpoint.OnActivated += OnPrerequisiteCheckpointActivated;
@@ -68,7 +70,6 @@ public class Checkpoint : MonoBehaviour
         }
         else
         {
-            needToDieToUnlock.RemoveAll(health => health == null);
             foreach (Health health in needToDieToUnlock)
             {
                 health.OnDeath += OnRequiredEntityDied;
