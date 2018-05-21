@@ -36,14 +36,10 @@ public class Checkpoint : MonoBehaviour
     [Tooltip("The checkpoint will activate when the player enters this trigger. This field will be filled automatically as long as this gameobject or one of its children has a trigger collider or a TriggerEvents component.")]
     [SerializeField] private TriggerEvents triggerEvents;
 
-    private ParticleSystem[] particleSystems;
-
     private bool isLocked = true;
 
     void Start()
     {
-        particleSystems = GetComponentsInChildren<ParticleSystem>();
-
         EnsureTrigger();
         triggerEvents.onPlayerTriggerStay.AddListener(OnPlayerTriggerStay);
 
@@ -101,21 +97,11 @@ public class Checkpoint : MonoBehaviour
 
     private void Unlock()
     {
-        foreach (var system in particleSystems)
-        {
-            if (!system.isPlaying) system.Play();
-        }
-
         isLocked = false;
     }
 
     private void Lock()
     {
-        foreach (var system in particleSystems)
-        {
-            if (!system.isStopped) system.Stop();
-        }
-
         isLocked = true;
     }
 
