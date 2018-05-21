@@ -21,10 +21,10 @@ public class ChainExplosion : MonoBehaviour
                 rb.AddTorque(transform.up * torque,ForceMode.Impulse);
                 Destroy(child.gameObject, 2);
             }
-            if(child.CompareTag("CheckpointHolder"))
-            {
-                child.gameObject.AddComponent<Rigidbody>().useGravity = true;
-            }
+            //if(child.CompareTag("CheckpointHolder"))
+            //{
+            //    child.gameObject.AddComponent<Rigidbody>().useGravity = true;
+            //}
         }
     }
 }
