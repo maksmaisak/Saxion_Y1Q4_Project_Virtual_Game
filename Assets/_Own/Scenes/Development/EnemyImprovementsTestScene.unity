@@ -162,6 +162,11 @@ Prefab:
       propertyPath: m_Name
       value: EnemyBlue (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114331112826112892, guid: 4cc0174a6a7f3b848bfdb46e9feec139,
+        type: 2}
+      propertyPath: separationDistance
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4cc0174a6a7f3b848bfdb46e9feec139, type: 2}
   m_IsPrefabParent: 0
@@ -356,6 +361,11 @@ Prefab:
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 131048720}
+    - target: {fileID: 114748918889401058, guid: d9d0b7835940649de8995244052105b7,
+        type: 2}
+      propertyPath: separationDistance
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9d0b7835940649de8995244052105b7, type: 2}
   m_IsPrefabParent: 0
@@ -16314,6 +16324,11 @@ Prefab:
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 131048720}
+    - target: {fileID: 114709665333703050, guid: 9341829d698fc4d5695711d4fc8f243c,
+        type: 2}
+      propertyPath: separationDistance
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9341829d698fc4d5695711d4fc8f243c, type: 2}
   m_IsPrefabParent: 0
@@ -21778,10 +21793,6 @@ Prefab:
     - target: {fileID: 4062974542848320, guid: 9341829d698fc4d5695711d4fc8f243c, type: 2}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4062974542848320, guid: 9341829d698fc4d5695711d4fc8f243c, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -222.644
       objectReference: {fileID: 0}
     - target: {fileID: 114465281811109520, guid: 9341829d698fc4d5695711d4fc8f243c,
         type: 2}
