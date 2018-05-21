@@ -29,7 +29,14 @@ public class ParticleManager : MonoBehaviour
 
     public void SetShootingEffectsActive(bool isActive = true) 
     {
-        shootingParticleGroup.SetActive(isActive);
+        if (isActive)
+        {
+            Play(shootingParticleGroup);
+        }
+        else 
+        {
+            Stop(shootingParticleGroup);
+        }
     }
 
     public void DisableAllParticleGroups()
