@@ -16,11 +16,14 @@ public class ChainExplosion : MonoBehaviour
         {
             if(child.tag == "CheckpointChain")
             {
-                child.gameObject.AddComponent<Rigidbody>();
-                rb = child.GetComponent<Rigidbody>();
+                rb = child.gameObject.AddComponent<Rigidbody>();
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, upwardsModifier, ForceMode.Impulse);
                 rb.AddTorque(transform.up * torque,ForceMode.Impulse);
                 Destroy(child.gameObject, 2);
+            }
+            if(child.tag == "CheckpointHolder")
+            {
+                child.gameObject.AddComponent<Rigidbody>().useGravity = true;
             }
         }
     }
