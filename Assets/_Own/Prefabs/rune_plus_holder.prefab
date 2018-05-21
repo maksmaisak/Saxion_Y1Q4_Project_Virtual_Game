@@ -2548,7 +2548,7 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1058727203548518}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.7294118, g: 0.4156863, b: 0.13725491, a: 1}
@@ -2770,7 +2770,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1297031613
+  randomSeed: 314118085
   InitialModule:
     serializedVersion: 3
     enabled: 1

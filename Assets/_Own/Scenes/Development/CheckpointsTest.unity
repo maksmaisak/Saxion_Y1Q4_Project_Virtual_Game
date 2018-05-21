@@ -2045,6 +2045,10 @@ Prefab:
       propertyPath: randomSeed
       value: -1297031613
       objectReference: {fileID: 0}
+    - target: {fileID: 1412540263599186, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
   m_IsPrefabParent: 0
@@ -2303,6 +2307,11 @@ Prefab:
       propertyPath: patrolPoint
       value: 
       objectReference: {fileID: 1654334554}
+    - target: {fileID: 82039734943951136, guid: de07efe3ec9e68445ae76912b05f3235,
+        type: 2}
+      propertyPath: BypassEffects
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de07efe3ec9e68445ae76912b05f3235, type: 2}
   m_IsPrefabParent: 0
@@ -2483,6 +2492,10 @@ Prefab:
         type: 2}
       propertyPath: randomSeed
       value: -1297031613
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412540263599186, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
@@ -2676,6 +2689,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 926812762}
     m_Modifications:
+    - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
+        type: 2}
+      propertyPath: needToDieToUnlock.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
       propertyPath: m_LocalPosition.x
       value: -3.0198
@@ -2711,6 +2729,11 @@ Prefab:
     - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
         type: 2}
       propertyPath: needToDieToUnlock.Array.data[0]
+      value: 
+      objectReference: {fileID: 438577816}
+    - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
+        type: 2}
+      propertyPath: needToDieToUnlock.Array.data[1]
       value: 
       objectReference: {fileID: 438577816}
     m_RemovedComponents: []
