@@ -11,12 +11,10 @@ public class EnemyDeath : MonoBehaviour
     [SerializeField] float fallDeathYPos = -50f;
 
     private Health health;
-    private AudioSource audioSource;
     private ParticleManager particleManager;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         particleManager = GetComponentInChildren<ParticleManager>();
         health = GetComponent<Health>();
 
