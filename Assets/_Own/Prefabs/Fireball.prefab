@@ -345,8 +345,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0339bad9ac4ad4cfc952c9e0f05af3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletDamage: 100
+  bulletDamage: 50
   explosion: {fileID: 1696113148562732, guid: b9a9cbbfc86126a41940b1946b456149, type: 2}
+  onImpactSoundFadeoutDuration: 0.5
 --- !u!135 &135952282471648068
 SphereCollider:
   m_ObjectHideFlags: 1
