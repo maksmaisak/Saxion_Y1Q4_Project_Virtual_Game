@@ -23,6 +23,7 @@ public class Checkpoint : MonoBehaviour
     public event Action<Checkpoint> OnActivated;
 
     [SerializeField] private UnityEvent onAllPrerequisiteCheckpointsActive = new UnityEvent();
+    [Tooltip("Called when both prerequisite checkpoints are active and all entities are dead. A better name would be 'onUnlock', but that would screw up existing settings in prefabs and gameobjects in scenes. Sorry about that.")]
     [SerializeField] private UnityEvent onAllRequiredEntitiesDead = new UnityEvent();
     [SerializeField] private UnityEvent onActivated = new UnityEvent();
 
@@ -44,19 +45,34 @@ public class Checkpoint : MonoBehaviour
         particleSystems = GetComponentsInChildren<ParticleSystem>();
 
         EnsureTrigger();
-        triggerEvents.onPlayerTriggerEnter.AddListener(OnPlayerTriggerEnter);
+        triggerEvents.onPlayerTriggerStay.AddListener(OnPlayerTriggerStay);
 
-        if (!ShouldBeLocked())
+        bool anyPrerequisiteCheckpoints = prerequisiteCheckpoints.Count > 0;
+        if (!anyPrerequisiteCheckpoints)
         {
-            Unlock();
+            onAllPrerequisiteCheckpointsActive.Invoke();
         }
-        else
+        else 
         {
+            prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null);
             foreach (Checkpoint checkpoint in prerequisiteCheckpoints)
             {
                 checkpoint.OnActivated += OnPrerequisiteCheckpointActivated;
             }
+        }
 
+        bool anyEntitiesNeedToDie = needToDieToUnlock.Count > 0;
+        if (!anyEntitiesNeedToDie)
+        {
+            if (!anyPrerequisiteCheckpoints)
+            {
+                onAllRequiredEntitiesDead.Invoke();
+                Unlock();
+            }
+        }
+        else
+        {
+            needToDieToUnlock.RemoveAll(health => health == null);
             foreach (Health health in needToDieToUnlock)
             {
                 health.OnDeath += OnRequiredEntityDied;
@@ -64,7 +80,7 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
-    private void OnPlayerTriggerEnter()
+    private void OnPlayerTriggerStay()
     {
         if (!isLocked)
         {
@@ -112,11 +128,13 @@ public class Checkpoint : MonoBehaviour
         if (prerequisiteCheckpoints.Count == 0)
         {
             onAllPrerequisiteCheckpointsActive.Invoke();
-        }
 
-        if (!ShouldBeLocked())
-        {
-            Unlock();
+            if (needToDieToUnlock.Count == 0)
+            {
+                onAllRequiredEntitiesDead.Invoke();
+
+                Unlock();
+            }
         }
     }
 
@@ -126,22 +144,11 @@ public class Checkpoint : MonoBehaviour
 
         needToDieToUnlock.Remove(sender);
 
-        if (needToDieToUnlock.Count == 0)
+        if (prerequisiteCheckpoints.Count == 0 && needToDieToUnlock.Count == 0)
         {
             onAllRequiredEntitiesDead.Invoke();
-        }
-
-        if (!ShouldBeLocked())
-        {
             Unlock();
         }
-    }
-
-    private bool ShouldBeLocked()
-    {
-        return
-            prerequisiteCheckpoints.Count > 0 ||
-            needToDieToUnlock.Count > 0;
     }
 
     /// <summary>
