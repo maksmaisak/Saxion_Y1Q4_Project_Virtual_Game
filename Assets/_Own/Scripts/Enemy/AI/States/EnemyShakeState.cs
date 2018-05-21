@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class EnemyShakeState : FSMState<Enemy>
 {
-    [SerializeField] private float shakingDuration = 3;
     [SerializeField] private float maxShakingForce = 5;
     [SerializeField] private float maxSteeringForce = 1000f;
 
-    private bool isShaking;
-    private float counter = 0;
     private SteeringManager steering;
-    private Rigidbody rb;
+    new private Rigidbody rigidbody;
 
     public override void Enter()
     {
         base.Enter();
-        rb = GetComponent<Rigidbody>();
-        steering = GetComponent<SteeringManager>();
-        isShaking = true;
+        rigidbody = agent.rigidbody;
+        steering  = agent.steering;
 
         steering.SetMaxSteeringForce(maxSteeringForce);
     }
@@ -34,27 +30,14 @@ public class EnemyShakeState : FSMState<Enemy>
 
     private void Shake()
     {
-        if (isShaking)
-        {
-            rb.AddForce(Random.onUnitSphere * maxShakingForce, ForceMode.Impulse);
-            counter += Time.fixedDeltaTime;
-            if (counter >= shakingDuration)
-            {
-                isShaking = false;
-                counter = 0;
-            }
-        }
-        else
-        {
-            rb.useGravity = true;
-        }
+        rigidbody.AddForce(Random.onUnitSphere * maxShakingForce);
     }
 
     public override void Exit()
     {
         base.Exit();
-        rb.useGravity = false;
 
+        rigidbody.useGravity = false;
         steering.SetMaxSteeringForce(steering.GetInitalSteeringForce());
     }
 }

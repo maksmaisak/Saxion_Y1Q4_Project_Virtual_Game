@@ -269,7 +269,6 @@ GameObject:
   - component: {fileID: 114894154651421444}
   - component: {fileID: 114794551097297468}
   - component: {fileID: 114654135682362664}
-  - component: {fileID: 114929314515309032}
   - component: {fileID: 114582930297635904}
   - component: {fileID: 114829976007956318}
   m_Layer: 0
@@ -771,7 +770,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1328074967465180}
   m_LocalRotation: {x: -0, y: -0.9848078, z: -0, w: 0.17364825}
-  m_LocalPosition: {x: -2.52, y: 2.7, z: -11.4}
+  m_LocalPosition: {x: -2.52, y: 2.7, z: 34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4605091570933546}
@@ -1796,21 +1795,6 @@ MonoBehaviour:
   newSteeringForce: 50
   minDistanceFromAreaBorder: 4
   point: {fileID: 0}
---- !u!114 &114929314515309032
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1328074967465180}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abb924765e4714b28a199e05fdf2cfca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thrustHeightLimit: 50
-  upThrustStrength: 300
-  thrustTime: 4
-  newSteeringStrength: 300
 --- !u!114 &114945557985333386
 MonoBehaviour:
   m_ObjectHideFlags: 1

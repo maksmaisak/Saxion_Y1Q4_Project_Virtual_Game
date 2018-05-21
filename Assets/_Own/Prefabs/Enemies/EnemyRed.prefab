@@ -1571,9 +1571,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrustHeightLimit: 50
-  upThrustStrength: 300
+  upThrustStrength: 1000
   thrustTime: 4
-  newSteeringStrength: 300
+  newSteeringStrength: 1000
 --- !u!114 &114616557701876814
 MonoBehaviour:
   m_ObjectHideFlags: 1
