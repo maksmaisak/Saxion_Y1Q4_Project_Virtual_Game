@@ -7,6 +7,8 @@ TagManager:
   - wall
   - Enemy
   - Checkpoint
+  - CheckpointChain
+  - CheckpointHolder
   layers:
   - Default
   - TransparentFX

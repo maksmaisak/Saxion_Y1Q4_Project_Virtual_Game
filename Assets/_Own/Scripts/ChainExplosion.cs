@@ -14,14 +14,14 @@ public class ChainExplosion : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            if(child.tag == "CheckpointChain")
+            if(child.CompareTag("CheckpointChain"))
             {
                 rb = child.gameObject.AddComponent<Rigidbody>();
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, upwardsModifier, ForceMode.Impulse);
                 rb.AddTorque(transform.up * torque,ForceMode.Impulse);
                 Destroy(child.gameObject, 2);
             }
-            if(child.tag == "CheckpointHolder")
+            if(child.CompareTag("CheckpointHolder"))
             {
                 child.gameObject.AddComponent<Rigidbody>().useGravity = true;
             }
