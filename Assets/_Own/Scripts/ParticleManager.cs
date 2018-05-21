@@ -4,6 +4,8 @@ using UnityEngine;
 
 #pragma warning disable 0649
 
+//TODO maybe have an enum for different group types. Have one "change" method to take in a member of that enum. Find particle systems at startup by looking at their assigned type as a member of that enum?
+
 public class ParticleManager : MonoBehaviour
 {
     [SerializeField] private GameObject wanderParticleGroup;
@@ -32,10 +34,7 @@ public class ParticleManager : MonoBehaviour
 
     public void DisableAllParticleGroups()
     {
-        foreach (GameObject particleGroup in particleGroupsList)
-        {
-            particleGroup.SetActive(false);
-        }
+        particleGroupsList.ForEach(Stop);
     }
 
     public void DetachParticleSystemsFromParent()
@@ -60,10 +59,27 @@ public class ParticleManager : MonoBehaviour
             foreach (GameObject particleGroup in particleGroupsList)
             {
                 if (particleGroup == newParticleGroup) continue;
-                particleGroup.SetActive(false);
+                Stop(particleGroup);
             }
         }
 
-        newParticleGroup.SetActive(true);
+        Play(newParticleGroup);
+    }
+
+    private void Play(GameObject particleGroup)
+    {
+        particleGroup.SetActive(true);
+        foreach (var ps in particleGroup.GetComponentsInChildren<ParticleSystem>())
+        {
+            ps.Play();
+        }
+    }
+
+    private void Stop(GameObject particleGroup)
+    {
+        foreach (var ps in particleGroup.GetComponentsInChildren<ParticleSystem>())
+        {
+            ps.Stop();
+        }
     }
 }
