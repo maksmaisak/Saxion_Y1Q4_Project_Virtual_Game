@@ -109,22 +109,28 @@ public class GrappleController : MonoBehaviour
         {
             if (hit.distance < grappleMinRange)
             {
-                crosshairIndicator.color = Color.gray;
+                SetCrosshairMode(false);
                 targetPosition = Vector3.zero;
                 return false;
             }
 
-            crosshairIndicator.color = Color.black;
+            SetCrosshairMode(true);
             targetPosition = hit.point;
             return true;
         }
 
-        crosshairIndicator.color = Color.gray;
+        SetCrosshairMode(false);
         targetPosition = ray.GetPoint(grappleMaxRange);
         return true;
 
         /*crosshairIndicator.color = Color.gray;
         targetPosition = Vector3.zero;
         return false;*/
+    }
+
+    private void SetCrosshairMode(bool isActive)
+    {
+        if (crosshairIndicator == null) return;
+        crosshairIndicator.color = isActive ? Color.black : Color.gray;
     }
 }
