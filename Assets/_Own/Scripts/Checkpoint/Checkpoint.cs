@@ -44,7 +44,7 @@ public class Checkpoint : MonoBehaviour
         particleSystems = GetComponentsInChildren<ParticleSystem>();
 
         EnsureTrigger();
-        triggerEvents.onPlayerTriggerEnter.AddListener(OnPlayerTriggerEnter);
+        triggerEvents.onPlayerTriggerStay.AddListener(OnPlayerTriggerStay);
 
         if (!ShouldBeLocked())
         {
@@ -64,7 +64,7 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
-    private void OnPlayerTriggerEnter()
+    private void OnPlayerTriggerStay()
     {
         if (!isLocked)
         {

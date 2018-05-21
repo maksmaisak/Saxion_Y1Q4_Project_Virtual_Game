@@ -15,17 +15,43 @@ public class TriggerEvents : MonoBehaviour
     [SerializeField] UnityEvent _onPlayerTriggerEnter = new UnityEvent();
     public UnityEvent onPlayerTriggerEnter { get { return _onPlayerTriggerEnter; } }
 
+    [SerializeField] UnityEvent _onPlayerTriggerStay = new UnityEvent();
+    public UnityEvent onPlayerTriggerStay { get { return _onPlayerTriggerStay; } }
+
+    [SerializeField] UnityEvent _onPlayerTriggerExit = new UnityEvent();
+    public UnityEvent onPlayerTriggerExit { get { return _onPlayerTriggerExit; } }
+
     void OnTriggerEnter(Collider other)
     {
         onTriggerEnter.Invoke(other);
 
-        GameObject playerGameObject = Player.Instance.gameObject;
-        if (
-            other.gameObject == playerGameObject ||
-            (other.attachedRigidbody != null && other.attachedRigidbody.gameObject == playerGameObject)
-        )
+        if (IsPlayer(other))
         {
             onPlayerTriggerEnter.Invoke();
         }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (IsPlayer(other))
+        {
+            onPlayerTriggerStay.Invoke();
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (IsPlayer(other))
+        {
+            onPlayerTriggerExit.Invoke();
+        }
+    }
+
+    private bool IsPlayer(Collider other)
+    {
+        GameObject playerGameObject = Player.Instance.gameObject;
+        if (other.gameObject == playerGameObject) return true;
+        if (other.attachedRigidbody != null && other.attachedRigidbody.gameObject == playerGameObject) return true;
+        return false;
     }
 }
