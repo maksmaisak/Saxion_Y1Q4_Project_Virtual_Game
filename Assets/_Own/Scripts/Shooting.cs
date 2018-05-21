@@ -2,26 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable 0649
+
+[RequireComponent(typeof(EnemyAudio))]
 public class Shooting : MonoBehaviour
 {
-
-    [SerializeField] private float shootingRange = 10;
-    [SerializeField] private float reloadTime = 2;
-    [SerializeField] private GameObject shootingParticleGroup;
+    [SerializeField] float shootingRange = 10f;
+    [SerializeField] float reloadTime = 2f;
+    [SerializeField] float effectTimeBeforeShooting = 0.2f;
+    [SerializeField] bool startWithReloading;
 
     private float counter;
-    private bool reloading;
-    private ParticleManager particleManager;
+    private bool isReloading;
     private ShootingController shootingController;
+    private ParticleManager particleManager;
+    new private EnemyAudio audio;
+
     private GameObject target;
 
     void Start()
     {
         shootingController = GetComponent<ShootingController>();
         particleManager = GetComponentInChildren<ParticleManager>();
-        target = GameObject.FindGameObjectWithTag("Player");
-    }
+        audio = GetComponent<EnemyAudio>();
 
+        target = Player.Instance.gameObject;
+
+        isReloading = startWithReloading;
+    }
 
     void Update()
     {
@@ -31,30 +39,26 @@ public class Shooting : MonoBehaviour
         }
     }
 
-
     private void Shoot()
     {
         if (shootingController.CanShootAt(target))
         {
-            if (!reloading)
+            if (!isReloading)
             {
                 shootingController.ShootAt(target);
-                reloading = true;
+                audio.PlayOnShoot();
+
+                isReloading = true;
             }
             else
             {
                 counter += Time.deltaTime;
-                if(reloadTime - counter >= 0.5f)
-                {
-                    shootingParticleGroup.SetActive(true);
-                }
-                else
-                {
-                    shootingParticleGroup.SetActive(false);
-                }
+
+                particleManager.SetShootingEffectsActive(reloadTime - counter <= effectTimeBeforeShooting);
+
                 if (counter >= reloadTime)
                 {
-                    reloading = false;
+                    isReloading = false;
                     counter = 0f;
                 }
             }

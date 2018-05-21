@@ -20,7 +20,7 @@ public class EnemyPullPlayerState : FSMState<Enemy> {
     {
         steering.Wander();
         steering.Flee(Player.Instance.transform.position);
-        steering.AvoidEnemies();
+        steering.FlockingSeparation(Enemy.allAsSteerables);
         steering.AvoidObstacles();
         steering.CompensateExternalForces();
 

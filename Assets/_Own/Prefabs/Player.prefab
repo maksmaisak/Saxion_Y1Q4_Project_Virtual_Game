@@ -1353,7 +1353,7 @@ MonoBehaviour:
   minSpeed: 10
   maxSpeed: 30
   maxVolumeChangePerSecond: 1
-  maxVolume: 1
+  maxVolume: 0.5
 --- !u!114 &114526936135404986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1595,10 +1595,11 @@ MonoBehaviour:
     cameraRotationOffset: {x: 0, y: 0, z: 0, w: 1}
   advancedSettings:
     groundCheckDistance: 0.1
-    stickToGroundHelperDistance: 0.1
+    stickToGroundHelperDistance: 0.2
     wallCheckDistance: 0.1
     stickToWallHelperDistance: 0.5
     stickToWallHelperForce: 20
+    onSurfaceRigidbodyDrag: 5
     slowDownRate: 20
     airControl: 1
     alwaysForwardWhenAirborne: 0

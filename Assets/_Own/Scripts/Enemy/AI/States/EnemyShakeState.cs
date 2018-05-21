@@ -26,7 +26,7 @@ public class EnemyShakeState : FSMState<Enemy>
     void FixedUpdate()
     {
         Shake();
-        steering.AvoidEnemies();
+        steering.FlockingSeparation(Enemy.allAsSteerables);
         steering.AvoidObstacles();
         steering.CompensateExternalForces();
         steering.LookWhereGoing();
@@ -36,7 +36,6 @@ public class EnemyShakeState : FSMState<Enemy>
     {
         if (isShaking)
         {
-            //rb.AddForce(new Vector3(Random.Range(-2, 2) * maxShakingForce, Random.Range(-2, 2) * maxShakingForce, Random.Range(-2, 2) * maxShakingForce), ForceMode.Impulse);
             rb.AddForce(Random.onUnitSphere * maxShakingForce, ForceMode.Impulse);
             counter += Time.fixedDeltaTime;
             if (counter >= shakingDuration)

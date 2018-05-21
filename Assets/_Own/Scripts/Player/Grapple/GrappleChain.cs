@@ -41,7 +41,7 @@ public class GrappleChain : MonoBehaviour
         );
     }
 
-    void Update()
+    void LateUpdate()
     {
         chainLinkRelativeRotation = Quaternion.Euler(chainLinkRelativeRotationEulerAngles);
 
