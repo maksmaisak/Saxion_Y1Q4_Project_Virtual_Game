@@ -4328,8 +4328,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245565852253206}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.32, y: 4.7, z: -55.83}
+  m_LocalRotation: {x: -0, y: 0.12610103, z: -0, w: 0.99201745}
+  m_LocalPosition: {x: -62.57, y: 108.229996, z: -128.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4102287641370528}
@@ -16115,12 +16115,12 @@ MonoBehaviour:
   crosshairIndicator: {fileID: 0}
   grappleShootSpeed: 200
   grappleMinRange: 0.6
-  grappleMaxRange: 40
+  grappleMaxRange: 60
   targetDetectionSphereRadius: 0.1
   targetDetectionLayerMask:
     serializedVersion: 2
     m_Bits: 4294965705
-  grapplePullingSpeed: 2
+  grapplePullingSpeed: 4
   firstPersonController: {fileID: 114859108289796068}
 --- !u!114 &114391313926976662
 MonoBehaviour:
@@ -16256,7 +16256,7 @@ MonoBehaviour:
   moveTolerance: 2
   springForce: 10000
   retractionSpeed: 200
-  maxFlyingDistance: 40
+  maxFlyingDistance: 60
   grappleAssistRadiusPerUnitDistance: 0.1
   canReachWithoutAssistCheckRadius: 0.1
 --- !u!114 &114774150361057274
@@ -16279,7 +16279,7 @@ MonoBehaviour:
   moveTolerance: 2
   springForce: 10000
   retractionSpeed: 200
-  maxFlyingDistance: 40
+  maxFlyingDistance: 60
   grappleAssistRadiusPerUnitDistance: 0.1
   canReachWithoutAssistCheckRadius: 0.1
 --- !u!114 &114804136138691650
