@@ -8,6 +8,8 @@ using DG.Tweening;
 [RequireComponent(typeof(CanvasGroup))]
 public class TutorialHint : MonoBehaviour
 {
+    private static TutorialHint currentlyActive;
+
     [SerializeField] float transitionDuration = 0.25f;
     [SerializeField] float maxScale = 2f;
     [Space]
@@ -60,6 +62,11 @@ public class TutorialHint : MonoBehaviour
 
     public void TransitionIn()
     {
+        if (currentlyActive != null)
+        {
+            currentlyActive.TransitionOut();
+        }
+
         canvasGroup.DOKill();
         canvasGroup
             .DOFade(1f, transitionDuration)
@@ -75,10 +82,17 @@ public class TutorialHint : MonoBehaviour
         isTransitionedIn = true;
         OnTransitionIn();
         onTransitionIn.Invoke();
+
+        currentlyActive = this;
     }
 
     public void TransitionOut()
     {
+        if (this == currentlyActive)
+        {
+            currentlyActive = null;
+        }
+
         canvasGroup.DOKill();
         canvasGroup
             .DOFade(0f, transitionDuration)
