@@ -924,8 +924,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1851450399148246}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 2.52, z: -0}
-  m_LocalScale: {x: 10.376539, y: 4.2440457, z: 12.223606}
+  m_LocalPosition: {x: -0, y: 2.5, z: -0}
+  m_LocalScale: {x: 12, y: 5, z: 12}
   m_Children: []
   m_Father: {fileID: 4044407512931368}
   m_RootOrder: 0
@@ -2754,7 +2754,8 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   prerequisiteCheckpoints:
   - {fileID: 0}
-  needToDieToUnlock: []
+  needToDieToUnlock:
+  - {fileID: 0}
   triggerEvents: {fileID: 0}
 --- !u!114 &114428641490233804
 MonoBehaviour:
