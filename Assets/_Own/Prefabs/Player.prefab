@@ -4328,8 +4328,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245565852253206}
-  m_LocalRotation: {x: -0, y: 0.12610103, z: -0, w: 0.99201745}
-  m_LocalPosition: {x: -62.57, y: 108.229996, z: -128.79}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.84, y: -0.72, z: -24.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4102287641370528}
@@ -16253,6 +16253,7 @@ MonoBehaviour:
   springForce: 10000
   retractionSpeed: 200
   maxFlyingDistance: 40
+  grappleAssistRadiusPerUnitDistance: 0.1
 --- !u!114 &114774150361057274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16274,6 +16275,7 @@ MonoBehaviour:
   springForce: 10000
   retractionSpeed: 200
   maxFlyingDistance: 40
+  grappleAssistRadiusPerUnitDistance: 0.1
 --- !u!114 &114804136138691650
 MonoBehaviour:
   m_ObjectHideFlags: 1
