@@ -29,6 +29,8 @@ public class Grapple : MonoBehaviour
     [SerializeField] float springForce = 1000f;
     [SerializeField] float retractionSpeed = 100f;
     [SerializeField] float maxFlyingDistance = 40f;
+    [SerializeField] float grappleAssistRadiusPerUnitDistance = 0.1f;
+    [SerializeField] float canReachWithoutAssistCheckRadius = 0.1f;
 
     private new Rigidbody rigidbody;
     private RigidbodyFirstPersonController firstPersonController;
@@ -38,6 +40,8 @@ public class Grapple : MonoBehaviour
     private SpringJoint chainJoint;
     private FixedJoint hookJoint;
     private Grappleable grappledGrappleable;
+
+    private LayerMask grappleAssistLayerMask;
 
     public bool isRetracted
     {
@@ -86,6 +90,8 @@ public class Grapple : MonoBehaviour
 
         rigidbody = GetComponent<Rigidbody>();
 
+        grappleAssistLayerMask = GetGrappleAssistLayerMask();
+
         // Disable collisions between this and its holder.
         Collider[] ownerColliders = attachmentRigidbody.GetComponentsInChildren<Collider>();
         Collider[] ownColliders = GetComponentsInChildren<Collider>();
@@ -103,10 +109,13 @@ public class Grapple : MonoBehaviour
     {
         if (state == State.Flying)
         {
-            if (Vector3.Distance(attachmentRigidbody.position, rigidbody.position) > maxFlyingDistance)
+            if (GetDistanceFromAttachmentPoint() > maxFlyingDistance)
             {
                 Retract();
+                return;
             }
+
+            AttractToGrappleables();
         }
         else if (state == State.Connected)
         {
@@ -271,5 +280,63 @@ public class Grapple : MonoBehaviour
             grappledGrappleable.Ungrapple();
             grappledGrappleable = null;
         }
+    }
+
+    private LayerMask GetGrappleAssistLayerMask()
+    {
+        int thisLayer = gameObject.layer;
+        int mask = 0;
+        for (int i = 0; i < 32; ++i)
+        {
+            if (!Physics.GetIgnoreLayerCollision(thisLayer, i))
+            {
+                mask |= 1 << i;
+            }
+        }
+
+        mask |= ~(1 << Physics.IgnoreRaycastLayer);
+        return mask;
+    }
+
+    private void AttractToGrappleables()
+    {
+        float speed = rigidbody.velocity.magnitude;
+        float distanceFromAttachmentPoint = GetDistanceFromAttachmentPoint();
+
+        // TODO prioritize enemies
+        // TODO check if can hit without assist.
+        RaycastHit hit;
+        Ray forwardRay = new Ray(rigidbody.position, rigidbody.velocity.normalized);
+
+        bool canReachWithoutAssist = Physics.SphereCast(
+            forwardRay,
+            canReachWithoutAssistCheckRadius,
+            maxFlyingDistance - distanceFromAttachmentPoint, 
+            grappleAssistLayerMask, 
+            QueryTriggerInteraction.Ignore
+        );
+        if (canReachWithoutAssist) 
+        {
+            Debug.Log("canReachWithoutAssist == true");
+            return;
+        }
+
+        float assistRadius = distanceFromAttachmentPoint * grappleAssistRadiusPerUnitDistance;
+        bool didHit = Physics.SphereCast(
+            forwardRay,
+            assistRadius, 
+            out hit,
+            speed * Time.fixedDeltaTime, 
+            grappleAssistLayerMask, 
+            QueryTriggerInteraction.Ignore
+        );
+        if (!didHit) return;
+
+        rigidbody.velocity = (hit.point - rigidbody.position).normalized * speed;
+    }
+
+    private float GetDistanceFromAttachmentPoint()
+    {
+        return Vector3.Distance(attachmentRigidbody.position, rigidbody.position);
     }
 }

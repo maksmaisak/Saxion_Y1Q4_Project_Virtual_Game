@@ -1570,7 +1570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 1
   _maxHealth: 1
-  destroyOnDeath: 1
+  _destroyOnDeath: 1
   _canBeReduced: 1
   OnDeathUnityEvent:
     m_PersistentCalls:
@@ -1682,7 +1682,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171c506dd0cae45698e1679cbe27ebca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceNeededToDestroy: 200
+  forceNeededToDestroy: 2000
+  unaffectedByCollisionsWith:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &114801193633024518
 MonoBehaviour:
   m_ObjectHideFlags: 1

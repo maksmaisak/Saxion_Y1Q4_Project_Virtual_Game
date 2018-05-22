@@ -8232,6 +8232,26 @@ Prefab:
       propertyPath: crosshairIndicator
       value: 
       objectReference: {fileID: 1366595257}
+    - target: {fileID: 114746154259358212, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: grappleAssistRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114774150361057274, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: grappleAssistRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114746154259358212, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: grappleAssistRadiusPerUnitDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114774150361057274, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: grappleAssistRadiusPerUnitDistance
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0
@@ -16486,8 +16506,7 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114654135682362664, guid: 4cc0174a6a7f3b848bfdb46e9feec139, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4cc0174a6a7f3b848bfdb46e9feec139, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1125530597
@@ -17083,9 +17102,7 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114948172104746650, guid: 9341829d698fc4d5695711d4fc8f243c, type: 2}
-    - {fileID: 114502498214976992, guid: 9341829d698fc4d5695711d4fc8f243c, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9341829d698fc4d5695711d4fc8f243c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1366595255
