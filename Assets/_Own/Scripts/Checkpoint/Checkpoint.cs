@@ -7,6 +7,8 @@ using UnityEngine.Events;
 
 #pragma warning disable 0649
 
+/// ACHTUNG: This file contains unhealthy amounts of 2am code. You have been warned.
+
 /// <summary>
 /// Activates upon collision with the player.
 /// Only an unlocked checkpoint can be activated.
@@ -19,6 +21,7 @@ public class Checkpoint : MonoBehaviour
     // FIXME HACK TODO
     // Kinda hacky, must change when we get to the respective user story.
     public static Vector3? LatestActiveCheckpointPosition { get; private set; }
+    private static string LatestActiveCheckpointInstanceName;
 
     public event Action<Checkpoint> OnActivated;
 
@@ -37,11 +40,15 @@ public class Checkpoint : MonoBehaviour
     [SerializeField] private TriggerEvents triggerEvents;
 
     private bool isLocked = true;
+    private bool isActivated;
+    private bool shouldActivateRightAway;
 
     void Start()
     {
-        prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null);
+        prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null || checkpoint.isActivated || checkpoint.gameObject.name == LatestActiveCheckpointInstanceName);
         needToDieToUnlock.RemoveAll(health => health == null);
+
+        CheckIfThisIsLatestActiveCheckpoint();
 
         EnsureTrigger();
         triggerEvents.onPlayerTriggerStay.AddListener(OnPlayerTriggerStay);
@@ -75,6 +82,11 @@ public class Checkpoint : MonoBehaviour
                 health.OnDeath += OnRequiredEntityDied;
             }
         }
+
+        if (shouldActivateRightAway)
+        {
+            Activate();
+        }
     }
 
     private void OnPlayerTriggerStay()
@@ -89,7 +101,9 @@ public class Checkpoint : MonoBehaviour
     {
         // Don't reload the scene to restart, call a custom something
         LatestActiveCheckpointPosition = transform.position;
+        LatestActiveCheckpointInstanceName = gameObject.name;
 
+        isActivated = true;
         if (OnActivated != null) OnActivated(this);
         onActivated.Invoke();
 
@@ -159,5 +173,30 @@ public class Checkpoint : MonoBehaviour
         }
 
         Assert.IsNotNull(triggerEvents, "[" + this + "]: TriggerEvents was not set in the inspector and not found! Could not find a trigger collider in children!");
+    }
+
+    private void CheckIfThisIsLatestActiveCheckpoint()
+    {
+        if (gameObject.name != LatestActiveCheckpointInstanceName) return;
+        ActivatePrerequisites(this);
+        Activate();
+        gameObject.SetActive(false);
+    }
+
+    private static void ActivatePrerequisites(Checkpoint checkpoint) 
+    {
+        foreach (var prerequisite in checkpoint.prerequisiteCheckpoints)
+        {
+            ActivatePrerequisites(prerequisite);
+            prerequisite.gameObject.SetActive(false);
+        }
+        checkpoint.prerequisiteCheckpoints.Clear();
+
+        foreach (var health in checkpoint.needToDieToUnlock)
+        {
+            health.SetHealth(0);
+            if (!health.destroyOnDeath) Destroy(health.gameObject);
+        }
+        checkpoint.needToDieToUnlock.Clear();
     }
 }
