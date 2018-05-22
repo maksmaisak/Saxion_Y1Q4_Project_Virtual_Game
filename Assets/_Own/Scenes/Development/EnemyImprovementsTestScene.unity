@@ -8232,6 +8232,26 @@ Prefab:
       propertyPath: crosshairIndicator
       value: 
       objectReference: {fileID: 1366595257}
+    - target: {fileID: 114746154259358212, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: grappleAssistRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114774150361057274, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: grappleAssistRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114746154259358212, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: grappleAssistRadiusPerUnitDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114774150361057274, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: grappleAssistRadiusPerUnitDistance
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0

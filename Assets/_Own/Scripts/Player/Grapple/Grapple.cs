@@ -29,6 +29,7 @@ public class Grapple : MonoBehaviour
     [SerializeField] float springForce = 1000f;
     [SerializeField] float retractionSpeed = 100f;
     [SerializeField] float maxFlyingDistance = 40f;
+    [SerializeField] float grappleAssistRadiusPerUnitDistance = 0.1f;
 
     private new Rigidbody rigidbody;
     private RigidbodyFirstPersonController firstPersonController;
@@ -38,6 +39,8 @@ public class Grapple : MonoBehaviour
     private SpringJoint chainJoint;
     private FixedJoint hookJoint;
     private Grappleable grappledGrappleable;
+
+    private LayerMask collisionLayerMask;
 
     public bool isRetracted
     {
@@ -86,6 +89,8 @@ public class Grapple : MonoBehaviour
 
         rigidbody = GetComponent<Rigidbody>();
 
+        collisionLayerMask = GetCollisionLayerMask();
+
         // Disable collisions between this and its holder.
         Collider[] ownerColliders = attachmentRigidbody.GetComponentsInChildren<Collider>();
         Collider[] ownColliders = GetComponentsInChildren<Collider>();
@@ -103,10 +108,13 @@ public class Grapple : MonoBehaviour
     {
         if (state == State.Flying)
         {
-            if (Vector3.Distance(attachmentRigidbody.position, rigidbody.position) > maxFlyingDistance)
+            if (GetDistanceToAttachmentPoint() > maxFlyingDistance)
             {
                 Retract();
+                return;
             }
+
+            AttractToGrappleables();
         }
         else if (state == State.Connected)
         {
@@ -271,5 +279,46 @@ public class Grapple : MonoBehaviour
             grappledGrappleable.Ungrapple();
             grappledGrappleable = null;
         }
+    }
+
+    private LayerMask GetCollisionLayerMask()
+    {
+        int thisLayer = gameObject.layer;
+        int mask = 0;
+        for (int i = 0; i < 32; ++i)
+        {
+            if (!Physics.GetIgnoreLayerCollision(thisLayer, i))
+            {
+                mask |= 1 << i;
+            }
+        }
+        return mask;
+    }
+
+    private void AttractToGrappleables()
+    {
+        float speed = rigidbody.velocity.magnitude;
+
+        float assistRadius = GetDistanceToAttachmentPoint() * grappleAssistRadiusPerUnitDistance;
+
+        // TODO prioritize enemies
+        RaycastHit hit;
+        Ray ray = new Ray(rigidbody.position, rigidbody.velocity.normalized);
+        bool didHit = Physics.SphereCast(
+            ray,
+            assistRadius, 
+            out hit, 
+            speed * Time.fixedDeltaTime, 
+            collisionLayerMask, 
+            QueryTriggerInteraction.Ignore
+        );
+        if (!didHit) return;
+
+        rigidbody.velocity = (hit.point - rigidbody.position).normalized * speed;
+    }
+
+    private float GetDistanceToAttachmentPoint()
+    {
+        return Vector3.Distance(attachmentRigidbody.position, rigidbody.position);
     }
 }
