@@ -187,6 +187,7 @@ public class Checkpoint : MonoBehaviour
     {
         foreach (var prerequisite in checkpoint.prerequisiteCheckpoints)
         {
+            if (prerequisite == null) continue;
             ActivatePrerequisites(prerequisite);
             prerequisite.gameObject.SetActive(false);
         }
@@ -194,6 +195,7 @@ public class Checkpoint : MonoBehaviour
 
         foreach (var health in checkpoint.needToDieToUnlock)
         {
+            if (health == null) continue;
             health.SetHealth(0);
             if (!health.destroyOnDeath) Destroy(health.gameObject);
         }
