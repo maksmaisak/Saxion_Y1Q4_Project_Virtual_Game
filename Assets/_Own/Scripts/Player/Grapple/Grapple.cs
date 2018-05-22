@@ -294,7 +294,7 @@ public class Grapple : MonoBehaviour
             }
         }
 
-        mask |= ~(1 << Physics.IgnoreRaycastLayer);
+        mask &= ~(1 << Physics.IgnoreRaycastLayer);
         return mask;
     }
 
