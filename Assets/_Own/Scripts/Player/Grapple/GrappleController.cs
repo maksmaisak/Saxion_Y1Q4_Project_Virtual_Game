@@ -18,6 +18,8 @@ public class GrappleController : MonoBehaviour
     [SerializeField] float grappleShootSpeed = 100f;
     [SerializeField] float grappleMinRange = 0.6f;
     [SerializeField] float grappleMaxRange = 40f;
+    [SerializeField] float targetDetectionSphereRadius = 0.1f;
+    [SerializeField] LayerMask targetDetectionLayerMask = Physics.DefaultRaycastLayers;
 
     [Tooltip("Meters per second")]
     [SerializeField] float grapplePullingSpeed = 2f;
@@ -99,10 +101,13 @@ public class GrappleController : MonoBehaviour
         var ray = new Ray(cameraTransform.position, cameraTransform.forward);
 
         RaycastHit hit;
-        bool didHit = Physics.Raycast(
+        bool didHit = Physics.SphereCast(
             ray,
+            targetDetectionSphereRadius,
             out hit,
-            grappleMaxRange
+            grappleMaxRange,
+            targetDetectionLayerMask,
+            QueryTriggerInteraction.Ignore
         );
 
         if (didHit)

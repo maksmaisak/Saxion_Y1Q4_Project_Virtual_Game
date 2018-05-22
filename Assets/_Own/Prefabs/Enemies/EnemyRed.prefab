@@ -394,8 +394,6 @@ GameObject:
   - component: {fileID: 114354474381263632}
   - component: {fileID: 114762536962890364}
   - component: {fileID: 114647147314926464}
-  - component: {fileID: 114948172104746650}
-  - component: {fileID: 114502498214976992}
   - component: {fileID: 114606492405838708}
   - component: {fileID: 114590078141556852}
   - component: {fileID: 114462395465785708}
@@ -1519,20 +1517,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 1
---- !u!114 &114502498214976992
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1592473424270422}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b788e1476fce442ac8cbbb98279f7c53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shakingDuration: 5
-  maxShakingForce: 6
-  maxSteeringForce: 1000
 --- !u!114 &114539435587907800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1705,7 +1689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 1
   _maxHealth: 1
-  destroyOnDeath: 1
+  _destroyOnDeath: 1
   _canBeReduced: 1
   OnDeathUnityEvent:
     m_PersistentCalls:
@@ -1752,19 +1736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171c506dd0cae45698e1679cbe27ebca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceNeededToDestroy: 200
---- !u!114 &114948172104746650
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1592473424270422}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a25ad74aaa8349a086f885bc2c42761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  newSteeringForce: 1000
+  forceNeededToDestroy: 1000
 --- !u!136 &136487611430839954
 CapsuleCollider:
   m_ObjectHideFlags: 1

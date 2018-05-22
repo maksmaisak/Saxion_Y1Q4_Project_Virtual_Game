@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DestroyByForce : MonoBehaviour {
 
-    [SerializeField] private float forceNeededToDestroy = 500;
+    [SerializeField] private float forceNeededToDestroy = 200;
     private Health health;
 
     private void Start()
@@ -13,16 +13,14 @@ public class DestroyByForce : MonoBehaviour {
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("wall"))
+        Vector3 impulse = collision.impulse / Time.fixedDeltaTime;
+
+        Debug.Log(impulse.magnitude);
+
+        if (impulse.magnitude >= forceNeededToDestroy)
         {
-            Vector3 force = collision.impulse / Time.fixedDeltaTime;
-
-            Debug.Log(force.magnitude);
-
-            if (force.magnitude >= forceNeededToDestroy)
-            {
-                health.DealDamage(100);
-            }
+            Debug.Log("Damaged with impulse: " + impulse.magnitude);
+            health.DealDamage(100);
         }
     }
    
