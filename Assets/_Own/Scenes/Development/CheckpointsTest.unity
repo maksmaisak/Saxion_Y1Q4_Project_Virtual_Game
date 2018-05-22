@@ -1573,18 +1573,28 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 198706874192568416, guid: 6cd732a903b80c84cb9b705dea24584a,
         type: 2}
-      propertyPath: looping
+      propertyPath: randomSeed
+      value: -1593802250
+      objectReference: {fileID: 0}
+    - target: {fileID: 198706874192568416, guid: 6cd732a903b80c84cb9b705dea24584a,
+        type: 2}
+      propertyPath: InitialModule.size3D
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198706874192568416, guid: 6cd732a903b80c84cb9b705dea24584a,
         type: 2}
-      propertyPath: randomSeed
-      value: 1663702945
+      propertyPath: InitialModule.startSize.scalar
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 198706874192568416, guid: 6cd732a903b80c84cb9b705dea24584a,
         type: 2}
       propertyPath: lengthInSec
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198706874192568416, guid: 6cd732a903b80c84cb9b705dea24584a,
+        type: 2}
+      propertyPath: simulationSpeed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
