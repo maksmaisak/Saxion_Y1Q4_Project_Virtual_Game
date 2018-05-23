@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 14c7af495f8fb0d47a093f59abcab8dc
-timeCreated: 1527082781
+guid: e51fb3d073fb94e1a8ab19ba1f1376d0
+timeCreated: 1527106602
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -11,28 +11,33 @@ ModelImporter:
     100006: Rock2
     100008: Rock3
     100010: Rock4
+    100012: Shape
     400000: //RootNode
     400002: Platform
     400004: Rock1
     400006: Rock2
     400008: Rock3
     400010: Rock4
+    400012: Shape
     2100000: RockPlatform2Mat
     2300000: Platform
     2300002: Rock1
     2300004: Rock2
     2300006: Rock3
     2300008: Rock4
+    2300010: Shape
     3300000: Platform
     3300002: Rock1
     3300004: Rock2
     3300006: Rock3
     3300008: Rock4
+    3300010: Shape
     4300000: Platform
-    4300002: Rock1
-    4300004: Rock2
+    4300002: Shape
+    4300004: Rock3
     4300006: Rock4
-    4300008: Rock3
+    4300008: Rock2
+    4300010: Rock1
     9500000: //RootNode
   externalObjects: {}
   materials:
