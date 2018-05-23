@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -16,6 +17,8 @@ public class TutorialHint : MonoBehaviour
     [SerializeField] float transitionInDelay  = 0f;
     [SerializeField] float transitionOutDelay = 0.5f;
     [SerializeField] bool hideOthersOnTransition = true;
+    [SerializeField] TutorialHint[] needToBeFulfilledFirst;
+    [SerializeField] bool autoActivateAsSoonAsPossible;
 
     private CanvasGroup canvasGroup;
 
@@ -36,6 +39,11 @@ public class TutorialHint : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (needToBeFulfilledFirst.Any(hint => !hint.isTransitionOutConditionFulfilled))
+        {
+            return;
+        }
+
         if (!isTransitionOutConditionFulfilled && CheckTransitionOutCondition())
         {
             isTransitionOutConditionFulfilled = true;
@@ -51,7 +59,7 @@ public class TutorialHint : MonoBehaviour
 
         if (!isTransitionedIn)
         {
-            if (!isTransitionInConditionFulfilled && CheckTransitionInCondition())
+            if (!isTransitionInConditionFulfilled && (autoActivateAsSoonAsPossible || CheckTransitionInCondition()))
             {
                 isTransitionInConditionFulfilled = true;
                 CancelInvoke();

@@ -26,6 +26,9 @@ public class GrappleController : MonoBehaviour
 
     [SerializeField] RigidbodyFirstPersonController firstPersonController;
 
+    public Grapple leftGrapple  { get { return grappleLeft;  } }
+    public Grapple rightGrapple { get { return grappleRight; } }
+
     void Start()
     {
         Assert.IsNotNull(grappleLeft);

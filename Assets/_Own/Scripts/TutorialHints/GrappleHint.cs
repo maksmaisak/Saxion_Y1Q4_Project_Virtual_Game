@@ -8,7 +8,7 @@ using UnityEngine.Assertions;
 public class GrappleHint : TutorialHint
 {
     [SerializeField] TriggerEvents transitionIn;
-    [SerializeField] bool leftOrRight;
+    [SerializeField] bool trackRightGrapple;
 
     protected override void Start()
     {
@@ -25,7 +25,7 @@ public class GrappleHint : TutorialHint
 
     protected override bool CheckTransitionOutCondition()
     {
-        return Input.GetButtonDown(leftOrRight ? "Fire1" : "Fire2");
+        return Input.GetButtonDown(trackRightGrapple ? "Fire2" : "Fire1");
     }
 
     private void OnPlayerTriggerEnter()

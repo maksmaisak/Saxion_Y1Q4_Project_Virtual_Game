@@ -686,6 +686,8 @@ MonoBehaviour:
   transitionInDelay: 4
   transitionOutDelay: 1
   hideOthersOnTransition: 0
+  needToBeFulfilledFirst: []
+  autoActivateAsSoonAsPossible: 0
   _onTransitionIn:
     m_PersistentCalls:
       m_Calls: []
@@ -693,22 +695,11 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   _onTransitionOut:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1173691809}
-        m_MethodName: TransitionIn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   transitionIn: {fileID: 1196347524}
-  leftOrRight: 0
+  trackRightGrapple: 0
 --- !u!225 &48012126
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1446,6 +1437,8 @@ MonoBehaviour:
   transitionInDelay: 0.5
   transitionOutDelay: 1
   hideOthersOnTransition: 1
+  needToBeFulfilledFirst: []
+  autoActivateAsSoonAsPossible: 0
   _onTransitionIn:
     m_PersistentCalls:
       m_Calls: []
@@ -5326,6 +5319,8 @@ MonoBehaviour:
   transitionInDelay: 0
   transitionOutDelay: 0.25
   hideOthersOnTransition: 1
+  needToBeFulfilledFirst: []
+  autoActivateAsSoonAsPossible: 0
   _onTransitionIn:
     m_PersistentCalls:
       m_Calls: []
@@ -7581,9 +7576,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionDuration: 0.25
   maxScale: 2
-  transitionInDelay: 4
+  transitionInDelay: 1
   transitionOutDelay: 1
   hideOthersOnTransition: 0
+  needToBeFulfilledFirst:
+  - {fileID: 48012124}
+  autoActivateAsSoonAsPossible: 1
   _onTransitionIn:
     m_PersistentCalls:
       m_Calls: []
@@ -7594,7 +7592,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  leftOrRight: 1
+  trackRightGrapple: 0
 --- !u!225 &1173691810
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -10302,6 +10300,8 @@ MonoBehaviour:
   transitionInDelay: 4
   transitionOutDelay: 1
   hideOthersOnTransition: 0
+  needToBeFulfilledFirst: []
+  autoActivateAsSoonAsPossible: 0
   _onTransitionIn:
     m_PersistentCalls:
       m_Calls: []
@@ -10309,22 +10309,11 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   _onTransitionOut:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1641043798}
-        m_MethodName: TransitionIn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   transitionIn: {fileID: 1196347524}
-  leftOrRight: 1
+  trackRightGrapple: 1
 --- !u!225 &1637476717
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -10386,9 +10375,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionDuration: 0.25
   maxScale: 2
-  transitionInDelay: 4
+  transitionInDelay: 1
   transitionOutDelay: 1
   hideOthersOnTransition: 0
+  needToBeFulfilledFirst:
+  - {fileID: 1637476715}
+  autoActivateAsSoonAsPossible: 1
   _onTransitionIn:
     m_PersistentCalls:
       m_Calls: []
@@ -10399,7 +10391,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  leftOrRight: 0
+  trackRightGrapple: 1
 --- !u!225 &1641043799
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -12750,6 +12742,8 @@ MonoBehaviour:
   transitionInDelay: 0.5
   transitionOutDelay: 0.5
   hideOthersOnTransition: 1
+  needToBeFulfilledFirst: []
+  autoActivateAsSoonAsPossible: 0
   _onTransitionIn:
     m_PersistentCalls:
       m_Calls: []
