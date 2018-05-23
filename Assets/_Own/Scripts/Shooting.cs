@@ -41,26 +41,29 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
-        if (shootingController.CanShootAt(target))
+        if (!shootingController.CanShootAt(target))
         {
-            if (!isReloading)
+            particleManager.SetShootingEffectsActive(false);
+            return;
+        }
+
+        if (!isReloading)
+        {
+            shootingController.ShootAt(target);
+            audio.PlayOnShoot();
+
+            isReloading = true;
+        }
+        else
+        {
+            counter += Time.deltaTime;
+
+            particleManager.SetShootingEffectsActive(reloadTime - counter <= effectTimeBeforeShooting);
+
+            if (counter >= reloadTime)
             {
-                shootingController.ShootAt(target);
-                audio.PlayOnShoot();
-
-                isReloading = true;
-            }
-            else
-            {
-                counter += Time.deltaTime;
-
-                particleManager.SetShootingEffectsActive(reloadTime - counter <= effectTimeBeforeShooting);
-
-                if (counter >= reloadTime)
-                {
-                    isReloading = false;
-                    counter = 0f;
-                }
+                isReloading = false;
+                counter = 0f;
             }
         }
     }

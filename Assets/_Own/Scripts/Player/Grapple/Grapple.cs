@@ -23,6 +23,7 @@ public class Grapple : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip throwSound;
     [SerializeField] AudioClip defaultHookHitSound;
+    [SerializeField] Transform hookTransform;
     [Space]
     [SerializeField] float minRopeLength = 1f;
     [SerializeField] float moveTolerance = 2f;
@@ -81,6 +82,7 @@ public class Grapple : MonoBehaviour
     {
         Assert.IsNotNull(attachmentPoint);
         Assert.IsNotNull(attachmentRigidbody);
+        Assert.IsNotNull(hookTransform);
 
         audioSource = audioSource ?? GetComponent<AudioSource>();
         Assert.IsNotNull(audioSource);
@@ -158,7 +160,7 @@ public class Grapple : MonoBehaviour
 
         // Fix in place
         //rigidbody.isKinematic = true;
-        transform.position = collision.contacts[0].point;
+        //transform.position = collision.contacts[0].point;
 
         hookJoint = rigidbody.gameObject.AddComponent<FixedJoint>();
         hookJoint.enablePreprocessing = false;
@@ -222,13 +224,16 @@ public class Grapple : MonoBehaviour
 
         transform.SetParent(null, worldPositionStays: true);
 
+        Vector3 towardsTarget = (targetPosition - rigidbody.position).normalized;
+
         rigidbody.isKinematic = false;
-        rigidbody.velocity = (targetPosition - transform.position).normalized * speed;
+        rigidbody.velocity = towardsTarget * speed;
 
         if (throwSound != null)
         {
             audioSource.PlayOneShot(throwSound);
         }
+        hookTransform.rotation = Quaternion.LookRotation(towardsTarget);
 
         state = State.Flying;
     }
@@ -304,7 +309,6 @@ public class Grapple : MonoBehaviour
         float distanceFromAttachmentPoint = GetDistanceFromAttachmentPoint();
 
         // TODO prioritize enemies
-        // TODO check if can hit without assist.
         RaycastHit hit;
         Ray forwardRay = new Ray(rigidbody.position, rigidbody.velocity.normalized);
 
