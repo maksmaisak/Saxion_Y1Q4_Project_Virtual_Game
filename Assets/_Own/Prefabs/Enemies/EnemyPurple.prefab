@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 114921187812293926}
   - component: {fileID: 114803285492608092}
   - component: {fileID: 114017520962453992}
+  - component: {fileID: 114943776109751358}
   m_Layer: 0
   m_Name: EnemyPurple
   m_TagString: Enemy
@@ -1779,6 +1780,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxShakingForce: 600
   maxSteeringForce: 1000
+--- !u!114 &114943776109751358
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272451542320998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343a7a05d12bb4a82b63d99eec7e7a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectedPlayer: 0
 --- !u!114 &114991829383469686
 MonoBehaviour:
   m_ObjectHideFlags: 1
