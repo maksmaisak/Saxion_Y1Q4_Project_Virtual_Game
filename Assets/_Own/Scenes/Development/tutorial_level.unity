@@ -1357,7 +1357,7 @@ MonoBehaviour:
   transitionDuration: 0.25
   maxScale: 2
   transitionInDelay: 0.5
-  transitionOutDelay: 0.5
+  transitionOutDelay: 1
   _onTransitionIn:
     m_PersistentCalls:
       m_Calls: []
