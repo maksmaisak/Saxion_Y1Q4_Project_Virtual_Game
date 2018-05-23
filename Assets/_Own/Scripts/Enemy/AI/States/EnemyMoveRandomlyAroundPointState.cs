@@ -48,6 +48,7 @@ public class EnemyMoveRandomlyAroundPointState : FSMState<Enemy>
     public override void Exit()
     {
         base.Exit();
+        GetComponent<RegisterCombat>().detectedPlayer = true;
         GetComponent<Shooting>().enabled = true;
         steering.SetMaxSteeringForce(steering.GetInitalSteeringForce());
         particleManager.DisableAllParticleGroups();

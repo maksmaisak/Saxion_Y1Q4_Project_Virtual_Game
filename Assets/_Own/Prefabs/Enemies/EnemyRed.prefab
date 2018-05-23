@@ -397,13 +397,14 @@ GameObject:
   - component: {fileID: 114606492405838708}
   - component: {fileID: 114590078141556852}
   - component: {fileID: 114462395465785708}
+  - component: {fileID: 114362935904101356}
   m_Layer: 0
   m_Name: EnemyRed
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1592581556457678
 GameObject:
   m_ObjectHideFlags: 1
@@ -1455,6 +1456,18 @@ MonoBehaviour:
     type: 3}
   pitchMin: 0.8
   pitchMax: 1.2
+--- !u!114 &114362935904101356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592473424270422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343a7a05d12bb4a82b63d99eec7e7a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectedPlayer: 0
 --- !u!114 &114408505361908668
 MonoBehaviour:
   m_ObjectHideFlags: 1
