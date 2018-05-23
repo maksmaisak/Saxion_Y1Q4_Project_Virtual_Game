@@ -15,6 +15,7 @@ public class TutorialHint : MonoBehaviour
     [Space]
     [SerializeField] float transitionInDelay  = 0f;
     [SerializeField] float transitionOutDelay = 0.5f;
+    [SerializeField] bool hideOthersOnTransition = true;
 
     private CanvasGroup canvasGroup;
 
@@ -35,21 +36,27 @@ public class TutorialHint : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (!isTransitionOutConditionFulfilled && CheckTransitionOutCondition())
+        {
+            isTransitionOutConditionFulfilled = true;
+            if (isTransitionedIn) 
+            {
+                CancelInvoke();
+                Invoke("TransitionOut", transitionOutDelay);
+                isTransitionedIn = false;
+            }
+        }
+
+        if (isTransitionOutConditionFulfilled) return;
+
         if (!isTransitionedIn)
         {
             if (!isTransitionInConditionFulfilled && CheckTransitionInCondition())
             {
                 isTransitionInConditionFulfilled = true;
+                CancelInvoke();
                 Invoke("TransitionIn", transitionInDelay);
-            }
-        }
-        else
-        {
-            isTransitionInConditionFulfilled = true;
-            if (!isTransitionOutConditionFulfilled && CheckTransitionOutCondition())
-            {
-                isTransitionOutConditionFulfilled = true;
-                Invoke("TransitionOut", transitionOutDelay);
+                isTransitionedIn = true;
             }
         }
     }
@@ -62,7 +69,9 @@ public class TutorialHint : MonoBehaviour
 
     public void TransitionIn()
     {
-        if (currentlyActive != null)
+        if (isTransitionOutConditionFulfilled) return;
+
+        if (hideOthersOnTransition && currentlyActive != null)
         {
             currentlyActive.TransitionOut();
         }
