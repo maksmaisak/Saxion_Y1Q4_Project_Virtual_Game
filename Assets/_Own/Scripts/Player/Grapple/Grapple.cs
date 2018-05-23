@@ -44,6 +44,8 @@ public class Grapple : MonoBehaviour
 
     private LayerMask grappleAssistLayerMask;
 
+    private Quaternion initialHookLocalRotation;
+
     public bool isRetracted
     {
         get { return state == State.Retracted; }
@@ -83,6 +85,7 @@ public class Grapple : MonoBehaviour
         Assert.IsNotNull(attachmentPoint);
         Assert.IsNotNull(attachmentRigidbody);
         Assert.IsNotNull(hookTransform);
+        initialHookLocalRotation = hookTransform.localRotation;
 
         audioSource = audioSource ?? GetComponent<AudioSource>();
         Assert.IsNotNull(audioSource);
@@ -249,6 +252,8 @@ public class Grapple : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         transform.localScale    = Vector3.one;
+
+        hookTransform.localRotation = initialHookLocalRotation;
 
         state = State.Retracted;
     }
