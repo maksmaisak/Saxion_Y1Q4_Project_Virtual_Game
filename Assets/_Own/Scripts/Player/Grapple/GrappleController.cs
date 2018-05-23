@@ -74,8 +74,8 @@ public class GrappleController : MonoBehaviour
         if (firstPersonController.isGrounded) return;
 
         // FIXME Hardcoded keycodes
-        bool shouldPullLeft  = Input.GetKey(KeyCode.Q);
-        bool shouldPullRight = Input.GetKey(KeyCode.E);
+        bool shouldPullLeft  = Input.GetButton("Grapple Pull Left");// Input.GetKey(KeyCode.Q);
+        bool shouldPullRight = Input.GetButton("Grapple Pull Right");// Input.GetKey(KeyCode.E);
         bool shouldPullAtLeastOne = shouldPullLeft || shouldPullRight;
 
         bool onlyOneGrappleConnected = grappleLeft.isConnected != grappleRight.isConnected;
