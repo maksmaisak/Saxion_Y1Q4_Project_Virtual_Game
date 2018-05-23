@@ -5198,7 +5198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerEndpoint: {fileID: 4638884814030826}
-  chainLinkPrefab: {fileID: 400000, guid: 6eaae2acf2a8b4a5b9231c6b9c3a7184, type: 3}
+  chainLinkPrefab: {fileID: 400000, guid: 9b8506a6dfa224712b6e8e8e505e4dce, type: 3}
   chainLinkRelativeRotationEulerAngles: {x: 0, y: 90, z: 0}
 --- !u!114 &114505675243747264
 MonoBehaviour:
