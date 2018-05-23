@@ -16281,7 +16281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563d56c5c811c48ec8950c670444cac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeMaxDelta: 0.2
+  volumeMaxDelta: 0.4
   combatTimeBound: 2
   normalAudioSource: {fileID: 1011323361}
   combatAudioSource: {fileID: 1011323360}
