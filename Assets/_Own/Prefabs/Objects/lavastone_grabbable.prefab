@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4818581968129404}
   - component: {fileID: 33668073403070504}
   - component: {fileID: 23131739263312034}
-  - component: {fileID: 95214148405451012}
+  - component: {fileID: 64905414126335400}
   m_Layer: 0
   m_Name: lavastone_grabbable
   m_TagString: Untagged
@@ -83,20 +83,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1548724084535388}
   m_Mesh: {fileID: 4300000, guid: be71b1d3820516146bd95524dfb24dac, type: 3}
---- !u!95 &95214148405451012
-Animator:
-  serializedVersion: 3
+--- !u!64 &64905414126335400
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1548724084535388}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: be71b1d3820516146bd95524dfb24dac, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: be71b1d3820516146bd95524dfb24dac, type: 3}

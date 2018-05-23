@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4244449535305322}
   - component: {fileID: 33578273410118092}
   - component: {fileID: 23050099818376596}
+  - component: {fileID: 64954014945026278}
   m_Layer: 0
   m_Name: Rock4
   m_TagString: Untagged
@@ -38,6 +39,7 @@ GameObject:
   - component: {fileID: 4109563446345296}
   - component: {fileID: 33046942580245700}
   - component: {fileID: 23487094984557584}
+  - component: {fileID: 64792879871180304}
   m_Layer: 0
   m_Name: Rock1
   m_TagString: Untagged
@@ -55,6 +57,7 @@ GameObject:
   - component: {fileID: 4630588676769378}
   - component: {fileID: 33791241082001070}
   - component: {fileID: 23259557730862866}
+  - component: {fileID: 64425069073164422}
   m_Layer: 0
   m_Name: Rock3
   m_TagString: Untagged
@@ -72,6 +75,7 @@ GameObject:
   - component: {fileID: 4062307942181486}
   - component: {fileID: 33943556601547170}
   - component: {fileID: 23576443900824594}
+  - component: {fileID: 64679790677248434}
   m_Layer: 0
   m_Name: Rock2
   m_TagString: Untagged
@@ -88,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4269314460733686}
   - component: {fileID: 95446033213410602}
+  - component: {fileID: 64770598041477108}
   m_Layer: 0
   m_Name: block_platform_2
   m_TagString: Untagged
@@ -105,6 +110,7 @@ GameObject:
   - component: {fileID: 4706564197571214}
   - component: {fileID: 33188223813174706}
   - component: {fileID: 23493806539405802}
+  - component: {fileID: 64997780965288830}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -400,6 +406,90 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1661765545413416}
   m_Mesh: {fileID: 4300004, guid: 14c7af495f8fb0d47a093f59abcab8dc, type: 3}
+--- !u!64 &64425069073164422
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546916103285182}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300008, guid: 14c7af495f8fb0d47a093f59abcab8dc, type: 3}
+--- !u!64 &64679790677248434
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661765545413416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300004, guid: 14c7af495f8fb0d47a093f59abcab8dc, type: 3}
+--- !u!64 &64770598041477108
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848364475758508}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 0}
+--- !u!64 &64792879871180304
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1514763158364616}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: 14c7af495f8fb0d47a093f59abcab8dc, type: 3}
+--- !u!64 &64954014945026278
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1140007818427994}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300006, guid: 14c7af495f8fb0d47a093f59abcab8dc, type: 3}
+--- !u!64 &64997780965288830
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897465151273294}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 14c7af495f8fb0d47a093f59abcab8dc, type: 3}
 --- !u!95 &95446033213410602
 Animator:
   serializedVersion: 3
