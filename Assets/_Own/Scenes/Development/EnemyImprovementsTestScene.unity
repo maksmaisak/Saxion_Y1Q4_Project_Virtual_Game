@@ -17418,6 +17418,10 @@ Prefab:
       propertyPath: m_Name
       value: EnemyPurple (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1924519611964214, guid: d9d0b7835940649de8995244052105b7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9d0b7835940649de8995244052105b7, type: 2}
   m_IsPrefabParent: 0
@@ -21322,6 +21326,34 @@ Prefab:
       propertyPath: point
       value: 
       objectReference: {fileID: 131048720}
+    - target: {fileID: 1924519611964214, guid: d9d0b7835940649de8995244052105b7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198828373461277010, guid: d9d0b7835940649de8995244052105b7,
+        type: 2}
+      propertyPath: LightsModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198828373461277010, guid: d9d0b7835940649de8995244052105b7,
+        type: 2}
+      propertyPath: randomSeed
+      value: -1438473097
+      objectReference: {fileID: 0}
+    - target: {fileID: 108946019950467436, guid: d9d0b7835940649de8995244052105b7,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.8991887
+      objectReference: {fileID: 0}
+    - target: {fileID: 108946019950467436, guid: d9d0b7835940649de8995244052105b7,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.9117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610098675117564, guid: d9d0b7835940649de8995244052105b7, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9d0b7835940649de8995244052105b7, type: 2}
   m_IsPrefabParent: 0
@@ -21909,6 +21941,10 @@ Prefab:
     - target: {fileID: 1592473424270422, guid: 9341829d698fc4d5695711d4fc8f243c, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227428649905808, guid: 9341829d698fc4d5695711d4fc8f243c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9341829d698fc4d5695711d4fc8f243c, type: 2}
