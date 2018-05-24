@@ -89,9 +89,12 @@ public class Enemy : MonoBehaviour, IAgent
     {
         steeringManagers.Remove(steering);
 
-        saveable.SaveData(new SaveData() {
-            isDead = (health != null && health.isDead) || IsFallingToDeath()
-        });
+        bool isDead =
+            !gameObject.activeSelf ||
+            (health != null && health.isDead) ||
+            IsFallingToDeath();
+        
+        saveable.SaveData(new SaveData() {isDead = isDead});
     }
 
     IEnumerator WhileGrappledScreamCoroutine()
