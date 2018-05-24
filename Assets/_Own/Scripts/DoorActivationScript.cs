@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DoorActivationScript : MonoBehaviour
 {
+
+    [SerializeField] private GameObject[] doorPieces;
     [SerializeField] private float maxDegreesPerSecond= 2;
     [HideInInspector] public bool isActivated = false;
 
@@ -21,16 +23,20 @@ public class DoorActivationScript : MonoBehaviour
 
         if(isActivated)
         {
-            Activate();
+            ResetRotation();
         }
     }
 
     public void Activate()
     {
+        isActivated = true;
+    }
 
-        foreach (Transform child in transform)
+    private void ResetRotation()
+    {
+        foreach (GameObject doorPiece in doorPieces)
         {
-            child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation,Quaternion.identity,maxDegreesPerSecond * Time.deltaTime);
+            doorPiece.transform.localRotation = Quaternion.RotateTowards(doorPiece.transform.localRotation, Quaternion.identity, maxDegreesPerSecond * Time.deltaTime);
         }
     }
 }

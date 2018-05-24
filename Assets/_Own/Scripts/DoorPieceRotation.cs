@@ -7,20 +7,22 @@ public class DoorPieceRotation : MonoBehaviour
 
     [SerializeField] private float maxRotationSpeed = 10;
     [SerializeField] private float minRotationSpeed = -10;
+    [SerializeField] private GameObject door;
+
+    private DoorActivationScript doorActivationScript;
 
     private float rotationSpeed = 0;
-    private DoorActivationScript door;
 
     void Start()
     {
         rotationSpeed = Random.Range(minRotationSpeed, maxRotationSpeed);
-        door = transform.parent.GetComponent<DoorActivationScript>();
+        doorActivationScript = door.GetComponent<DoorActivationScript>();
     }
 
 
     void Update()
     {
-        if (door.isActivated == false)
+        if (doorActivationScript.isActivated == false)
         {
             RotateOverTime();
         }
