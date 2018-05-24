@@ -5841,53 +5841,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114350367893716576, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: crosshairIndicator
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4185329038023080, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 14.062
-      objectReference: {fileID: 0}
-    - target: {fileID: 4102287641370528, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.010297264
-      objectReference: {fileID: 0}
-    - target: {fileID: 4102287641370528, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.999947
-      objectReference: {fileID: 0}
-    - target: {fileID: 4102287641370528, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 1.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 114048920061886060, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: profile
-      value: 
-      objectReference: {fileID: 11400000, guid: d244486ec9a8d47baaf93c8a4cf80e74,
-        type: 2}
-    - target: {fileID: 114859108289796068, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: advancedSettings.wallCheckDistance
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114859108289796068, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: advancedSettings.stickToWallHelperDistance
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114859108289796068, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: advancedSettings.stickToWallHelperForce
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114859108289796068, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: advancedSettings.stickToGroundHelperDistance
-      value: 0.4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0

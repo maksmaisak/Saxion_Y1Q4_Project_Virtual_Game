@@ -3963,7 +3963,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1765750069347436}
-  m_LocalRotation: {x: -0.0062676156, y: 0, z: 0, w: 0.9999804}
+  m_LocalRotation: {x: 0.010297264, y: 0, z: 0, w: 0.999947}
   m_LocalPosition: {x: 0.007978517, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3971,7 +3971,7 @@ Transform:
   - {fileID: 4810693501529642}
   m_Father: {fileID: 4185329038023080}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 1.18, y: 0, z: 0}
 --- !u!4 &4104932796768814
 Transform:
   m_ObjectHideFlags: 1
@@ -4328,8 +4328,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245565852253206}
-  m_LocalRotation: {x: -0, y: 0.12610103, z: -0, w: 0.99201745}
-  m_LocalPosition: {x: -62.57, y: 108.229996, z: -128.79}
+  m_LocalRotation: {x: -0, y: 0.122408606, z: -0, w: 0.99247986}
+  m_LocalPosition: {x: -20.63, y: 97.5, z: -12.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4102287641370528}
@@ -4337,7 +4337,7 @@ Transform:
   - {fileID: 4837964987189180}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 14.489, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 14.062, z: 0}
 --- !u!4 &4202899659971626
 Transform:
   m_ObjectHideFlags: 1
@@ -16421,10 +16421,10 @@ MonoBehaviour:
     cameraRotationOffset: {x: 0, y: 0, z: 0, w: 1}
   advancedSettings:
     groundCheckDistance: 0.1
-    stickToGroundHelperDistance: 0.2
-    wallCheckDistance: 0.1
-    stickToWallHelperDistance: 0.5
-    stickToWallHelperForce: 20
+    stickToGroundHelperDistance: 0.4
+    wallCheckDistance: 0.3
+    stickToWallHelperDistance: 0.8
+    stickToWallHelperForce: 30
     onSurfaceRigidbodyDrag: 5
     slowDownRate: 7
     airControl: 1
