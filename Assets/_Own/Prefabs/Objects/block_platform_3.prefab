@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 4377979737339436}
   - component: {fileID: 33881434582056414}
   - component: {fileID: 23338801513463172}
-  - component: {fileID: 64173713611733900}
+  - component: {fileID: 65268928874016838}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -153,9 +153,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1438325949960492}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.75, y: 105.38466, z: 16.250624}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -27.159004, y: 114.55038, z: -137.81477}
+  m_LocalScale: {x: 3.4139547, y: 3.4139557, z: 3.4139557}
   m_Children:
   - {fileID: 4377979737339436}
   - {fileID: 4685993521278098}
@@ -477,20 +477,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1800202680253214}
   m_Mesh: {fileID: 4300006, guid: e51fb3d073fb94e1a8ab19ba1f1376d0, type: 3}
---- !u!64 &64173713611733900
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1873030627636862}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: e51fb3d073fb94e1a8ab19ba1f1376d0, type: 3}
 --- !u!64 &64340224774928636
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -561,3 +547,15 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300010, guid: e51fb3d073fb94e1a8ab19ba1f1376d0, type: 3}
+--- !u!65 &65268928874016838
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1873030627636862}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8490133, y: 0.9443513, z: 4.448024}
+  m_Center: {x: -0.00053075724, y: 0.008423569, z: 0.04905313}
