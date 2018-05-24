@@ -90,7 +90,7 @@ public class Enemy : MonoBehaviour, IAgent
         steeringManagers.Remove(steering);
 
         saveable.SaveData(new SaveData() {
-            isDead = health.health == 0 || IsFallingToDeath()
+            isDead = (health != null && health.isDead) || IsFallingToDeath()
         });
     }
 

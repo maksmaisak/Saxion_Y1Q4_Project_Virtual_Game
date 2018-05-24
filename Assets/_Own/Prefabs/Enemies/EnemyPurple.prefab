@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 114803285492608092}
   - component: {fileID: 114017520962453992}
   - component: {fileID: 114943776109751358}
+  - component: {fileID: 114583995286645040}
   m_Layer: 0
   m_Name: EnemyPurple
   m_TagString: Enemy
@@ -1553,6 +1554,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 1
+--- !u!114 &114583995286645040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272451542320998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a66dfe8cc800a4dc6850b5d6fa4fa83e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stringGuid: 3ffb8586-ccaa-419e-96df-84865faf2d0a
 --- !u!114 &114606208756461098
 MonoBehaviour:
   m_ObjectHideFlags: 1
