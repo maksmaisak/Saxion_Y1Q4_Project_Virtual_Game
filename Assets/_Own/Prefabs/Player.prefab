@@ -1288,7 +1288,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1765750069347436}
-  m_LocalRotation: {x: -0.0062676156, y: 0, z: 0, w: 0.9999804}
+  m_LocalRotation: {x: 0.010297264, y: 0, z: 0, w: 0.999947}
   m_LocalPosition: {x: 0.007978517, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1296,7 +1296,7 @@ Transform:
   - {fileID: 4810693501529642}
   m_Father: {fileID: 4185329038023080}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 1.18, y: 0, z: 0}
 --- !u!4 &4118229428926044
 Transform:
   m_ObjectHideFlags: 1
@@ -1433,8 +1433,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245565852253206}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.32, y: 0.8, z: -24.5}
+  m_LocalRotation: {x: -0, y: 0.122408606, z: -0, w: 0.99247986}
+  m_LocalPosition: {x: -74.8, y: 103.23, z: -156.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4102287641370528}
@@ -1442,7 +1442,7 @@ Transform:
   - {fileID: 4837964987189180}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 14.489, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 14.062, z: 0}
 --- !u!4 &4194189957326780
 Transform:
   m_ObjectHideFlags: 1
@@ -5155,6 +5155,10 @@ MonoBehaviour:
   grappleLeft: {fileID: 114774150361057274}
   grappleRight: {fileID: 114746154259358212}
   crosshairIndicator: {fileID: 0}
+  crosshairAimedSprite: {fileID: 21300000, guid: 1046876c06fce40488785ae6a8416f42,
+    type: 3}
+  crosshairDefaultSprite: {fileID: 21300000, guid: d6ab253cfbb7a4d67a3fa5e458d34d0e,
+    type: 3}
   grappleShootSpeed: 200
   grappleMinRange: 0.6
   grappleMaxRange: 60

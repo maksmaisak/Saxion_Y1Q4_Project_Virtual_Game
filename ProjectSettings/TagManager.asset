@@ -9,6 +9,7 @@ TagManager:
   - Checkpoint
   - CheckpointChain
   - CheckpointHolder
+  - DoorParticles
   layers:
   - Default
   - TransparentFX
