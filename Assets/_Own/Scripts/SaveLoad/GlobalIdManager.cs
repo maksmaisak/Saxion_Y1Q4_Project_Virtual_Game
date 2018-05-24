@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 
-public class GlobalIdManager : Singleton<GlobalIdManager>
+public class GlobalIdManager : PersistentSingleton<GlobalIdManager>
 {
     private Dictionary<Guid, Saveable> guidToComponent = new Dictionary<Guid, Saveable>();
     private Dictionary<Guid, object> guidToData = new Dictionary<Guid, object>();
@@ -13,8 +13,6 @@ public class GlobalIdManager : Singleton<GlobalIdManager>
     void Awake()
     {
         Assert.IsTrue(guidToComponent.Count == 0);
-        DontDestroyOnLoad(this);
-
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
