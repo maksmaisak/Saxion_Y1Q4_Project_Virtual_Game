@@ -1434,7 +1434,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245565852253206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.84, y: -0.72, z: -24.5}
+  m_LocalPosition: {x: -6.32, y: 0.8, z: -24.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4102287641370528}
@@ -5138,8 +5138,9 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: 8a60330ee045442b9a932faea36cc180, type: 3}
   landSound: {fileID: 8300000, guid: 31df10a5049f34c5d955d3a9ae86ceb6, type: 3}
   footstepSounds:
-  - {fileID: 8300000, guid: 735cf413c8fcfd04ab2f327992965139, type: 3}
-  footstepVolumeScale: 2
+  - {fileID: 8300000, guid: c5a71c7b478a5c846b211d722fa43578, type: 3}
+  - {fileID: 8300000, guid: b11aa00093550444b9d043c6e5f9357f, type: 3}
+  footstepVolumeScale: 0.7
 --- !u!114 &114350367893716576
 MonoBehaviour:
   m_ObjectHideFlags: 1
