@@ -12,6 +12,7 @@ using DG.Tweening;
 [RequireComponent(typeof(ShootingController))]
 [RequireComponent(typeof(Grappleable))]
 [RequireComponent(typeof(Health))]
+[RequireComponent(typeof(Saveable))]
 public class Enemy : MonoBehaviour, IAgent
 {
     private static List<SteeringManager> steeringManagers = new List<SteeringManager>();
@@ -31,12 +32,24 @@ public class Enemy : MonoBehaviour, IAgent
 
     private float initialHeight;
 
+    private Saveable saveable;
+    struct SaveData 
+    {
+        public bool isDead;
+    }
+
     private enum GrappleReactionBehaviour
     {
         None,
         ThrustUp,
         Shake,
         PullPlayer
+    }
+
+    void Awake()
+    {
+        saveable = GetComponent<Saveable>();
+        LoadSaveData();
     }
 
     // Use this for initialization
@@ -75,6 +88,10 @@ public class Enemy : MonoBehaviour, IAgent
     void OnDestroy()
     {
         steeringManagers.Remove(steering);
+
+        saveable.SaveData(new SaveData() {
+            isDead = health.health == 0 || IsFallingToDeath()
+        });
     }
 
     IEnumerator WhileGrappledScreamCoroutine()
@@ -100,8 +117,7 @@ public class Enemy : MonoBehaviour, IAgent
 
     private void OnGrapple(Grappleable sender)
     {
-        // Meh, but works.
-        if (fsm.GetCurrentState().GetType() == typeof(EnemyFallingToDeathState))
+        if (IsFallingToDeath())
         {
             return;
         }
@@ -128,5 +144,23 @@ public class Enemy : MonoBehaviour, IAgent
     private void OnRelease(Grappleable sender)
     {
         fsm.ChangeState<EnemyFallingToDeathState>();
+    }
+
+    private void LoadSaveData()
+    {
+        SaveData saveData;
+        if (!saveable.GetSavedData(out saveData)) return;
+
+        if (saveData.isDead) 
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    private bool IsFallingToDeath()
+    {
+        if (fsm == null) return false;
+        // Meh, but works.
+        return fsm.GetCurrentState().GetType() == typeof(EnemyFallingToDeathState);
     }
 }
