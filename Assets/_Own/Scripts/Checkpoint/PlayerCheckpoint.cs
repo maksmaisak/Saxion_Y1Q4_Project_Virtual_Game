@@ -8,9 +8,9 @@ public class PlayerCheckpoint : MonoBehaviour
 {
     private void Start()
     {
-        if (Checkpoint.LatestActiveCheckpointPosition.HasValue)
+        if (CheckpointTracker.WereAnyActivated)
         {
-            transform.position = Checkpoint.LatestActiveCheckpointPosition.Value;
+            transform.position = CheckpointTracker.LatestActivatedCheckpointPosition;
         }
     }
 }

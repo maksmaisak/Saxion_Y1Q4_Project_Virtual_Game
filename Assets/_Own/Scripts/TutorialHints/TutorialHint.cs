@@ -9,6 +9,7 @@ using DG.Tweening;
 #pragma warning disable 0649
 
 [RequireComponent(typeof(CanvasGroup))]
+[RequireComponent(typeof(Saveable))]
 public class TutorialHint : MonoBehaviour
 {
     struct SaveData
@@ -44,7 +45,7 @@ public class TutorialHint : MonoBehaviour
     protected virtual void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        saveable = GetComponent<Saveable>() ?? gameObject.AddComponent<Saveable>();
+        saveable = GetComponent<Saveable>();
 
         SaveData saveData;
         if (saveable.GetSavedData(out saveData)) 

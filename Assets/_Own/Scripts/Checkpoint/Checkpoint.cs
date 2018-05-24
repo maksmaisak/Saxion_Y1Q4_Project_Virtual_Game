@@ -16,13 +16,9 @@ using UnityEngine.Events;
 /// and all specified entities with health need to have died.
 /// FIXME KNOWN ISSUE: if a required entity is destroyed without dying, the checkpoint still won't
 /// </summary>
+[RequireComponent(typeof(Saveable))]
 public class Checkpoint : MonoBehaviour
 {
-    // FIXME HACK TODO
-    // Kinda hacky, must change when we get to the respective user story.
-    public static Vector3? LatestActiveCheckpointPosition { get; private set; }
-    private static string LatestActiveCheckpointInstanceName;
-
     public event Action<Checkpoint> OnActivated;
 
     [SerializeField] private UnityEvent onAllPrerequisiteCheckpointsActive = new UnityEvent();
@@ -41,14 +37,23 @@ public class Checkpoint : MonoBehaviour
 
     private bool isLocked = true;
     private bool isActivated;
-    private bool shouldActivateRightAway;
+
+    struct SaveData 
+    {
+        public bool isActivated;
+    }
+
+    void Awake()
+    {
+        LoadSaveData();
+    }
 
     void Start()
     {
-        prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null || checkpoint.isActivated || checkpoint.gameObject.name == LatestActiveCheckpointInstanceName);
+        prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null || checkpoint.isActivated);
         needToDieToUnlock.RemoveAll(health => health == null);
 
-        CheckIfThisIsLatestActiveCheckpoint();
+        //CheckIfThisIsLatestActiveCheckpoint();
 
         EnsureTrigger();
         triggerEvents.onPlayerTriggerStay.AddListener(OnPlayerTriggerStay);
@@ -82,11 +87,14 @@ public class Checkpoint : MonoBehaviour
                 health.OnDeath += OnRequiredEntityDied;
             }
         }
+    }
 
-        if (shouldActivateRightAway)
+    void OnDestroy()
+    {
+        GetComponent<Saveable>().SaveData(new SaveData()
         {
-            Activate();
-        }
+            isActivated = isActivated
+        });
     }
 
     private void OnPlayerTriggerStay()
@@ -99,9 +107,7 @@ public class Checkpoint : MonoBehaviour
 
     private void Activate()
     {
-        // Don't reload the scene to restart, call a custom something
-        LatestActiveCheckpointPosition = transform.position;
-        LatestActiveCheckpointInstanceName = gameObject.name;
+        CheckpointTracker.Instance.RecordCheckpointActivation(this);
 
         isActivated = true;
         if (OnActivated != null) OnActivated(this);
@@ -175,15 +181,26 @@ public class Checkpoint : MonoBehaviour
         Assert.IsNotNull(triggerEvents, "[" + this + "]: TriggerEvents was not set in the inspector and not found! Could not find a trigger collider in children!");
     }
 
-    private void CheckIfThisIsLatestActiveCheckpoint()
+    /*private void CheckIfThisIsLatestActiveCheckpoint()
     {
         if (gameObject.name != LatestActiveCheckpointInstanceName) return;
         ActivatePrerequisites(this);
         Activate();
         gameObject.SetActive(false);
+    }*/
+
+    private void LoadSaveData()
+    {
+        SaveData saveData;
+        if (!GetComponent<Saveable>().GetSavedData(out saveData)) return;
+        if (saveData.isActivated)
+        {
+            isActivated = true;
+            gameObject.SetActive(false);
+        }
     }
 
-    private static void ActivatePrerequisites(Checkpoint checkpoint) 
+    /*private static void ActivatePrerequisites(Checkpoint checkpoint) 
     {
         foreach (var prerequisite in checkpoint.prerequisiteCheckpoints)
         {
@@ -200,5 +217,5 @@ public class Checkpoint : MonoBehaviour
             if (!health.destroyOnDeath) Destroy(health.gameObject);
         }
         checkpoint.needToDieToUnlock.Clear();
-    }
+    }*/
 }

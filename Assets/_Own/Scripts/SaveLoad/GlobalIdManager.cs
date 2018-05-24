@@ -7,7 +7,7 @@ using UnityEngine.Assertions;
 
 public class GlobalIdManager : SimpleSingleton<GlobalIdManager>
 {
-    private Dictionary<Guid, Saveable> guidToComponent = new Dictionary<Guid, Saveable>();
+    private Dictionary<Guid, int> guidToInstanceId = new Dictionary<Guid, int>();
     private Dictionary<Guid, object> guidToData = new Dictionary<Guid, object>();
 
     public GlobalIdManager()
@@ -15,19 +15,19 @@ public class GlobalIdManager : SimpleSingleton<GlobalIdManager>
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
-    public void Register(Guid guid, Saveable component)
+    public void Register(Guid guid, int instanceId)
     {
-        guidToComponent.Add(guid, component);
+        guidToInstanceId.Add(guid, instanceId);
     }
 
     public void Unregister(Guid guid)
     {
-        guidToComponent.Remove(guid);
+        guidToInstanceId.Remove(guid);
     }
 
-    public bool IsAlreadyRegistered(Guid guid)
+    public bool GetRegistered(Guid guid, out int instanceId)
     {
-        return guidToComponent.ContainsKey(guid);
+        return guidToInstanceId.TryGetValue(guid, out instanceId);
     }
 
     public void SaveData<T>(Guid guid, T data)

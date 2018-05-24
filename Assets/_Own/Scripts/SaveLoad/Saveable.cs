@@ -14,7 +14,7 @@ public class Saveable : MonoBehaviour
     {
         get
         {
-            if (_guid == Guid.Empty)
+            if (_guid == Guid.Empty || string.IsNullOrEmpty(stringGuid))
             {
                 if (!string.IsNullOrEmpty(stringGuid))
                 {
@@ -29,25 +29,53 @@ public class Saveable : MonoBehaviour
 
             return _guid;
         }
-        private set 
+        private set
         {
             _guid = value;
             stringGuid = _guid.ToString();
         }
     }
 
-    protected virtual void Awake()
+    void Awake()
     {
-        if (GlobalIdManager.Instance.IsAlreadyRegistered(guid))
+        CheckGuid();
+    }
+
+    void Update()
+    {
+        if (!Application.isPlaying)
         {
-            guid = Guid.NewGuid();
-            GlobalIdManager.Instance.Register(guid, this);
+            CheckGuid();
         }
     }
 
-    protected virtual void OnDestroy()
+    void OnDestroy()
     {
         GlobalIdManager.Instance.Unregister(guid);
+    }
+
+    [ContextMenu("MakeGuidsUnique")]
+    private void MakeGuidsUnique()
+    {
+        foreach (var saveable in FindObjectsOfType<Saveable>())
+        {
+            saveable.CheckGuid();
+        }
+    }
+
+    private void CheckGuid()
+    {
+        int registeredInstanceId;
+        bool hasRegistered = GlobalIdManager.Instance.GetRegistered(guid, out registeredInstanceId);
+        if (!hasRegistered) 
+        {
+            GlobalIdManager.Instance.Register(guid, GetInstanceID());
+        }
+        else if (registeredInstanceId != GetInstanceID())
+        {
+            guid = Guid.NewGuid();
+            GlobalIdManager.Instance.Register(guid, GetInstanceID());
+        }
     }
 
     public void SaveData<T>(T data)
