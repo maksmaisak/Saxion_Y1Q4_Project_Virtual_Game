@@ -10,6 +10,8 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
     {
         get
         {
+            if (wasDestroyed) return null;
+
             if (instance == null)
             {
                 instance = FindInstance() ?? CreateInstance();
@@ -18,6 +20,8 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
             return instance;
         }
     }
+
+    private static bool wasDestroyed;
 
     private static T FindInstance()
     {
@@ -29,5 +33,10 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
         var gameObject = new GameObject(typeof(T).ToString());
         gameObject.transform.SetAsFirstSibling();
         return gameObject.AddComponent<T>();
+    }
+
+    private void OnDestroy()
+    {
+        wasDestroyed = true;
     }
 }

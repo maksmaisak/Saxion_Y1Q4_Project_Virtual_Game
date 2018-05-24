@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 
-public class GlobalIdMananger : Singleton<GlobalIdMananger>
+public class GlobalIdManager : Singleton<GlobalIdManager>
 {
-    private Dictionary<Guid, GlobalId> guidToComponent = new Dictionary<Guid, GlobalId>();
+    private Dictionary<Guid, Saveable> guidToComponent = new Dictionary<Guid, Saveable>();
     private Dictionary<Guid, object> guidToData = new Dictionary<Guid, object>();
 
     void Awake()
@@ -18,7 +18,7 @@ public class GlobalIdMananger : Singleton<GlobalIdMananger>
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
-    public void Register(Guid guid, GlobalId component)
+    public void Register(Guid guid, Saveable component)
     {
         guidToComponent.Add(guid, component);
     }
@@ -38,14 +38,21 @@ public class GlobalIdMananger : Singleton<GlobalIdMananger>
         guidToData[guid] = data;
     }
 
-    public T RetrieveData<T>(Guid guid)
+    public bool GetSavedData<T>(Guid guid, out T data)
     {
-        return (T)guidToData[guid];
+        object obj;
+        if (guidToData.TryGetValue(guid, out obj))
+        {
+            data = (T)obj;
+            return true;
+        }
+        data = default(T);
+        return false;
     }
 
     private void OnActiveSceneChanged(Scene oldScene, Scene newScene)
     {
-        if (oldScene.buildIndex != newScene.buildIndex)
+        if (oldScene.IsValid() && oldScene.buildIndex != newScene.buildIndex)
         {
             guidToData.Clear();
         }

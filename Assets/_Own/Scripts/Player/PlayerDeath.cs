@@ -8,10 +8,8 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Health))]
 public class PlayerDeath : MonoBehaviour
 {
-
     [SerializeField] float timeTillRestart = 2f;
     [SerializeField] float timeScaleMultiplier = 0.4f;
-    //[SerializeField] Collider afterDeathCollider;
 
     private bool didDie;
     private float originalTimeScale;
@@ -19,14 +17,12 @@ public class PlayerDeath : MonoBehaviour
 
     void Start()
     {
-
         var health = GetComponent<Health>();
         health.OnDeath += OnDeathHandler;
     }
 
     void OnDestroy()
     {
-
         if (didDie)
         {
             Time.timeScale = originalTimeScale;
@@ -61,6 +57,4 @@ public class PlayerDeath : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
-
 }
