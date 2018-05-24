@@ -15218,7 +15218,7 @@ ParticleSystem:
   simulationSpeed: 0.5
   stopAction: 0
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -38460,7 +38460,7 @@ ParticleSystem:
   simulationSpeed: 0.5
   stopAction: 0
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
