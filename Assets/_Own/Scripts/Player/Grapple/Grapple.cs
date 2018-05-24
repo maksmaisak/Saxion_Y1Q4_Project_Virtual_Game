@@ -326,7 +326,7 @@ public class Grapple : MonoBehaviour
         );
         if (canReachWithoutAssist) 
         {
-            Debug.Log("canReachWithoutAssist == true");
+            //Debug.Log("canReachWithoutAssist == true");
             return;
         }
 
