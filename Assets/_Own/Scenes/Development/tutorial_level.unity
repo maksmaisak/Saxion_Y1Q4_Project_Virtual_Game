@@ -8229,6 +8229,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114804136138691650, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: rattleClips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114391313926976662, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: rattleClips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4185329038023080, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
       propertyPath: m_LocalPosition.x
       value: -71.45
@@ -8287,6 +8297,46 @@ Prefab:
       propertyPath: chainLinkPrefab
       value: 
       objectReference: {fileID: 400000, guid: 9b8506a6dfa224712b6e8e8e505e4dce, type: 3}
+    - target: {fileID: 114804136138691650, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: rattleClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 386d54dd1da468a4fa5415225a47a271, type: 3}
+    - target: {fileID: 114804136138691650, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: rattleClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: e9144be119c82404c9e4c306cbd5a201, type: 3}
+    - target: {fileID: 114391313926976662, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: rattleClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 386d54dd1da468a4fa5415225a47a271, type: 3}
+    - target: {fileID: 114391313926976662, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: rattleClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: e9144be119c82404c9e4c306cbd5a201, type: 3}
+    - target: {fileID: 114804136138691650, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: rattleClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 04e5535eee3774049bed8cdf6c766831, type: 3}
+    - target: {fileID: 114391313926976662, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: rattleClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 04e5535eee3774049bed8cdf6c766831, type: 3}
+    - target: {fileID: 114804136138691650, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: rattleClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9f81e4060003685478be453b8716af11, type: 3}
+    - target: {fileID: 114391313926976662, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: rattleClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9f81e4060003685478be453b8716af11, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0
@@ -10918,11 +10968,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1849456219}
     m_Modifications:
-    - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
-        type: 2}
-      propertyPath: prerequisiteCheckpoints.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 125.58
@@ -10958,6 +11003,11 @@ Prefab:
     - target: {fileID: 1412540263599186, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
       propertyPath: m_Name
       value: rune_plus_holder 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 82605742724990760, guid: 6cd732a903b80c84cb9b705dea24584a,
+        type: 2}
+      propertyPath: m_Volume
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}

@@ -14,6 +14,8 @@ public class GrappleController : MonoBehaviour
     [SerializeField] Grapple grappleRight;
 
     [SerializeField] Image crosshairIndicator;
+    [SerializeField] Sprite crosshairAimedSprite;
+    [SerializeField] Sprite crosshairDefaultSprite;
 
     [SerializeField] float grappleShootSpeed = 100f;
     [SerializeField] float grappleMinRange = 0.6f;
@@ -139,6 +141,20 @@ public class GrappleController : MonoBehaviour
     private void SetCrosshairMode(bool isActive)
     {
         if (crosshairIndicator == null) return;
-        crosshairIndicator.color = isActive ? Color.black : Color.gray;
+       // crosshairIndicator.sprite = isActive ? crosshairAimedSprite : crosshairDefaultSprite;
+        var tempColor = crosshairIndicator.color;
+
+        if(isActive)
+        {
+            crosshairIndicator.sprite = crosshairAimedSprite;
+            tempColor.a = 1f;
+        }
+        else
+        {
+            crosshairIndicator.sprite = crosshairDefaultSprite;
+            tempColor.a = 0.6f;
+        }
+
+        crosshairIndicator.color = tempColor;
     }
 }
