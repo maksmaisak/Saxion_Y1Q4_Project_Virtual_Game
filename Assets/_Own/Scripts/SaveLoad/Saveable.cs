@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Saveable : MonoBehaviour
 {
     [Tooltip("DO NOT CHANGE THIS")]
@@ -46,10 +47,7 @@ public class Saveable : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        if (GlobalIdManager.Instance != null)
-        {
-            GlobalIdManager.Instance.Unregister(guid);
-        }
+        GlobalIdManager.Instance.Unregister(guid);
     }
 
     public void SaveData<T>(T data)
