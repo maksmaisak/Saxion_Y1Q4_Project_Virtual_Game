@@ -5469,10 +5469,10 @@ MonoBehaviour:
     cameraRotationOffset: {x: 0, y: 0, z: 0, w: 1}
   advancedSettings:
     groundCheckDistance: 0.1
-    stickToGroundHelperDistance: 0.2
-    wallCheckDistance: 0.1
-    stickToWallHelperDistance: 0.5
-    stickToWallHelperForce: 20
+    stickToGroundHelperDistance: 0.4
+    wallCheckDistance: 0.3
+    stickToWallHelperDistance: 0.8
+    stickToWallHelperForce: 30
     onSurfaceRigidbodyDrag: 5
     slowDownRate: 7
     airControl: 1
