@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -15,6 +16,9 @@ public class TutorialHint : MonoBehaviour
     [Space]
     [SerializeField] float transitionInDelay  = 0f;
     [SerializeField] float transitionOutDelay = 0.5f;
+    [SerializeField] bool hideOthersOnTransition = true;
+    [SerializeField] TutorialHint[] needToBeFulfilledFirst;
+    [SerializeField] bool autoActivateAsSoonAsPossible;
 
     private CanvasGroup canvasGroup;
 
@@ -35,21 +39,32 @@ public class TutorialHint : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (!isTransitionedIn)
+        if (needToBeFulfilledFirst.Any(hint => !hint.isTransitionOutConditionFulfilled))
         {
-            if (!isTransitionInConditionFulfilled && CheckTransitionInCondition())
+            return;
+        }
+
+        if (!isTransitionOutConditionFulfilled && CheckTransitionOutCondition())
+        {
+            isTransitionOutConditionFulfilled = true;
+            if (isTransitionedIn) 
             {
-                isTransitionInConditionFulfilled = true;
-                Invoke("TransitionIn", transitionInDelay);
+                CancelInvoke();
+                Invoke("TransitionOut", transitionOutDelay);
+                isTransitionedIn = false;
             }
         }
-        else
+
+        if (isTransitionOutConditionFulfilled) return;
+
+        if (!isTransitionedIn)
         {
-            isTransitionInConditionFulfilled = true;
-            if (!isTransitionOutConditionFulfilled && CheckTransitionOutCondition())
+            if (!isTransitionInConditionFulfilled && (autoActivateAsSoonAsPossible || CheckTransitionInCondition()))
             {
-                isTransitionOutConditionFulfilled = true;
-                Invoke("TransitionOut", transitionOutDelay);
+                isTransitionInConditionFulfilled = true;
+                CancelInvoke();
+                Invoke("TransitionIn", transitionInDelay);
+                isTransitionedIn = true;
             }
         }
     }
@@ -62,7 +77,9 @@ public class TutorialHint : MonoBehaviour
 
     public void TransitionIn()
     {
-        if (currentlyActive != null)
+        if (isTransitionOutConditionFulfilled) return;
+
+        if (hideOthersOnTransition && currentlyActive != null)
         {
             currentlyActive.TransitionOut();
         }
