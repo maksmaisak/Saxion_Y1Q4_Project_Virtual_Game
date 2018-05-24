@@ -5154,11 +5154,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 822912804}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &825072757 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4810693501529642, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-    type: 2}
-  m_PrefabInternal: {fileID: 1219965809}
 --- !u!1 &829135951
 GameObject:
   m_ObjectHideFlags: 0
@@ -5907,11 +5902,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 933497560}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &943615558 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4638884814030826, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-    type: 2}
-  m_PrefabInternal: {fileID: 1219965809}
 --- !u!1 &947190052
 GameObject:
   m_ObjectHideFlags: 0
@@ -8360,16 +8350,11 @@ Prefab:
       propertyPath: crosshairIndicator
       value: 
       objectReference: {fileID: 313250304}
-    - target: {fileID: 114774150361057274, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+    - target: {fileID: 114328569735252516, guid: 5fbba1f5b94164fad93b3660e56e56cf,
         type: 2}
-      propertyPath: hookTransform
-      value: 
-      objectReference: {fileID: 943615558}
-    - target: {fileID: 114746154259358212, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: hookTransform
-      value: 
-      objectReference: {fileID: 825072757}
+      propertyPath: footstepVolumeScale
+      value: 1.089
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0
@@ -10604,12 +10589,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1559389593}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1565955051 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114492252579379124, guid: 8acaa4ac06151c54281a88fb2d026824,
-    type: 2}
-  m_PrefabInternal: {fileID: 1083796666}
-  m_Script: {fileID: 11500000, guid: fa164ace14df94c29afbfd14b192504e, type: 3}
 --- !u!1 &1570621767
 GameObject:
   m_ObjectHideFlags: 0
@@ -11095,11 +11074,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1849456219}
     m_Modifications:
-    - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
-        type: 2}
-      propertyPath: prerequisiteCheckpoints.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 125.58
@@ -11136,36 +11110,6 @@ Prefab:
       propertyPath: m_Name
       value: rune_plus_holder 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
-        type: 2}
-      propertyPath: prerequisiteCheckpoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1565955051}
-    - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
-        type: 2}
-      propertyPath: prerequisiteCheckpoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 469243729}
-    - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
-        type: 2}
-      propertyPath: prerequisiteCheckpoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 1676528741}
-    - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
-        type: 2}
-      propertyPath: prerequisiteCheckpoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 2085149171}
-    - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
-        type: 2}
-      propertyPath: prerequisiteCheckpoints.Array.data[4]
-      value: 
-      objectReference: {fileID: 999150071}
-    - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
-        type: 2}
-      propertyPath: prerequisiteCheckpoints.Array.data[5]
-      value: 
-      objectReference: {fileID: 434144824}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
   m_IsPrefabParent: 0
