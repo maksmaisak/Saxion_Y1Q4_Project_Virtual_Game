@@ -5822,15 +5822,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 7.89
+      value: 8.00212
       objectReference: {fileID: 0}
     - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 597.41
+      value: 597.22815
       objectReference: {fileID: 0}
     - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.05127151
+      value: 0.05774652
       objectReference: {fileID: 0}
     - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
       propertyPath: m_LocalRotation.y
@@ -5842,7 +5842,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.99868476
+      value: 0.9983313
       objectReference: {fileID: 0}
     - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
       propertyPath: m_RootOrder
@@ -5882,6 +5882,18 @@ Prefab:
       propertyPath: prerequisiteCheckpoints.Array.data[4]
       value: 
       objectReference: {fileID: 2043304636}
+    - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 6.6210003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4044407512931368, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
   m_IsPrefabParent: 0
@@ -7077,7 +7089,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4942181714377924, guid: 8b016a90ad27e44fb8daf20f5777d195, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 4.4719
+      value: 5.14
       objectReference: {fileID: 0}
     - target: {fileID: 4942181714377924, guid: 8b016a90ad27e44fb8daf20f5777d195, type: 2}
       propertyPath: m_LocalPosition.y
