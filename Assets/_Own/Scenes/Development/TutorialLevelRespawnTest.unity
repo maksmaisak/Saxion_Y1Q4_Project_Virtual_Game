@@ -1810,6 +1810,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
         type: 2}
+      propertyPath: needToDieToUnlock.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114358987065519846, guid: 6cd732a903b80c84cb9b705dea24584a,
+        type: 2}
       propertyPath: prerequisiteCheckpoints.Array.size
       value: 1
       objectReference: {fileID: 0}
