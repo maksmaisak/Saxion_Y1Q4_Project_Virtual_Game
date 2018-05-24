@@ -5136,11 +5136,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 82747444790422514}
   jumpSound: {fileID: 8300000, guid: 8a60330ee045442b9a932faea36cc180, type: 3}
-  landSound: {fileID: 8300000, guid: 77ac7d8f7bde142babd920f8ef37852a, type: 3}
+  landSound: {fileID: 8300000, guid: 31df10a5049f34c5d955d3a9ae86ceb6, type: 3}
   footstepSounds:
-  - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
-  - {fileID: 8300000, guid: 5a9383dda6cabc047b7a297602e93eb4, type: 3}
-  footstepVolumeScale: 0.25
+  - {fileID: 8300000, guid: 735cf413c8fcfd04ab2f327992965139, type: 3}
+  footstepVolumeScale: 2
 --- !u!114 &114350367893716576
 MonoBehaviour:
   m_ObjectHideFlags: 1
