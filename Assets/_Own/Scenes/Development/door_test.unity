@@ -5826,6 +5826,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 822912804}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &825072757 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4810693501529642, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+    type: 2}
+  m_PrefabInternal: {fileID: 1219965809}
 --- !u!1 &829135951
 GameObject:
   m_ObjectHideFlags: 0
@@ -6665,6 +6670,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 933497560}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &943615558 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4638884814030826, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+    type: 2}
+  m_PrefabInternal: {fileID: 1219965809}
 --- !u!1 &947190052
 GameObject:
   m_ObjectHideFlags: 0
@@ -9289,6 +9299,16 @@ Prefab:
       propertyPath: crosshairIndicator
       value: 
       objectReference: {fileID: 313250304}
+    - target: {fileID: 114774150361057274, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: hookTransform
+      value: 
+      objectReference: {fileID: 943615558}
+    - target: {fileID: 114746154259358212, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: hookTransform
+      value: 
+      objectReference: {fileID: 825072757}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0
