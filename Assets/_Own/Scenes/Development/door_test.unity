@@ -378,13 +378,15 @@ GameObject:
   - component: {fileID: 31108848}
   - component: {fileID: 31108847}
   - component: {fileID: 31108850}
+  - component: {fileID: 31108852}
+  - component: {fileID: 31108851}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &31108846
 Transform:
   m_ObjectHideFlags: 0
@@ -458,11 +460,64 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 31108845}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.38655347, y: 0.6341305, z: 12059.968}
   m_Center: {x: -0.014248148, y: -0.18293476, z: 342.32855}
+--- !u!114 &31108851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 31108845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a162a6f78eb7b4a990d06000f62bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &31108852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 31108845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28fafa6297f34a44a25547dcbc583eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TriggerEvents+TriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  _onPlayerTriggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1230008250}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: tutorial_level
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  _onPlayerTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  _onPlayerTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &42656164
 GameObject:
   m_ObjectHideFlags: 0
@@ -3589,8 +3644,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.710835, y: 8.94265, z: 8.7668085}
-  m_Center: {x: -0.025488399, y: 0.06431198, z: -3.8833475}
+  m_Size: {x: 8.710835, y: 8.94265, z: 15.079338}
+  m_Center: {x: -0.025488412, y: 0.06431198, z: -7.039605}
 --- !u!4 &483126508
 Transform:
   m_ObjectHideFlags: 0
@@ -3598,7 +3653,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 483126505}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.32, y: 0, z: -16.55}
+  m_LocalPosition: {x: 0, y: 0, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1101796516}
@@ -8023,12 +8078,12 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114668662609170706, guid: cb3078a910db44ab59160d52c10ccfb8,
+    - target: {fileID: 114371369998940868, guid: cb3078a910db44ab59160d52c10ccfb8,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114668662609170706, guid: cb3078a910db44ab59160d52c10ccfb8,
+    - target: {fileID: 114371369998940868, guid: cb3078a910db44ab59160d52c10ccfb8,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -8043,12 +8098,12 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114371369998940868, guid: cb3078a910db44ab59160d52c10ccfb8,
+    - target: {fileID: 114668662609170706, guid: cb3078a910db44ab59160d52c10ccfb8,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114371369998940868, guid: cb3078a910db44ab59160d52c10ccfb8,
+    - target: {fileID: 114668662609170706, guid: cb3078a910db44ab59160d52c10ccfb8,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -8142,22 +8197,6 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114224658808596908, guid: cb3078a910db44ab59160d52c10ccfb8,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d2fb24cf51a4a4531871d5bd604dee3a,
-        type: 3}
-    - target: {fileID: 224653996614071508, guid: cb3078a910db44ab59160d52c10ccfb8,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 224653996614071508, guid: cb3078a910db44ab59160d52c10ccfb8,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb3078a910db44ab59160d52c10ccfb8, type: 2}
@@ -9340,39 +9379,6 @@ Prefab:
       propertyPath: crosshairIndicator
       value: 
       objectReference: {fileID: 313250304}
-    - target: {fileID: 4185329038023080, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 14.062
-      objectReference: {fileID: 0}
-    - target: {fileID: 4102287641370528, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.010297264
-      objectReference: {fileID: 0}
-    - target: {fileID: 4102287641370528, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.999947
-      objectReference: {fileID: 0}
-    - target: {fileID: 4102287641370528, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 1.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 114169127979592644, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: chainLinkPrefab
-      value: 
-      objectReference: {fileID: 400000, guid: 9b8506a6dfa224712b6e8e8e505e4dce, type: 3}
-    - target: {fileID: 114350367893716576, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: crosshairAimedSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: f181698f3daf548b18bf5bff0151d3d3,
-        type: 3}
-    - target: {fileID: 114350367893716576, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: crosshairDefaultSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d2fb24cf51a4a4531871d5bd604dee3a,
-        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0
@@ -9461,6 +9467,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1226560323}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1230008250 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1340809825475532, guid: cb3078a910db44ab59160d52c10ccfb8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1100385600}
 --- !u!1 &1236715699
 GameObject:
   m_ObjectHideFlags: 0
@@ -11774,7 +11785,7 @@ GameObject:
   - component: {fileID: 1525688779}
   - component: {fileID: 1525688778}
   m_Layer: 0
-  m_Name: Particles (2)
+  m_Name: EndDoorBeam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11862,7 +11873,7 @@ ParticleSystem:
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -11910,7 +11921,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1148907145
+  randomSeed: -774080992
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -15412,9 +15423,9 @@ MonoBehaviour:
   onAllPrerequisiteCheckpointsActive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 951697447}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1769753620}
+        m_MethodName: Play
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -15445,15 +15456,15 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1236715699}
-        m_MethodName: 
-        m_Mode: 1
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -15486,7 +15497,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1565955050}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 17505dc7fcebbc34197c1df5bc3c2b63, type: 2}
   m_CullingMode: 0
@@ -16862,7 +16873,7 @@ ParticleSystem:
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -16910,7 +16921,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 905137063
+  randomSeed: -1554426024
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -9,9 +9,13 @@ public class DoorActivationScript : MonoBehaviour
     [SerializeField] private float maxDegreesPerSecond= 2;
     [HideInInspector] public bool isActivated = false;
 
+    private Animator animator;
+
     void Start()
     {
         //Activate();
+        animator = GetComponent<Animator>();
+       
     }
 
     void Update()
@@ -37,6 +41,10 @@ public class DoorActivationScript : MonoBehaviour
         foreach (GameObject doorPiece in doorPieces)
         {
             doorPiece.transform.localRotation = Quaternion.RotateTowards(doorPiece.transform.localRotation, Quaternion.identity, maxDegreesPerSecond * Time.deltaTime);
+            if (doorPiece.transform.localRotation == Quaternion.identity)
+            {
+                animator.enabled = true;
+            }
         }
     }
 }
