@@ -41,7 +41,6 @@ public class PauseMenuScrpt : MonoBehaviour
     public void Pause()
     {
         AudioListener.volume = 0;
-        rbFirstPersonController.mouseLook.SetCursorLock(false);
         OnTransitionIn();
         isPaused = true;
         Time.timeScale = 0f;
@@ -50,7 +49,7 @@ public class PauseMenuScrpt : MonoBehaviour
     public void Resume()
     {
         AudioListener.volume = audioListenerInitialVolume;
-        rbFirstPersonController.mouseLook.SetCursorLock(true);
+        //rbFirstPersonController.mouseLook.SetCursorLock(true);
         OnTransitionOut();
         isPaused = false;
         Time.timeScale = 1f;
@@ -63,6 +62,7 @@ public class PauseMenuScrpt : MonoBehaviour
 
     public void GoToMenu(string menuScene)
     {
+        rbFirstPersonController.mouseLook.SetCursorLock(false);
         Time.timeScale = 1f;
         isPaused = false;
         AsyncOperation asyncOperation =  SceneManager.LoadSceneAsync(menuScene);

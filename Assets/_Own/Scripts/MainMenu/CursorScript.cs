@@ -8,6 +8,7 @@ public class CursorScript : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
+
     }
 
     // Update is called once per frame
