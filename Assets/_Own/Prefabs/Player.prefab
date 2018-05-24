@@ -5155,9 +5155,9 @@ MonoBehaviour:
   grappleLeft: {fileID: 114774150361057274}
   grappleRight: {fileID: 114746154259358212}
   crosshairIndicator: {fileID: 0}
-  crosshairAimedSprite: {fileID: 21300000, guid: f181698f3daf548b18bf5bff0151d3d3,
+  crosshairAimedSprite: {fileID: 21300000, guid: 1046876c06fce40488785ae6a8416f42,
     type: 3}
-  crosshairDefaultSprite: {fileID: 21300000, guid: d2fb24cf51a4a4531871d5bd604dee3a,
+  crosshairDefaultSprite: {fileID: 21300000, guid: d6ab253cfbb7a4d67a3fa5e458d34d0e,
     type: 3}
   grappleShootSpeed: 200
   grappleMinRange: 0.6
