@@ -253,7 +253,6 @@ GameObject:
   - component: {fileID: 114582930297635904}
   - component: {fileID: 114829976007956318}
   - component: {fileID: 114995879703230294}
-  - component: {fileID: 114096883077610938}
   m_Layer: 0
   m_Name: EnemyBlue
   m_TagString: Enemy
@@ -772,7 +771,7 @@ Transform:
   - {fileID: 4594971055876018}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -160, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -197.931, z: 0}
 --- !u!4 &4361977824008654
 Transform:
   m_ObjectHideFlags: 1
@@ -1430,18 +1429,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioClip: {fileID: 8300000, guid: d217a174cc5f241069ea698c0e4b49e7, type: 3}
---- !u!114 &114096883077610938
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1328074967465180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a66dfe8cc800a4dc6850b5d6fa4fa83e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stringGuid: dd2af827-0f05-41e9-9029-f20635589af2
 --- !u!114 &114143242088639916
 MonoBehaviour:
   m_ObjectHideFlags: 1

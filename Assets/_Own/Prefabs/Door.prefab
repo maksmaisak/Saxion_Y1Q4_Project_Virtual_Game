@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 114092639564775166}
   - component: {fileID: 95074081065525056}
   - component: {fileID: 82392241164801512}
+  - component: {fileID: 114190045552629960}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -500,8 +501,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1353267323712392}
-  m_LocalRotation: {x: -0, y: 0.07565205, z: -0, w: 0.9971343}
-  m_LocalPosition: {x: -66.61693, y: 106.11, z: -123.281}
+  m_LocalRotation: {x: -0, y: 0.16013408, z: -0, w: 0.98709536}
+  m_LocalPosition: {x: 247.87321, y: 75.33, z: 1018.92426}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4860240042622668}
@@ -510,7 +511,7 @@ Transform:
   - {fileID: 4032053403227512}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 8.677, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 18.429, z: 0}
 --- !u!4 &4265032544456994
 Transform:
   m_ObjectHideFlags: 1
@@ -1603,7 +1604,7 @@ MonoBehaviour:
   - {fileID: 1576874599772596}
   - {fileID: 1846282951854234}
   - {fileID: 1114428825153412}
-  maxDegreesPerSecond: 15
+  maxDegreesPerSecond: 30
   isActivated: 0
 --- !u!114 &114157147671827614
 MonoBehaviour:
@@ -1647,6 +1648,18 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114190045552629960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1353267323712392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a66dfe8cc800a4dc6850b5d6fa4fa83e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stringGuid: 38fbef21-409c-4318-b230-7eb786f10d91
 --- !u!114 &114334701785142166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1717,7 +1730,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  prerequisiteCheckpoints: []
+  prerequisiteCheckpoints:
+  - {fileID: 0}
   needToDieToUnlock: []
   triggerEvents: {fileID: 114744644705073434}
 --- !u!114 &114503293732050430

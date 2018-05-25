@@ -45,14 +45,13 @@ public class Checkpoint : MonoBehaviour
 
     void Awake()
     {
+        prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null || checkpoint.isActivated);
+        needToDieToUnlock.RemoveAll(health => health == null);
         LoadSaveData();
     }
 
     void Start()
     {
-        prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null || checkpoint.isActivated);
-        needToDieToUnlock.RemoveAll(health => health == null);
-
         EnsureTrigger();
         triggerEvents.onPlayerTriggerStay.AddListener(OnPlayerTriggerStay);
 
