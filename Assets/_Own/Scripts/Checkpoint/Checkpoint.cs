@@ -53,8 +53,6 @@ public class Checkpoint : MonoBehaviour
         prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null || checkpoint.isActivated);
         needToDieToUnlock.RemoveAll(health => health == null);
 
-        //CheckIfThisIsLatestActiveCheckpoint();
-
         EnsureTrigger();
         triggerEvents.onPlayerTriggerStay.AddListener(OnPlayerTriggerStay);
 
@@ -181,14 +179,6 @@ public class Checkpoint : MonoBehaviour
         Assert.IsNotNull(triggerEvents, "[" + this + "]: TriggerEvents was not set in the inspector and not found! Could not find a trigger collider in children!");
     }
 
-    /*private void CheckIfThisIsLatestActiveCheckpoint()
-    {
-        if (gameObject.name != LatestActiveCheckpointInstanceName) return;
-        ActivatePrerequisites(this);
-        Activate();
-        gameObject.SetActive(false);
-    }*/
-
     private void LoadSaveData()
     {
         SaveData saveData;
@@ -197,25 +187,10 @@ public class Checkpoint : MonoBehaviour
         {
             isActivated = true;
             gameObject.SetActive(false);
+            foreach (var health in needToDieToUnlock)
+            {
+                health.gameObject.SetActive(false);
+            }
         }
     }
-
-    /*private static void ActivatePrerequisites(Checkpoint checkpoint) 
-    {
-        foreach (var prerequisite in checkpoint.prerequisiteCheckpoints)
-        {
-            if (prerequisite == null) continue;
-            ActivatePrerequisites(prerequisite);
-            prerequisite.gameObject.SetActive(false);
-        }
-        checkpoint.prerequisiteCheckpoints.Clear();
-
-        foreach (var health in checkpoint.needToDieToUnlock)
-        {
-            if (health == null) continue;
-            health.SetHealth(0);
-            if (!health.destroyOnDeath) Destroy(health.gameObject);
-        }
-        checkpoint.needToDieToUnlock.Clear();
-    }*/
 }
