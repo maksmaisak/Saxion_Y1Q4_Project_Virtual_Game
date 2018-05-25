@@ -6,9 +6,17 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using DG.Tweening;
 
+#pragma warning disable 0649
+
 [RequireComponent(typeof(CanvasGroup))]
+[RequireComponent(typeof(Saveable))]
 public class TutorialHint : MonoBehaviour
 {
+    struct SaveData
+    {
+        public bool isTransitionOutConditionFulfilled;
+    }
+
     private static TutorialHint currentlyActive;
 
     [SerializeField] float transitionDuration = 0.25f;
@@ -21,6 +29,7 @@ public class TutorialHint : MonoBehaviour
     [SerializeField] bool autoActivateAsSoonAsPossible;
 
     private CanvasGroup canvasGroup;
+    private Saveable saveable;
 
     public bool isTransitionedIn { get; private set; }
 
@@ -31,6 +40,17 @@ public class TutorialHint : MonoBehaviour
 
     private bool isTransitionInConditionFulfilled;
     private bool isTransitionOutConditionFulfilled;
+
+    protected virtual void Awake()
+    {
+        saveable = GetComponent<Saveable>();
+
+        SaveData saveData;
+        if (saveable.GetSavedData(out saveData))
+        {
+            isTransitionOutConditionFulfilled = saveData.isTransitionOutConditionFulfilled;
+        }
+    }
 
     protected virtual void Start()
     {
@@ -67,6 +87,13 @@ public class TutorialHint : MonoBehaviour
                 isTransitionedIn = true;
             }
         }
+    }
+
+    protected virtual void OnDestroy()
+    {
+        saveable.SaveData(new SaveData() {
+            isTransitionOutConditionFulfilled = isTransitionOutConditionFulfilled
+        });
     }
 
     protected virtual bool CheckTransitionInCondition()  { return false; }

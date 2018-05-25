@@ -9,7 +9,7 @@ public class RegisterCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(detectedPlayer)
+        if (detectedPlayer)
         {
             IntensityChecker.Instance.RegisterCombat();
         }

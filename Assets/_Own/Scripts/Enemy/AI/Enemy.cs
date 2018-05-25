@@ -100,11 +100,7 @@ public class Enemy : MonoBehaviour, IAgent
 
     private void OnGrapple(Grappleable sender)
     {
-        // Meh, but works.
-        if (fsm.GetCurrentState().GetType() == typeof(EnemyFallingToDeathState))
-        {
-            return;
-        }
+        if (IsFallingToDeath()) return;
 
         audio.PlayOnGrappled();
         particleManager.SwitchGrappled();
@@ -128,5 +124,12 @@ public class Enemy : MonoBehaviour, IAgent
     private void OnRelease(Grappleable sender)
     {
         fsm.ChangeState<EnemyFallingToDeathState>();
+    }
+
+    private bool IsFallingToDeath()
+    {
+        if (fsm == null) return false;
+        // Meh, but works.
+        return fsm.GetCurrentState().GetType() == typeof(EnemyFallingToDeathState);
     }
 }

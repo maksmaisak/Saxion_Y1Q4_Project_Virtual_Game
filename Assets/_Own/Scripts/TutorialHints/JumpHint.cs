@@ -17,8 +17,9 @@ public class JumpHint : TutorialHint
         trigger.onPlayerTriggerEnter.AddListener(OnPlayerTriggerEnter);
     }
 
-    void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
         trigger.onPlayerTriggerEnter.RemoveListener(OnPlayerTriggerEnter);
     }
 

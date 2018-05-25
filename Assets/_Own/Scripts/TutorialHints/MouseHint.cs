@@ -13,6 +13,7 @@ public class MouseHint : TutorialHint
 
     protected override bool CheckTransitionOutCondition()
     {
+        if (Time.timeSinceLevelLoad < 1f) return false;
         if (Mathf.Abs(Input.GetAxis("Mouse X")) > 0.01f) return true;
         if (Mathf.Abs(Input.GetAxis("Mouse Y")) > 0.01f) return true;
         return false;

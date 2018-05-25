@@ -1,8 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
-using System;
 
-public abstract class Singleton<T> : MonoBehaviour where T : Component
+public class PersistentSingleton<T> : MonoBehaviour where T : Component
 {
     private static T instance;
 
@@ -10,6 +9,8 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
     {
         get
         {
+            if (isApplicationQuitting) return null;
+
             if (instance == null)
             {
                 instance = FindInstance() ?? CreateInstance();
@@ -19,6 +20,8 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
         }
     }
 
+    private static bool isApplicationQuitting;
+
     private static T FindInstance()
     {
         return FindObjectOfType<T>();
@@ -26,8 +29,13 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
 
     private static T CreateInstance()
     {
-        var gameObject = new GameObject(typeof(T).ToString());
-        gameObject.transform.SetAsFirstSibling();
+        var gameObject = new GameObject("(persistent singleton) " + typeof(T));
+        DontDestroyOnLoad(gameObject);
         return gameObject.AddComponent<T>();
+    }
+
+    protected virtual void OnDestroy()
+    {
+        isApplicationQuitting = true;
     }
 }
