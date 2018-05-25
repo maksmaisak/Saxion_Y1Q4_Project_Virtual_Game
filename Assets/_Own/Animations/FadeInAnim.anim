@@ -116,7 +116,7 @@ AnimationClip:
   m_Events:
   - time: 1.5
     functionName: LoadScene
-    data: tutorial_level
+    data: MainMenu
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
