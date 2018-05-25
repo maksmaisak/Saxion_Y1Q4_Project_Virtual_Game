@@ -7,38 +7,38 @@ using UnityEngine.Assertions;
 
 public class GlobalIdManager : SimpleSingleton<GlobalIdManager>
 {
-    private Dictionary<Guid, int> guidToInstanceId = new Dictionary<Guid, int>();
-    private Dictionary<Guid, object> guidToData = new Dictionary<Guid, object>();
+    private Dictionary<string, int> guidToInstanceId = new Dictionary<string, int>();
+    private Dictionary<string, object> guidToData = new Dictionary<string, object>();
 
     public GlobalIdManager()
     {
         SceneHelper.Instance.OnActiveSceneChange += OnActiveSceneChanged;
     }
 
-    public void Register(Guid guid, int instanceId)
+    public void Register(string stringGuid, int instanceId)
     {
-        guidToInstanceId.Add(guid, instanceId);
+        guidToInstanceId.Add(stringGuid, instanceId);
     }
 
-    public void Unregister(Guid guid)
+    public void Unregister(string stringGuid)
     {
-        guidToInstanceId.Remove(guid);
+        guidToInstanceId.Remove(stringGuid);
     }
 
-    public bool GetRegistered(Guid guid, out int instanceId)
+    public bool GetRegistered(string stringGuid, out int instanceId)
     {
-        return guidToInstanceId.TryGetValue(guid, out instanceId);
+        return guidToInstanceId.TryGetValue(stringGuid, out instanceId);
     }
 
-    public void SaveData<T>(Guid guid, T data)
+    public void SaveData<T>(string stringGuid, T data)
     {
-        guidToData[guid] = data;
+        guidToData[stringGuid] = data;
     }
 
-    public bool GetSavedData<T>(Guid guid, out T data)
+    public bool GetSavedData<T>(string stringGuid, out T data)
     {
         object obj;
-        if (guidToData.TryGetValue(guid, out obj))
+        if (guidToData.TryGetValue(stringGuid, out obj))
         {
             data = (T)obj;
             return true;

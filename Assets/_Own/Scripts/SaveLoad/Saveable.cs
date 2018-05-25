@@ -9,30 +9,21 @@ public class Saveable : MonoBehaviour
     [Tooltip("DO NOT CHANGE THIS")]
     [SerializeField] private string stringGuid;
 
-    private Guid _guid;
     public Guid guid
     {
         get
         {
-            if (_guid == Guid.Empty || string.IsNullOrEmpty(stringGuid))
+            if (string.IsNullOrEmpty(stringGuid))
             {
-                if (!string.IsNullOrEmpty(stringGuid))
-                {
-                    _guid = new Guid(stringGuid);
-                }
-                else
-                {
-                    _guid = Guid.NewGuid();
-                    stringGuid = _guid.ToString();
-                }
+                var temp = Guid.NewGuid();
+                stringGuid = temp.ToString();
+                return temp; 
             }
-
-            return _guid;
+            return new Guid(stringGuid);
         }
         private set
         {
-            _guid = value;
-            stringGuid = _guid.ToString();
+            stringGuid = value.ToString();
         }
     }
 
@@ -51,7 +42,7 @@ public class Saveable : MonoBehaviour
 
     void OnDestroy()
     {
-        GlobalIdManager.Instance.Unregister(guid);
+        GlobalIdManager.Instance.Unregister(stringGuid);
     }
 
     [ContextMenu("MakeGuidsUnique")]
@@ -65,16 +56,22 @@ public class Saveable : MonoBehaviour
 
     private void CheckGuid()
     {
-        int registeredInstanceId;
-        bool hasRegistered = GlobalIdManager.Instance.GetRegistered(guid, out registeredInstanceId);
-        if (!hasRegistered) 
+        if (string.IsNullOrEmpty(stringGuid))
         {
-            GlobalIdManager.Instance.Register(guid, GetInstanceID());
+            stringGuid = Guid.NewGuid().ToString();
+        }
+
+        int registeredInstanceId;
+        bool hasRegistered = GlobalIdManager.Instance.GetRegistered(stringGuid, out registeredInstanceId);
+        if (!hasRegistered)
+        {
+            GlobalIdManager.Instance.Register(stringGuid, GetInstanceID());
         }
         else if (registeredInstanceId != GetInstanceID())
         {
-            guid = Guid.NewGuid();
-            GlobalIdManager.Instance.Register(guid, GetInstanceID());
+            stringGuid = Guid.NewGuid().ToString();
+            GlobalIdManager.Instance.Register(stringGuid, GetInstanceID());
+            Debug.Log("Duplicate!");
         }
     }
 
@@ -82,11 +79,11 @@ public class Saveable : MonoBehaviour
     {
         var manager = GlobalIdManager.Instance;
         if (manager == null) return;
-        manager.SaveData(guid, data);
+        manager.SaveData(stringGuid, data);
     }
 
     public bool GetSavedData<T>(out T data)
     {
-        return GlobalIdManager.Instance.GetSavedData(guid, out data);
+        return GlobalIdManager.Instance.GetSavedData(stringGuid, out data);
     }
 }
