@@ -1434,7 +1434,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245565852253206}
   m_LocalRotation: {x: -0, y: 0.122408606, z: -0, w: 0.99247986}
-  m_LocalPosition: {x: -74.8, y: 103.23, z: -156.2}
+  m_LocalPosition: {x: -66.71, y: 110.81, z: -137.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4102287641370528}
@@ -5481,7 +5481,7 @@ MonoBehaviour:
     shellOffset: 0.1
   audioSettings:
     playerAudio: {fileID: 114328569735252516}
-    stepInterval: 0.5
+    stepInterval: 2
     runStepSpeedup: 0.722
   groundAndWallDetectionLayerMask:
     serializedVersion: 2
