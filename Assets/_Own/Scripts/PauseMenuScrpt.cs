@@ -49,7 +49,7 @@ public class PauseMenuScrpt : MonoBehaviour
     public void Resume()
     {
         AudioListener.volume = audioListenerInitialVolume;
-        //rbFirstPersonController.mouseLook.SetCursorLock(true);
+        rbFirstPersonController.mouseLook.SetCursorLock(true);
         OnTransitionOut();
         isPaused = false;
         Time.timeScale = 1f;
