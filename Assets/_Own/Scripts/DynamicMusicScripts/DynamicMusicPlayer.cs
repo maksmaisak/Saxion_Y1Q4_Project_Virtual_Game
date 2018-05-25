@@ -45,7 +45,7 @@ public class DynamicMusicPlayer : MonoBehaviour
         else
         {   
             targetVolumeCombat = 0;
-            targetVolumeNormal = 0.3f;
+            targetVolumeNormal = 0.22f;
         }
 
         AdjustChannelVolumes();
