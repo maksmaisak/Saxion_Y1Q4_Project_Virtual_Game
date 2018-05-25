@@ -12,7 +12,7 @@ public class GlobalIdManager : SimpleSingleton<GlobalIdManager>
 
     public GlobalIdManager()
     {
-        SceneManager.activeSceneChanged += OnActiveSceneChanged;
+        SceneHelper.Instance.OnActiveSceneChange += OnActiveSceneChanged;
     }
 
     public void Register(Guid guid, int instanceId)
@@ -47,11 +47,8 @@ public class GlobalIdManager : SimpleSingleton<GlobalIdManager>
         return false;
     }
 
-    private void OnActiveSceneChanged(Scene oldScene, Scene newScene)
+    private void OnActiveSceneChanged()
     {
-        if (oldScene.IsValid() && oldScene.buildIndex != newScene.buildIndex)
-        {
-            guidToData.Clear();
-        }
+        guidToData.Clear();
     }
 }

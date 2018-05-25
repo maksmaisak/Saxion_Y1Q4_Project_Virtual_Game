@@ -7,15 +7,18 @@ public class SceneHelper : SimpleSingleton<SceneHelper>
 {
     public event Action OnActiveSceneChange;
 
+    private int currentSceneBuildIndex = -1;
+
     public SceneHelper() 
     {
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
-    private void OnActiveSceneChanged(Scene oldScene, Scene newScene)
+    void OnActiveSceneChanged(Scene currentScene, Scene nextScene)
     {
-        if (oldScene.IsValid() && oldScene.buildIndex != newScene.buildIndex)
+        if (currentSceneBuildIndex != nextScene.buildIndex)
         {
+            currentSceneBuildIndex = nextScene.buildIndex;
             if (OnActiveSceneChange != null) OnActiveSceneChange();
         }
     }
