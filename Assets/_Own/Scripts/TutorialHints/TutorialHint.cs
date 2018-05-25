@@ -14,7 +14,6 @@ public class TutorialHint : MonoBehaviour
 {
     struct SaveData
     {
-        public bool isTransitionedIn;
         public bool isTransitionOutConditionFulfilled;
     }
 
@@ -42,17 +41,20 @@ public class TutorialHint : MonoBehaviour
     private bool isTransitionInConditionFulfilled;
     private bool isTransitionOutConditionFulfilled;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
         saveable = GetComponent<Saveable>();
 
         SaveData saveData;
-        if (saveable.GetSavedData(out saveData)) 
+        if (saveable.GetSavedData(out saveData))
         {
-            if (saveData.isTransitionedIn) TransitionIn();
-            isTransitionOutConditionFulfilled = saveData.isTransitionOutConditionFulfilled; 
+            isTransitionOutConditionFulfilled = saveData.isTransitionOutConditionFulfilled;
         }
+    }
+
+    protected virtual void Start()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     protected virtual void Update()
@@ -87,10 +89,9 @@ public class TutorialHint : MonoBehaviour
         }
     }
 
-    void OnDestroy()
+    protected virtual void OnDestroy()
     {
         saveable.SaveData(new SaveData() {
-            isTransitionedIn = isTransitionedIn,
             isTransitionOutConditionFulfilled = isTransitionOutConditionFulfilled
         });
     }

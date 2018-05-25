@@ -18,8 +18,10 @@ public class GrappleHint : TutorialHint
         transitionIn.onPlayerTriggerEnter.AddListener(OnPlayerTriggerEnter);
     }
 
-    void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
+
         transitionIn.onPlayerTriggerEnter.RemoveListener(OnPlayerTriggerEnter);
     }
 
