@@ -41,6 +41,8 @@ public class PauseMenuScrpt : MonoBehaviour
     public void Pause()
     {
         AudioListener.volume = 0;
+        rbFirstPersonController.mouseLook.SetCursorLock(false);
+        Cursor.visible = false;
         OnTransitionIn();
         isPaused = true;
         Time.timeScale = 0f;
