@@ -71,7 +71,7 @@ public class Saveable : MonoBehaviour
         {
             stringGuid = Guid.NewGuid().ToString();
             GlobalIdManager.Instance.Register(stringGuid, GetInstanceID());
-            Debug.Log("Duplicate!");
+            Debug.Log("Duplicate guid!");
         }
     }
 

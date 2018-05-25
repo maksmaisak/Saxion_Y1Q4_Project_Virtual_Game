@@ -389,6 +389,11 @@ Prefab:
       propertyPath: stringGuid
       value: f958f60a-3ccd-429b-9370-f5af07bc3366
       objectReference: {fileID: 0}
+    - target: {fileID: 114828867578058090, guid: 6cd732a903b80c84cb9b705dea24584a,
+        type: 2}
+      propertyPath: stringGuid
+      value: 0c56e16b-a089-4200-898c-7bc5d2bbe61a
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
   m_IsPrefabParent: 0
@@ -866,6 +871,11 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: stringGuid
       value: db59ee02-b172-4b73-a5f8-b00f548f3e1b
+      objectReference: {fileID: 0}
+    - target: {fileID: 114828867578058090, guid: 6cd732a903b80c84cb9b705dea24584a,
+        type: 2}
+      propertyPath: stringGuid
+      value: 171fd407-1809-4a44-babb-4425306fbf9a
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
@@ -3597,6 +3607,11 @@ Prefab:
       propertyPath: advancedSettings.stickToWallHelperDistance
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 114859108289796068, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+        type: 2}
+      propertyPath: audioSettings.stepInterval
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0
@@ -5188,6 +5203,11 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: stringGuid
       value: 445afc21-2c13-4644-975c-c2a7ac357074
+      objectReference: {fileID: 0}
+    - target: {fileID: 114828867578058090, guid: 6cd732a903b80c84cb9b705dea24584a,
+        type: 2}
+      propertyPath: stringGuid
+      value: 4a2dc863-a036-4966-8bfb-0dcf7a9830b2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
