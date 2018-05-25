@@ -39,13 +39,13 @@ public class DynamicMusicPlayer : MonoBehaviour
 
         if(checker.timeSinceLastCombat < combatTimeBound)
         {
-            targetVolumeCombat = 1;
+            targetVolumeCombat = 0.5f;
             targetVolumeNormal = 0;
         }
         else
         {   
             targetVolumeCombat = 0;
-            targetVolumeNormal = 1;
+            targetVolumeNormal = 0.3f;
         }
 
         AdjustChannelVolumes();
