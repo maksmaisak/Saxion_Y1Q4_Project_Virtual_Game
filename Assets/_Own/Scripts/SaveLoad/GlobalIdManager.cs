@@ -49,6 +49,7 @@ public class GlobalIdManager : SimpleSingleton<GlobalIdManager>
 
     private void OnActiveSceneChanged()
     {
+        guidToInstanceId.Clear();
         guidToData.Clear();
     }
 }
