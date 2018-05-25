@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.SceneManagement;
 
 public class LoadSceneScript : MonoBehaviour
@@ -13,6 +14,7 @@ public class LoadSceneScript : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == "MainLevel")
         {
+            Player.Instance.GetComponent<RigidbodyFirstPersonController>().mouseLook.SetCursorLock(false);
             SceneManager.LoadScene("MainMenu");
         }
     }
