@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 
-public class GlobalIdManager : SimpleSingleton<GlobalIdManager>
+public class GlobalIdManager : ManagementSingleton<GlobalIdManager>
 {
     private Dictionary<string, int> guidToInstanceId = new Dictionary<string, int>();
     private Dictionary<string, object> guidToData = new Dictionary<string, object>();

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using System;
 
-public class ManagementSingleton<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class ManagementSingleton<T> : MonoBehaviour where T : ManagementSingleton<T>
 {
     public const string managementSceneName = "management";
     public const string managementScenePath = "Assets/_Own/Scenes/Final/management.unity";
@@ -15,10 +15,11 @@ public class ManagementSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            if (isApplicationQuitting) return null;
-
             if (instance == null)
             {
+                if (isApplicationQuitting) return null;
+
+                MakeSureManagementSceneIsLoaded();
                 instance = FindInstance() ?? CreateInstance();
             }
 
@@ -30,13 +31,26 @@ public class ManagementSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
     private static T FindInstance()
     {
-        return FindObjectOfType<T>();
+        Scene currentlyActiveScene = SceneManager.GetActiveScene();
+        bool shouldSwitch = currentlyActiveScene.IsValid() && currentlyActiveScene.name != managementSceneName;
+        if (shouldSwitch)
+        {
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(managementSceneName));
+        }
+
+        T result = FindObjectOfType<T>();
+
+        if (shouldSwitch)
+        {
+            SceneManager.SetActiveScene(currentlyActiveScene);
+        }
+
+        return result; 
     }
 
     private static T CreateInstance()
     {
-        MakeSureManagementSceneIsLoaded();
-        var gameObject = new GameObject("(management singleton) " + typeof(T));
+        var gameObject = new GameObject("(Management Singleton) " + typeof(T));
         SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetSceneByName(managementSceneName));
         return gameObject.AddComponent<T>();
     }
@@ -44,12 +58,6 @@ public class ManagementSingleton<T> : MonoBehaviour where T : MonoBehaviour
     private static void MakeSureManagementSceneIsLoaded()
     {
         if (IsManagementSceneLoaded()) return;
-
-        var currentlyActiveScene = SceneManager.GetActiveScene();
-        if (currentlyActiveScene.IsValid())
-        {
-            while (!currentlyActiveScene.isLoaded) {}
-        }
 
         if (Application.isPlaying)
         {

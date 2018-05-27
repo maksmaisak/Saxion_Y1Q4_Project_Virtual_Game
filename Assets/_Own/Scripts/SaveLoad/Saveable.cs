@@ -27,7 +27,7 @@ public class Saveable : MonoBehaviour
         }
     }
 
-    void Awake()
+    void Start()
     {
         CheckGuid();
     }

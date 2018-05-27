@@ -29,7 +29,7 @@ public class PersistentSingleton<T> : MonoBehaviour where T : Component
 
     private static T CreateInstance()
     {
-        var gameObject = new GameObject("(persistent singleton) " + typeof(T));
+        var gameObject = new GameObject("(Persistent Singleton) " + typeof(T));
         DontDestroyOnLoad(gameObject);
         return gameObject.AddComponent<T>();
     }
