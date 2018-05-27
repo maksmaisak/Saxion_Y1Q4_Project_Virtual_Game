@@ -10,16 +10,16 @@ public abstract class ManagementSingleton<T> : MonoBehaviour where T : Managemen
     public const string managementScenePath = "Assets/_Own/Scenes/Final/management.unity";
 
     private static T instance;
-
     public static T Instance
     {
         get
         {
+            MakeSureManagementSceneIsLoaded();
+
             if (instance == null)
             {
                 if (isApplicationQuitting) return null;
 
-                MakeSureManagementSceneIsLoaded();
                 instance = FindInstance() ?? CreateInstance();
             }
 
@@ -27,7 +27,24 @@ public abstract class ManagementSingleton<T> : MonoBehaviour where T : Managemen
         }
     }
 
+    private static Scene managementScene;
+    public static Scene ManagementScene 
+    {
+        get 
+        {
+            MakeSureManagementSceneIsLoaded();
+            return managementScene;
+        }
+    }
+
     private static bool isApplicationQuitting;
+
+    protected static void SaveManagementSceneChanges()
+    {
+        if (Application.isPlaying) return;
+        if (isApplicationQuitting) return;
+        EditorSceneManager.SaveScene(ManagementScene);
+    }
 
     private static T FindInstance()
     {
@@ -57,29 +74,27 @@ public abstract class ManagementSingleton<T> : MonoBehaviour where T : Managemen
 
     private static void MakeSureManagementSceneIsLoaded()
     {
-        if (IsManagementSceneLoaded()) return;
+        if (managementScene.IsValid() && managementScene.isLoaded) return;
+
+        for (int i = 0; i < SceneManager.sceneCount; ++i)
+        {
+            Scene loadedScene = SceneManager.GetSceneAt(i);
+            if (loadedScene.name == managementSceneName)
+            {
+                managementScene = loadedScene;
+                return;
+            }
+        }
 
         if (Application.isPlaying)
         {
             SceneManager.LoadScene(managementSceneName, LoadSceneMode.Additive);
+            managementScene = SceneManager.GetSceneByName(managementSceneName);
         }
         else 
         {
-            EditorSceneManager.OpenScene(managementScenePath, OpenSceneMode.Additive);
+            managementScene = EditorSceneManager.OpenScene(managementScenePath, OpenSceneMode.Additive);
         }
-    }
-
-    private static bool IsManagementSceneLoaded()
-    {
-        for (int i = 0; i < SceneManager.sceneCount; ++i)
-        {
-            if (SceneManager.GetSceneAt(i).name == managementSceneName)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     protected virtual void OnDestroy()

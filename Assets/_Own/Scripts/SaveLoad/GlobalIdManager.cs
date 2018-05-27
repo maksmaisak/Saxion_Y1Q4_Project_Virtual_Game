@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 
 public class GlobalIdManager : ManagementSingleton<GlobalIdManager>
@@ -10,7 +9,7 @@ public class GlobalIdManager : ManagementSingleton<GlobalIdManager>
     private Dictionary<string, int> guidToInstanceId = new Dictionary<string, int>();
     private Dictionary<string, object> guidToData = new Dictionary<string, object>();
 
-    public GlobalIdManager()
+    void Awake()
     {
         SceneHelper.Instance.OnActiveSceneChange += OnActiveSceneChanged;
     }
@@ -18,11 +17,13 @@ public class GlobalIdManager : ManagementSingleton<GlobalIdManager>
     public void Register(string stringGuid, int instanceId)
     {
         guidToInstanceId.Add(stringGuid, instanceId);
+        SaveManagementSceneChanges();
     }
 
     public void Unregister(string stringGuid)
     {
         guidToInstanceId.Remove(stringGuid);
+        SaveManagementSceneChanges();
     }
 
     public bool GetRegistered(string stringGuid, out int instanceId)

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.SceneManagement;
 
 [ExecuteInEditMode]
 public class Saveable : MonoBehaviour
@@ -9,35 +10,9 @@ public class Saveable : MonoBehaviour
     [Tooltip("DO NOT CHANGE THIS")]
     [SerializeField] private string stringGuid;
 
-    public Guid guid
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(stringGuid))
-            {
-                var temp = Guid.NewGuid();
-                stringGuid = temp.ToString();
-                return temp; 
-            }
-            return new Guid(stringGuid);
-        }
-        private set
-        {
-            stringGuid = value.ToString();
-        }
-    }
-
     void Start()
     {
         CheckGuid();
-    }
-
-    void Update()
-    {
-        if (!Application.isPlaying)
-        {
-            CheckGuid();
-        }
     }
 
     void OnDestroy()
@@ -58,7 +33,7 @@ public class Saveable : MonoBehaviour
     {
         if (string.IsNullOrEmpty(stringGuid))
         {
-            stringGuid = Guid.NewGuid().ToString();
+            AssignNewGuid();
         }
 
         int registeredInstanceId;
@@ -66,12 +41,14 @@ public class Saveable : MonoBehaviour
         if (!hasRegistered)
         {
             GlobalIdManager.Instance.Register(stringGuid, GetInstanceID());
+            Debug.Log("Guid not registered! Registered: " + stringGuid);
         }
         else if (registeredInstanceId != GetInstanceID())
         {
-            stringGuid = Guid.NewGuid().ToString();
+            string oldGuid = stringGuid;
+            AssignNewGuid();
             GlobalIdManager.Instance.Register(stringGuid, GetInstanceID());
-            Debug.Log("Duplicate guid!");
+            Debug.Log("Duplicate guid (" + oldGuid + ")! Created: " + stringGuid);
         }
     }
 
@@ -85,5 +62,14 @@ public class Saveable : MonoBehaviour
     public bool GetSavedData<T>(out T data)
     {
         return GlobalIdManager.Instance.GetSavedData(stringGuid, out data);
+    }
+
+    private void AssignNewGuid()
+    {
+        stringGuid = Guid.NewGuid().ToString();
+        if (!Application.isPlaying)
+        {
+            EditorSceneManager.MarkSceneDirty(gameObject.scene);
+        }
     }
 }
