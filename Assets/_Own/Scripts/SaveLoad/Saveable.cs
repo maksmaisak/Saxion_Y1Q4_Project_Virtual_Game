@@ -8,7 +8,7 @@ using UnityEditor.SceneManagement;
 public class Saveable : MonoBehaviour
 {
     [Tooltip("DO NOT CHANGE THIS")]
-    [SerializeField] private string stringGuid;
+    [SerializeField] string stringGuid;
 
     void Start()
     {
@@ -41,14 +41,14 @@ public class Saveable : MonoBehaviour
         if (!hasRegistered)
         {
             GlobalIdManager.Instance.Register(stringGuid, GetInstanceID());
-            Debug.Log("Guid not registered! Registered: " + stringGuid);
+            Debug.Log(gameObject.name + ": Guid not registered! Registered: " + stringGuid);
         }
         else if (registeredInstanceId != GetInstanceID())
         {
             string oldGuid = stringGuid;
             AssignNewGuid();
             GlobalIdManager.Instance.Register(stringGuid, GetInstanceID());
-            Debug.Log("Duplicate guid (" + oldGuid + ")! Created: " + stringGuid);
+            Debug.Log(gameObject.name + "Duplicate guid (" + oldGuid + ")! Created: " + stringGuid);
         }
     }
 
@@ -67,9 +67,19 @@ public class Saveable : MonoBehaviour
     private void AssignNewGuid()
     {
         stringGuid = Guid.NewGuid().ToString();
+        Debug.Log(gameObject.name + " assigned new guid: " + stringGuid);
         if (!Application.isPlaying)
         {
+            // Note: SetDirty has to be used here even though the documentation 
+            // doesn't recommend it. Without it this object won't be affected
+            // when you save the scene. Kinda makes sense, 
+            // now that I think about it.
+            UnityEditor.EditorUtility.SetDirty(this);
             EditorSceneManager.MarkSceneDirty(gameObject.scene);
+        }
+        else
+        {
+            Debug.LogError("Assigned a new guid while not in edit mode! This should never happen!");
         }
     }
 }

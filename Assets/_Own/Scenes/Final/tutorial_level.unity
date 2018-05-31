@@ -6439,6 +6439,11 @@ Prefab:
       propertyPath: prerequisiteCheckpoints.Array.data[4]
       value: 
       objectReference: {fileID: 2043304636}
+    - target: {fileID: 114828867578058090, guid: 6cd732a903b80c84cb9b705dea24584a,
+        type: 2}
+      propertyPath: stringGuid
+      value: c8e03c49-3a22-42b6-84a3-eb1d9dd05063
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cd732a903b80c84cb9b705dea24584a, type: 2}
   m_IsPrefabParent: 0
