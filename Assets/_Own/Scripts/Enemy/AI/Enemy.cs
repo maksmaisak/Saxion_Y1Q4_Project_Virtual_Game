@@ -90,7 +90,7 @@ public class Enemy : MonoBehaviour, IAgent
 
     public void Print(string message)
     {
-        Debug.Log(message);
+        //Debug.Log(message);
     }
 
     public float GetInitialHeight()

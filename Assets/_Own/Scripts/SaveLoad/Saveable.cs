@@ -17,7 +17,10 @@ public class Saveable : MonoBehaviour
 
     void OnDestroy()
     {
-        GlobalIdManager.Instance.Unregister(stringGuid);
+        if (GlobalIdManager.Instance != null)
+        {
+            GlobalIdManager.Instance.Unregister(stringGuid);
+        }
     }
 
     [ContextMenu("MakeGuidsUnique")]
@@ -31,7 +34,7 @@ public class Saveable : MonoBehaviour
 
     private void CheckGuid()
     {
-        if (string.IsNullOrEmpty(stringGuid))
+        if (/*string.IsNullOrEmpty(stringGuid)*/ !Application.isPlaying)
         {
             AssignNewGuid();
         }
@@ -41,7 +44,7 @@ public class Saveable : MonoBehaviour
         if (!hasRegistered)
         {
             GlobalIdManager.Instance.Register(stringGuid, GetInstanceID());
-            Debug.Log(gameObject.name + ": Guid not registered! Registered: " + stringGuid);
+            //Debug.Log(gameObject.name + ": Guid not registered! Registered: " + stringGuid);
         }
         else if (registeredInstanceId != GetInstanceID())
         {
@@ -67,7 +70,7 @@ public class Saveable : MonoBehaviour
     private void AssignNewGuid()
     {
         stringGuid = Guid.NewGuid().ToString();
-        Debug.Log(gameObject.name + " assigned new guid: " + stringGuid);
+        //Debug.Log(gameObject.name + " assigned new guid: " + stringGuid);
         if (!Application.isPlaying)
         {
             // Note: SetDirty has to be used here even though the documentation 
@@ -79,7 +82,7 @@ public class Saveable : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Assigned a new guid while not in edit mode! This should never happen!");
+            Debug.LogError(gameObject.name + " assigned a new guid while not in edit mode! This should never happen! New guid: " + stringGuid);
         }
     }
 }

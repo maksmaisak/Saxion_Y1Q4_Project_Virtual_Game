@@ -43,13 +43,11 @@ public class Checkpoint : MonoBehaviour
         public bool isActivated;
     }
 
-    void Awake()
-    {
-        LoadSaveData();
-    }
-
     void Start()
     {
+        LoadSaveData();
+        if (isActivated) return;
+
         prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null || checkpoint.isActivated);
         needToDieToUnlock.RemoveAll(health => health == null);
 
