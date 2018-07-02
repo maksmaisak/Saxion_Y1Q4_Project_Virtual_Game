@@ -2,17 +2,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 
-public class GlobalIdManager : SimpleSingleton<GlobalIdManager>
+public class GlobalIdManager : ManagementSingleton<GlobalIdManager>
 {
-    private Dictionary<string, int> guidToInstanceId = new Dictionary<string, int>();
-    private Dictionary<string, object> guidToData = new Dictionary<string, object>();
+    // We have to make a non-generic class for each kind of dictionary, since unity doesn't serialize anything generic except List<T>
+    //[Serializable] private class SerializableDictionaryStringToInt : SerializableDictionary<string, int> {}
+    [SerializeField] Dictionary<string, int> guidToInstanceId = new Dictionary<string, int>();
 
-    public GlobalIdManager()
+    //[Serializable] private class SerializableDictionaryStringToObject : SerializableDictionary<string, object> {}
+    [SerializeField] Dictionary<string, object> guidToData = new Dictionary<string, object>();
+
+    void Awake()
     {
-        SceneHelper.Instance.OnActiveSceneChange += OnActiveSceneChanged;
+        Debug.Log(name + " Awake with " + guidToInstanceId.Count + " guidToInstanceId items");
+        /*SceneHelper.Instance.OnActiveSceneChange += () =>
+        {
+            guidToData.Clear();
+        };*/
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        Debug.Log(name + " OnDestroy with " + guidToInstanceId.Count + " guidToInstanceId items");
     }
 
     public void Register(string stringGuid, int instanceId)
@@ -45,11 +58,5 @@ public class GlobalIdManager : SimpleSingleton<GlobalIdManager>
         }
         data = default(T);
         return false;
-    }
-
-    private void OnActiveSceneChanged()
-    {
-        guidToInstanceId.Clear();
-        guidToData.Clear();
     }
 }
