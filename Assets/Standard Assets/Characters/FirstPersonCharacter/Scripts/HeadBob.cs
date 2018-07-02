@@ -25,9 +25,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         void Update()
         {
             Vector3 newCameraPosition;
-            if (rigidbodyFirstPersonController.velocity.magnitude > 0f && !rigidbodyFirstPersonController.isAirborne)
+            float currentSpeed = rigidbodyFirstPersonController.velocity.magnitude;
+            if (currentSpeed > 0f && !rigidbodyFirstPersonController.isAirborne)
             {
-                camera.transform.localPosition = motionBob.DoHeadBob(rigidbodyFirstPersonController.velocity.magnitude * (rigidbodyFirstPersonController.isRunning ? RunningStrideLengthen : 1f));
+                float modifier = rigidbodyFirstPersonController.isRunning ? RunningStrideLengthen : 1f;
+                camera.transform.localPosition = motionBob.DoHeadBob(currentSpeed * modifier);
                 newCameraPosition = camera.transform.localPosition;
                 newCameraPosition.y = camera.transform.localPosition.y - jumpAndLandingBob.Offset();
             }

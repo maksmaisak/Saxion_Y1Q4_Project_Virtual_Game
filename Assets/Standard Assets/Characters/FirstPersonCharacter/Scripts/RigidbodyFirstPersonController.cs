@@ -88,7 +88,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public bool alwaysForwardWhenAirborne;
             [Tooltip("When in the air, input will be scaled by this number. Set it to a smaller value to have less contol when in the air.")]
             public float airControlMultiplier = 1f;
-            [Tooltip("Set it to 0.1 or more if you get stuck in wall")]
+            [Tooltip("Set it to 0.1 or more if you get stuck in walls")]
             public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
         }
 
@@ -101,7 +101,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             [Range(0f, 3f)] public float runStepSpeedup = 0.722f;
         }
 
-        public Camera cam;
+        public Transform cameraTransform;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
@@ -163,7 +163,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
-            mouseLook.Init(transform, cam.transform);
+            mouseLook.Init(transform, cameraTransform);
 
             m_defaultDrag = m_RigidBody.drag;
 
@@ -197,7 +197,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (IsNonZero(input))
             {
                 // Always move along the camera forward as it is the direction that it being aimed at
-                Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
+                Vector3 desiredMove = cameraTransform.forward * input.y + cameraTransform.right * input.x;
 
                 if (m_State == State.Grounded)
                 {
@@ -256,7 +256,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (m_Jump)
                 {
                     //Vector3 awayFromWall = m_SurfaceContactNormal;
-                    Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
+                    Vector3 desiredMove = cameraTransform.forward * input.y + cameraTransform.right * input.x;
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up);
                     //desiredMove -= Vector3.Project(desiredMove, awayFromWall);
 
@@ -350,9 +350,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Vector3 wallTangent = Vector3.Cross(wallNormal, Vector3.up);
 
                 leanOffset = Quaternion.Euler(
-                    awayFromWallLeanAngle * Vector3.Dot(cam.transform.forward, wallNormal), 
+                    awayFromWallLeanAngle * Vector3.Dot(cameraTransform.forward, wallNormal), 
                     0f, 
-                    -awayFromWallLeanAngle * Vector3.Dot(cam.transform.forward, wallTangent)
+                    -awayFromWallLeanAngle * Vector3.Dot(cameraTransform.forward, wallTangent)
                 );
                 //Debug.Log(leanOffset.eulerAngles);
             }
@@ -368,7 +368,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
-            mouseLook.LookRotation(transform, cam.transform);
+            mouseLook.LookRotation(transform, cameraTransform);
             if (m_State != State.Airborne || advancedSettings.alwaysForwardWhenAirborne)
             {
                 // Rotate the rigidbody velocity to match the new direction that the character is looking
@@ -425,7 +425,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             Vector3 position = transform.position;
 
-            Transform cameraTransform = cam.transform;
             Vector3 forward = cameraTransform.forward;
             Vector3 right = cameraTransform.right;
 
