@@ -1514,11 +1514,6 @@ Prefab:
       propertyPath: crosshairIndicator
       value: 
       objectReference: {fileID: 1449119354}
-    - target: {fileID: 114823057689330340, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-        type: 2}
-      propertyPath: jumpAndLandingBob.bobAmount
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0

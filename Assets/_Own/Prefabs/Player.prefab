@@ -5392,9 +5392,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c81407209f85e4c87c0cda8b32868e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 20224799586569084}
+  bobTransform: {fileID: 4102287641370528}
   motionBob:
-    HorizontalBobRange: 0.05
+    HorizontalBobRange: 0.025
     VerticalBobRange: 0.05
     Bobcurve:
       serializedVersion: 2
@@ -5434,8 +5434,8 @@ MonoBehaviour:
       m_RotationOrder: 4
     VerticaltoHorizontalRatio: 2
   jumpAndLandingBob:
-    bobDuration: 0.2
-    bobAmount: 0.05
+    bobDuration: 0.1
+    bobAmount: 0.1
   rigidbodyFirstPersonController: {fileID: 114859108289796068}
   strideInterval: 4
   runningStrideLengthen: 0.722
