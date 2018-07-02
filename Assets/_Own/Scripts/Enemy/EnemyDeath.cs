@@ -8,12 +8,11 @@ using UnityEngine;
 public class EnemyDeath : MonoBehaviour
 {
     [SerializeField] GameObject crashingEnemyEffectsPrefab;
-    [SerializeField] float fallDeathYPos = -50f;
 
     private Health health;
     private ParticleManager particleManager;
 
-    private void Start()
+    void Start()
     {
         particleManager = GetComponentInChildren<ParticleManager>();
         health = GetComponent<Health>();
@@ -23,15 +22,12 @@ public class EnemyDeath : MonoBehaviour
         health.OnDeath += UnparentDeathParticleGroup;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.F))
         {
-            health.DealDamage(100);
+            GetComponent<Enemy>().fsm.ChangeState<EnemyFallingToDeathState>();
         }
-
-        FallingToAbyssDeath();
     }
 
     private void RetractConnectedGrappleHooks(Health sender)
@@ -46,14 +42,6 @@ public class EnemyDeath : MonoBehaviour
     {
         if (crashingEnemyEffectsPrefab == null) return;
         Instantiate(crashingEnemyEffectsPrefab, transform.position, Quaternion.identity);
-    }
-
-    private void FallingToAbyssDeath()
-    {
-        if (transform.position.y <= fallDeathYPos)
-        {
-            health.DealDamage(100);
-        }
     }
 
     private void UnparentDeathParticleGroup(Health sender)
