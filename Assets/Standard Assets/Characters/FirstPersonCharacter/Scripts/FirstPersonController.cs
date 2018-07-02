@@ -49,7 +49,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
             m_FovKick.Setup(m_Camera);
-            m_HeadBob.Setup(m_Camera, m_StepInterval);
+            m_HeadBob.Setup(m_Camera.transform, m_StepInterval);
             m_StepCycle = 0f;
             m_NextStep = m_StepCycle/2f;
             m_Jumping = false;
@@ -190,12 +190,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_HeadBob.DoHeadBob(m_CharacterController.velocity.magnitude +
                                       (speed*(m_IsWalking ? 1f : m_RunstepLenghten)));
                 newCameraPosition = m_Camera.transform.localPosition;
-                newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset();
+                newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.offset;
             }
             else
             {
                 newCameraPosition = m_Camera.transform.localPosition;
-                newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset();
+                newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.offset;
             }
             m_Camera.transform.localPosition = newCameraPosition;
         }

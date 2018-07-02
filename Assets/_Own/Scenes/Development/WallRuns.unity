@@ -1019,6 +1019,21 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224607714676189952, guid: cb3078a910db44ab59160d52c10ccfb8,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 30.181152
+      objectReference: {fileID: 0}
+    - target: {fileID: 224607714676189952, guid: cb3078a910db44ab59160d52c10ccfb8,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.024902344
+      objectReference: {fileID: 0}
+    - target: {fileID: 224521000699760982, guid: cb3078a910db44ab59160d52c10ccfb8,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb3078a910db44ab59160d52c10ccfb8, type: 2}
   m_IsPrefabParent: 0
@@ -1406,6 +1421,10 @@ Prefab:
       propertyPath: m_Name
       value: Checkpoint 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1798676592363856, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
   m_IsPrefabParent: 0
@@ -1495,27 +1514,14 @@ Prefab:
       propertyPath: crosshairIndicator
       value: 
       objectReference: {fileID: 1449119354}
-    - target: {fileID: 114859108289796068, guid: 5fbba1f5b94164fad93b3660e56e56cf,
+    - target: {fileID: 114823057689330340, guid: 5fbba1f5b94164fad93b3660e56e56cf,
         type: 2}
-      propertyPath: cameraTransform
-      value: 
-      objectReference: {fileID: 915712812}
-    - target: {fileID: 4810693501529642, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4638884814030826, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
+      propertyPath: jumpAndLandingBob.bobAmount
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fbba1f5b94164fad93b3660e56e56cf, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &915712812 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4102287641370528, guid: 5fbba1f5b94164fad93b3660e56e56cf,
-    type: 2}
-  m_PrefabInternal: {fileID: 880377982}
 --- !u!1 &946509910
 GameObject:
   m_ObjectHideFlags: 0
@@ -2715,6 +2721,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1798676592363856, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
   m_IsPrefabParent: 0
@@ -2806,6 +2816,10 @@ Prefab:
         type: 2}
       propertyPath: onActivated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798676592363856, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa6eb2d4b81ff40978374ffdffec143c, type: 2}

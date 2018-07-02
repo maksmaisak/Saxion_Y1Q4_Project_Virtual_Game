@@ -6,46 +6,45 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     public class HeadBob : MonoBehaviour
     {
-        public new Camera camera;
+        public Transform bobTransform;
         public CurveControlledBob motionBob = new CurveControlledBob();
         public LerpControlledBob jumpAndLandingBob = new LerpControlledBob();
         public RigidbodyFirstPersonController rigidbodyFirstPersonController;
-        public float StrideInterval;
-        [Range(0f, 1f)] public float RunningStrideLengthen;
+        public float strideInterval = 4;
+        [Range(0f, 1f)] public float runningStrideLengthen = 0.722f;
 
-        private bool m_PreviouslyAirborne;
-        private Vector3 m_OriginalCameraPosition;
+        private bool wasPreviouslyAirborne;
+        private Vector3 originalCameraLocalPosition;
+        private Vector3 motionBobOffset;
 
         void Start()
         {
-            motionBob.Setup(camera, StrideInterval);
-            m_OriginalCameraPosition = camera.transform.localPosition;
+            bobTransform = bobTransform ? bobTransform : transform;
+            
+            motionBob.Setup(bobTransform, strideInterval);
+            originalCameraLocalPosition = bobTransform.localPosition;
         }
 
         void Update()
         {
-            Vector3 newCameraPosition;
             float currentSpeed = rigidbodyFirstPersonController.velocity.magnitude;
-            if (currentSpeed > 0f && !rigidbodyFirstPersonController.isAirborne)
+            bool isAirborne = rigidbodyFirstPersonController.isAirborne;
+                        
+            if (currentSpeed > 0f && !isAirborne)
             {
-                float modifier = rigidbodyFirstPersonController.isRunning ? RunningStrideLengthen : 1f;
-                camera.transform.localPosition = motionBob.DoHeadBob(currentSpeed * modifier);
-                newCameraPosition = camera.transform.localPosition;
-                newCameraPosition.y = camera.transform.localPosition.y - jumpAndLandingBob.Offset();
+                float modifier = rigidbodyFirstPersonController.isRunning ? runningStrideLengthen : 1f;
+                motionBobOffset = motionBob.DoHeadBob(currentSpeed * modifier);
             }
-            else
-            {
-                newCameraPosition = camera.transform.localPosition;
-                newCameraPosition.y = m_OriginalCameraPosition.y - jumpAndLandingBob.Offset();
-            }
-            camera.transform.localPosition = newCameraPosition;
 
-            if (m_PreviouslyAirborne && !rigidbodyFirstPersonController.isAirborne)
+            Vector3 jumpAndLandingOffset = Vector3.down * jumpAndLandingBob.offset;
+            bobTransform.localPosition = originalCameraLocalPosition + motionBobOffset + jumpAndLandingOffset;
+
+            if (wasPreviouslyAirborne && !isAirborne)
             {
                 StartCoroutine(jumpAndLandingBob.DoBobCycle());
             }
 
-            m_PreviouslyAirborne = rigidbodyFirstPersonController.isAirborne;
+            wasPreviouslyAirborne = isAirborne;
         }
     }
 }
