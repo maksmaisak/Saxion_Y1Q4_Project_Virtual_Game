@@ -10,7 +10,9 @@ public class ShootingController : MonoBehaviour
 {
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float muzzleSpeed = 100f;
+    [Space]
     [SerializeField] LayerMask obstacleDetectionLayerMask;
+    [SerializeField] float sphereCastRadius = 0.1f;
 
     public bool CanShootAt(GameObject target)
     {
@@ -27,16 +29,15 @@ public class ShootingController : MonoBehaviour
         RaycastHit hit;
         bool didHit = Physics.SphereCast(
             origin: transform.position,
-            radius: 0.2f,
+            radius: sphereCastRadius,
             direction: delta.normalized,
             hitInfo: out hit,
             maxDistance: delta.magnitude,
-            layerMask: obstacleDetectionLayerMask & ~(1 << target.layer)
+            layerMask: obstacleDetectionLayerMask & ~(1 << target.layer),
+            queryTriggerInteraction: QueryTriggerInteraction.Ignore
         );
 
-        if (didHit && hit.collider.gameObject != gameObject) return false;
-
-        return true;
+        return !didHit || hit.collider.gameObject == gameObject;
     }
 
     /// Returns true if successful
