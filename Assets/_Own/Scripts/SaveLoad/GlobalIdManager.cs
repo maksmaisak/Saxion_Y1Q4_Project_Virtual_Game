@@ -16,15 +16,13 @@ public class GlobalIdManager : ManagementSingleton<GlobalIdManager>
     void Awake()
     {
         Debug.Log(name + " Awake with " + guidToInstanceId.Count + " guidToInstanceId items, " + guidToData.Count + " guidToData items.");
-        /*SceneHelper.Instance.OnActiveSceneChange += () =>
-        {
-            guidToData.Clear();
-        };*/
-    }
+        //SceneHelper.Instance.OnActiveSceneChange += guidToData.Clear;
+     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        //SceneHelper.Instance.OnActiveSceneChange -= guidToData.Clear;
         Debug.Log(name + " OnDestroy with " + guidToInstanceId.Count + " guidToInstanceId items, " + guidToData.Count + " guidToData items.");
     }
 
