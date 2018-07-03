@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityStandardAssets.CrossPlatformInput;
 
+// I really should've made a copy instead of changing a thing from the standard assets directly.
+// And it needs some serious refactoring.
 namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof(Rigidbody))]
@@ -108,7 +110,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] AudioSettings audioSettings = new AudioSettings();
         public LayerMask groundAndWallDetectionLayerMask = Physics.DefaultRaycastLayers;
 
-        [SerializeField] [Range(0f, 90f)] float awayFromWallLeanAngle = 10f;
+        [SerializeField] [Range(0f, 180f)] float maxAwayFromWallInputAngle = 45f;
+        [SerializeField] [Range(0f, 90f )] float awayFromWallLeanAngle = 10f;
         [SerializeField] float awayFromWallLeanAngleChangePerSecond = 180f;
 
         private Rigidbody m_RigidBody;
@@ -253,13 +256,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_RigidBody.drag = advancedSettings.onSurfaceRigidbodyDrag;
 
+                Vector3 desiredMove = cameraTransform.forward * input.y + cameraTransform.right * input.x;
+                desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up);      
+                
                 if (m_Jump)
                 {
-                    //Vector3 awayFromWall = m_SurfaceContactNormal;
-                    Vector3 desiredMove = cameraTransform.forward * input.y + cameraTransform.right * input.x;
-                    desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up);
                     //desiredMove -= Vector3.Project(desiredMove, awayFromWall);
-
                     m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
 
                     Vector3 force = (
@@ -276,7 +278,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
                 else
                 {
-                    StickToWallHelper();
+                    Vector3 awayFromWall = m_SurfaceContactNormal;
+                    float angleDegrees = Vector3.Angle(awayFromWall, desiredMove);
+                    if (IsZero(desiredMove) || angleDegrees >= maxAwayFromWallInputAngle)
+                    {
+                        StickToWallHelper();
+                    }
                 }
             }
             else if (m_State == State.Airborne)
