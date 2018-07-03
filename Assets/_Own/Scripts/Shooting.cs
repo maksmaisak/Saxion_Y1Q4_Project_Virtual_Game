@@ -38,6 +38,8 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenuScript.isPaused) return;
+        
         if (timeTillCanShoot > 0f)
         {
             timeTillCanShoot -= Time.deltaTime;
@@ -48,11 +50,13 @@ public class Shooting : MonoBehaviour
             }
         }
 
-        bool shouldShoot = target != null &&
-                           Vector3.Distance(target.transform.position, transform.position) <= shootingRange &&
-                           shootingController.CanShootAt(target);
+        bool shouldShoot = 
+            target != null &&
+            Vector3.Distance(target.transform.position, transform.position) <= shootingRange &&
+            shootingController.CanShootAt(target);
         
         particleManager.SetShootingEffectsActive(shouldShoot && timeTillCanShoot <= effectTimeBeforeShooting);
+        
         if (shouldShoot && timeTillCanShoot <= 0f)
         {
             Shoot();

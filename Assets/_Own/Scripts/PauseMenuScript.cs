@@ -5,9 +5,8 @@ using UnityStandardAssets.Characters.FirstPerson;
 using DG.Tweening;
 using UnityEngine;
 
-public class PauseMenuScrpt : MonoBehaviour
+public class PauseMenuScript : MonoBehaviour
 {
-
     [SerializeField] private float transitionDuration = 1f;
     [SerializeField] private float maxScale = 2f;
 
