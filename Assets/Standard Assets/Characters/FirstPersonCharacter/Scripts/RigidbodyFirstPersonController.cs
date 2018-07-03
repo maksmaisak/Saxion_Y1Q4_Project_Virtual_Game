@@ -21,17 +21,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [Serializable]
         public class MovementSettings
         {
-            public float ForwardSpeed  = 8.0f;  // Speed when walking forward
-            public float BackwardSpeed = 4.0f;  // Speed when walking backwards
-            public float StrafeSpeed   = 4.0f;  // Speed when walking sideways
-            public float RunMultiplier = 2.0f;  // Speed when sprinting
-            public KeyCode RunKey = KeyCode.LeftShift;
-            public float JumpForce = 30f;
-            public float WallJumpUpwardsModifier = 1f;
-            public float WallJumpSidewaysModifier = 1f;
-            public float WallJumpAwayFromWallModifier = 1f;
+            public float forwardSpeed  = 8.0f;  // Speed when walking forward
+            public float backwardSpeed = 4.0f;  // Speed when walking backwards
+            public float strafeSpeed   = 4.0f;  // Speed when walking sideways
+            public float runMultiplier = 2.0f;  // Speed when sprinting
+            public KeyCode runKey = KeyCode.LeftShift;
+            public float jumpForce = 75f;
+            public float wallJumpUpwardsModifier = 2f;
+            public float wallJumpSidewaysModifier = 1f;
+            public float wallJumpMinAwayFromWallForce = 10f;
+            public float wallJumpDefaultAwayFromWallForce = 75f;
+            public float timeToFallOffWall = 1f;
             public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
-            [HideInInspector] public float CurrentTargetSpeed = 8f;
+            [HideInInspector] public float currentTargetSpeed = 8f;
 #if !MOBILE_INPUT
             private bool m_Running;
 #endif
@@ -40,21 +42,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (input == Vector2.zero) return;
                 if (input.x > 0 || input.x < 0)
                 {
-                    CurrentTargetSpeed = StrafeSpeed;
+                    currentTargetSpeed = strafeSpeed;
                 }
                 if (input.y < 0)
                 {
-                    CurrentTargetSpeed = BackwardSpeed;
+                    currentTargetSpeed = backwardSpeed;
                 }
                 if (input.y > 0)
                 {
                     //handled last as if strafing and moving forward at the same time forwards speed should take precedence
-                    CurrentTargetSpeed = ForwardSpeed;
+                    currentTargetSpeed = forwardSpeed;
                 }
 #if !MOBILE_INPUT
-                if (Input.GetKey(RunKey))
+                if (Input.GetKey(runKey))
                 {
-                    CurrentTargetSpeed *= RunMultiplier;
+                    currentTargetSpeed *= runMultiplier;
                     m_Running = true;
                 }
                 else
@@ -81,6 +83,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float wallCheckDistance = 0.01f;
             public float stickToWallHelperDistance = 0.5f;
             public float stickToWallHelperForce = 1f;
+            public float wallReattachmentTimeout = 0.05f;
 
             public float onSurfaceRigidbodyDrag = 5f;
 
@@ -124,6 +127,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private State m_PreviousState;
 
         private float m_StepCycle;
+
+        private float wantedToFallOffWallTime;
+        private float timeTillCanReattachToWall;
 
         public Vector3 velocity
         {
@@ -193,6 +199,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 audioSettings.playerAudio.PlayLand();
             }
 
+            if (m_PreviousState == State.OnWall && m_State != State.OnWall)
+            {
+                timeTillCanReattachToWall = advancedSettings.wallReattachmentTimeout;
+            }
+
             Vector2 input = GetInput();
             movementSettings.UpdateDesiredTargetSpeed(input);
 
@@ -205,10 +216,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (m_State == State.Grounded)
                 {
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, m_SurfaceContactNormal).normalized;
-                    desiredMove *= movementSettings.CurrentTargetSpeed;
+                    desiredMove *= movementSettings.currentTargetSpeed;
 
                     // TODO this speed limiting thing should be in other states as well (to some degree)
-                    float targetSpeed = movementSettings.CurrentTargetSpeed;
+                    float targetSpeed = movementSettings.currentTargetSpeed;
                     if (m_RigidBody.velocity.sqrMagnitude < targetSpeed * targetSpeed)
                     {
                         m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
@@ -216,16 +227,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
                 else if (m_State == State.OnWall)
                 {
-                    desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up).normalized;
-                    desiredMove *= movementSettings.CurrentTargetSpeed;
+                    if (!m_Jump)
+                    {
+                        desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up).normalized;
+                        desiredMove *= movementSettings.currentTargetSpeed;
+
+                        m_RigidBody.AddForce(desiredMove, ForceMode.Impulse);
+                    }
 
                     m_RigidBody.AddForce(-Physics.gravity, ForceMode.Acceleration);
-                    m_RigidBody.AddForce(desiredMove, ForceMode.Impulse);
                 }
                 else if (m_State == State.Airborne && advancedSettings.airControl)
                 {
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up).normalized;
-                    desiredMove *= movementSettings.ForwardSpeed * advancedSettings.airControlMultiplier;
+                    desiredMove *= movementSettings.forwardSpeed * advancedSettings.airControlMultiplier;
 
                     m_RigidBody.AddForce(desiredMove, ForceMode.Impulse);
                 }
@@ -241,7 +256,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 {
                     m_RigidBody.drag = m_defaultDrag;
                     m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
-                    m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
+                    m_RigidBody.AddForce(new Vector3(0f, movementSettings.jumpForce, 0f), ForceMode.Impulse);
 
                     m_Jumping = true;
                     audioSettings.playerAudio.PlayJump();
@@ -256,31 +271,53 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_RigidBody.drag = advancedSettings.onSurfaceRigidbodyDrag;
 
+                Vector3 awayFromWall = m_SurfaceContactNormal;
                 Vector3 desiredMove = cameraTransform.forward * input.y + cameraTransform.right * input.x;
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up);      
                 
                 if (m_Jump)
                 {
-                    //desiredMove -= Vector3.Project(desiredMove, awayFromWall);
                     m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
-
+                    
                     Vector3 force = (
-                        Vector3.up * movementSettings.WallJumpUpwardsModifier +
-                        desiredMove.normalized * movementSettings.WallJumpSidewaysModifier +
-                        m_SurfaceContactNormal * movementSettings.WallJumpAwayFromWallModifier
-                    ) * movementSettings.JumpForce;
+                        Vector3.up * movementSettings.wallJumpUpwardsModifier +
+                        desiredMove.normalized * movementSettings.wallJumpSidewaysModifier          
+                    ) * movementSettings.jumpForce;
+                    force += awayFromWall * movementSettings.wallJumpDefaultAwayFromWallForce;
+                    
+                    float awayFromWallComponent = Vector3.Dot(force, awayFromWall);
+                    if (awayFromWallComponent < movementSettings.wallJumpMinAwayFromWallForce)
+                    {
+                        force += awayFromWall * (-awayFromWallComponent + movementSettings.wallJumpMinAwayFromWallForce);
+                    }
 
                     m_RigidBody.drag = m_defaultDrag;
                     m_RigidBody.AddForce(force, ForceMode.Impulse);
                     m_Jumping = true;
+                    
+                    timeTillCanReattachToWall = advancedSettings.wallReattachmentTimeout;
 
                     audioSettings.playerAudio.PlayJump();
                 }
                 else
                 {
-                    Vector3 awayFromWall = m_SurfaceContactNormal;
-                    float angleDegrees = Vector3.Angle(awayFromWall, desiredMove);
-                    if (IsZero(desiredMove) || angleDegrees >= maxAwayFromWallInputAngle)
+                    bool wantsToFallOffWall = IsNonZero(desiredMove) && Vector3.Angle(awayFromWall, desiredMove) < maxAwayFromWallInputAngle;
+                    if (wantsToFallOffWall)
+                    {
+                        wantedToFallOffWallTime += Time.fixedDeltaTime;
+                    }
+                    else
+                    {
+                        wantedToFallOffWallTime = 0f;
+                    }
+
+                    if (wantsToFallOffWall && wantedToFallOffWallTime >= movementSettings.timeToFallOffWall)
+                    {
+                        wantedToFallOffWallTime = 0f;
+                        
+                        timeTillCanReattachToWall = advancedSettings.wallReattachmentTimeout;
+                    }
+                    else
                     {
                         StickToWallHelper();
                     }
@@ -302,6 +339,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (!isAirborne && IsNonZero(velocity) && IsNonZero(input))
             {
                 ProgressStepCycle();
+            }
+
+            if (timeTillCanReattachToWall >= 0f)
+            {
+                timeTillCanReattachToWall -= Time.fixedDeltaTime;
             }
 
             m_Jump = false;
@@ -361,7 +403,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     0f, 
                     -awayFromWallLeanAngle * Vector3.Dot(cameraTransform.forward, wallTangent)
                 );
-                //Debug.Log(leanOffset.eulerAngles);
             }
             else
             {
@@ -389,7 +430,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_PreviousState = m_State;
 
             GroundCheck();
-            if (m_State == State.Airborne)
+            if (m_State == State.Airborne && timeTillCanReattachToWall <= 0f)
             {
                 WallCheck();
             }

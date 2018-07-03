@@ -5452,15 +5452,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 4216730430743738}
   movementSettings:
-    ForwardSpeed: 8
-    BackwardSpeed: 4
-    StrafeSpeed: 4
-    RunMultiplier: 2
-    RunKey: 304
-    JumpForce: 75
-    WallJumpUpwardsModifier: 2
-    WallJumpSidewaysModifier: 1
-    WallJumpAwayFromWallModifier: 1
+    forwardSpeed: 8
+    backwardSpeed: 4
+    strafeSpeed: 4
+    runMultiplier: 2
+    runKey: 304
+    jumpForce: 75
+    wallJumpUpwardsModifier: 2
+    wallJumpSidewaysModifier: 1
+    wallJumpMinAwayFromWallForce: 30
+    wallJumpDefaultAwayFromWallForce: 75
+    timeToFallOffWall: 0.5
     SlopeCurveModifier:
       serializedVersion: 2
       m_Curve:
@@ -5485,7 +5487,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    CurrentTargetSpeed: 8
+    currentTargetSpeed: 8
   mouseLook:
     XSensitivity: 2
     YSensitivity: 2
@@ -5502,6 +5504,7 @@ MonoBehaviour:
     wallCheckDistance: 0.3
     stickToWallHelperDistance: 0.8
     stickToWallHelperForce: 30
+    wallReattachmentTimeout: 0.2
     onSurfaceRigidbodyDrag: 5
     slowDownRate: 7
     airControl: 1
@@ -5515,6 +5518,7 @@ MonoBehaviour:
   groundAndWallDetectionLayerMask:
     serializedVersion: 2
     m_Bits: 4294965755
+  maxAwayFromWallInputAngle: 45
   awayFromWallLeanAngle: 10
   awayFromWallLeanAngleChangePerSecond: 180
 --- !u!124 &124612543107112300
