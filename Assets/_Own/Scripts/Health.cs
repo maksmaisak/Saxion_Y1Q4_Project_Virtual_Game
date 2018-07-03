@@ -79,7 +79,7 @@ public class Health : MonoBehaviour
         {
             OnHealthChanged.Invoke(this, oldValue, newHealth);
         }
-
+        
         OnHealthChangedUnityEvent.Invoke(oldValue, newHealth);
 
         if (_health <= 0)

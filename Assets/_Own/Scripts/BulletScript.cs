@@ -14,12 +14,11 @@ public class BulletScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject != gameObject)
-        {
-            DealDamage(collision);
-            Instantiate(explosion, transform.position, Quaternion.identity);
-            Destroy();
-        }
+        if (collision.gameObject == gameObject) return;
+        
+        DealDamage(collision);
+        Instantiate(explosion, transform.position, Quaternion.identity);
+        Destroy();
     }
 
     private void DealDamage(Collision collision)

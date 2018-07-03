@@ -10,6 +10,7 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
     [SerializeField] private float maxDistanceToPlayer = 5f;
     [SerializeField] private float arriveSlowdownDistance = 5f;
     [SerializeField] private float lookAtPlayerDistance = 10f;
+    [SerializeField] private float targetHeightAbovePlayer = 1f;
 
     private ParticleManager particleManager;
     private GameObject target;
@@ -36,15 +37,17 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
 
     private void FollowPlayer()
     {
-        Vector3 toPlayer = target.transform.position - transform.position;
-        Vector3 desiredPos = target.transform.position - toPlayer.normalized * maxDistanceToPlayer;
-
+        Vector3 targetPosition = target.transform.position;
+        Vector3 fromTarget = transform.position - targetPosition;
+        Vector3 offset = Vector3.ProjectOnPlane(fromTarget.normalized, Vector3.up).normalized * maxDistanceToPlayer + Vector3.up * targetHeightAbovePlayer;
+        Vector3 desiredPos = targetPosition + offset;
+        
         steeringManager.Seek(desiredPos, arriveSlowdownDistance);
         steeringManager.FlockingSeparation(Enemy.allAsSteerables);
         steeringManager.AvoidObstacles();
         steeringManager.Wander();
 
-        if (toPlayer.magnitude > lookAtPlayerDistance)
+        if (fromTarget.magnitude > lookAtPlayerDistance)
         {
             steeringManager.LookWhereGoing();
         }
