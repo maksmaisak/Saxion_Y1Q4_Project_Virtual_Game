@@ -15,7 +15,7 @@ public class GlobalIdManager : ManagementSingleton<GlobalIdManager>
 
     void Awake()
     {
-        Debug.Log(name + " Awake with " + guidToInstanceId.Count + " guidToInstanceId items");
+        Debug.Log(name + " Awake with " + guidToInstanceId.Count + " guidToInstanceId items, " + guidToData.Count + " guidToData items.");
         /*SceneHelper.Instance.OnActiveSceneChange += () =>
         {
             guidToData.Clear();
@@ -25,7 +25,7 @@ public class GlobalIdManager : ManagementSingleton<GlobalIdManager>
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        Debug.Log(name + " OnDestroy with " + guidToInstanceId.Count + " guidToInstanceId items");
+        Debug.Log(name + " OnDestroy with " + guidToInstanceId.Count + " guidToInstanceId items, " + guidToData.Count + " guidToData items.");
     }
 
     public void Register(string stringGuid, int instanceId)

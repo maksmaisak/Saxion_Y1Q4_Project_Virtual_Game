@@ -14,13 +14,13 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
 
     private ParticleManager particleManager;
     private GameObject target;
-    private Shooting shootingController;
+    private Shooting shooting;
     private SteeringManager steeringManager;
 
     void Start()
     {
-        shootingController = GetComponent<Shooting>();
-        shootingController.enabled = true;
+        shooting = GetComponent<Shooting>();
+        shooting.enabled = true;
         target = Player.Instance.gameObject;
         steeringManager = GetComponent<SteeringManager>();
         particleManager = GetComponentInChildren<ParticleManager>();
@@ -60,7 +60,12 @@ public class EnemyStateFollowPlayer : FSMState<Enemy>
     public override void Exit()
     {
         base.Exit();
-        shootingController.enabled = false;
+
+        shooting = shooting ? shooting : GetComponent<Shooting>();
+        if (shooting)
+        {
+            shooting.enabled = false;
+        }
     }
 }
 
