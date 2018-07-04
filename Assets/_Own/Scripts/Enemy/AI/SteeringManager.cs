@@ -170,7 +170,7 @@ public class SteeringManager : MonoBehaviour
 
         if (Physics.SphereCast(transform.position, 2, rb.velocity.normalized, out hit, 0.2f))
         {
-            if (hit.transform != this.transform && hit.transform.tag != "Player")
+            if (hit.transform != this.transform && !hit.transform.CompareTag("Player"))
             {
                 force += collisionAvoidanceMultiplier * hit.normal;
             }
@@ -178,7 +178,7 @@ public class SteeringManager : MonoBehaviour
 
         if (Physics.SphereCast(transform.position, 0.25f, rb.velocity.normalized, out hitForward, collisionAvoidanceRange))
         {
-            if (hitForward.transform != this.transform && hitForward.transform.tag != "Player")
+            if (hitForward.transform != this.transform && !hitForward.transform.CompareTag("Player"))
             {
                 force += collisionAvoidanceMultiplier * hitForward.normal;
             }
@@ -186,7 +186,7 @@ public class SteeringManager : MonoBehaviour
 
         if (Physics.SphereCast(transform.position, 0.25f, this.transform.right, out hitRight, collisionAvoidanceRange))
         {
-            if (hitRight.transform != this.transform && hitRight.transform.tag != "Player")
+            if (hitRight.transform != this.transform && !hitRight.transform.CompareTag("Player"))
             {
                 force += collisionAvoidanceMultiplier * hitRight.normal;
             }
@@ -194,7 +194,7 @@ public class SteeringManager : MonoBehaviour
 
         if (Physics.SphereCast(transform.position, 0.25f, -this.transform.right, out hitLeft, collisionAvoidanceRange))
         {
-            if (hitLeft.transform != this.transform && hitLeft.transform.tag != "Player")
+            if (hitLeft.transform != this.transform && !hitLeft.transform.CompareTag("Player"))
             {
                 force += collisionAvoidanceMultiplier * hitLeft.normal;
             }

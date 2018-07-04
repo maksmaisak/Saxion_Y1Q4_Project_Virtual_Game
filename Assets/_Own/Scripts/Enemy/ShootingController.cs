@@ -10,7 +10,10 @@ public class ShootingController : MonoBehaviour
 {
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float muzzleSpeed = 100f;
+    [SerializeField] float spawnPointOffset = 1.2f;
+    [Space]
     [SerializeField] LayerMask obstacleDetectionLayerMask;
+    [SerializeField] float sphereCastRadius = 0.1f;
 
     public bool CanShootAt(GameObject target)
     {
@@ -27,29 +30,27 @@ public class ShootingController : MonoBehaviour
         RaycastHit hit;
         bool didHit = Physics.SphereCast(
             origin: transform.position,
-            radius: 0.2f,
+            radius: sphereCastRadius,
             direction: delta.normalized,
             hitInfo: out hit,
             maxDistance: delta.magnitude,
-            layerMask: obstacleDetectionLayerMask & ~(1 << target.layer)
+            layerMask: obstacleDetectionLayerMask & ~(1 << target.layer),
+            queryTriggerInteraction: QueryTriggerInteraction.Ignore
         );
 
-        if (didHit && hit.collider.gameObject != gameObject) return false;
-
-        return true;
+        return !didHit || hit.collider.gameObject == gameObject;
     }
 
     /// Returns true if successful
     public bool ShootAt(GameObject target)
     {
         Vector3 delta = target.transform.position - transform.position;
-        Vector3 flatDelta = new Vector3(delta.x, 0f, delta.z);
-        Vector3 direction = flatDelta.normalized;
+        Vector3 direction = delta.normalized;
 
-        Vector3 shootPosition = transform.position + direction * 1.2f;
+        Vector3 projectileSpawnPosition = transform.position + direction * spawnPointOffset;
 
         Vector3? startVelocity = Ballistics.GetStartVelocity(
-            start: shootPosition,
+            start: projectileSpawnPosition,
             target: target.transform.position,
             muzzleSpeed: muzzleSpeed
         );
@@ -57,7 +58,7 @@ public class ShootingController : MonoBehaviour
         if (!startVelocity.HasValue) return false;
 
         Shoot(
-            position: shootPosition,
+            position: projectileSpawnPosition,
             startVelocity: startVelocity.Value
         );
 

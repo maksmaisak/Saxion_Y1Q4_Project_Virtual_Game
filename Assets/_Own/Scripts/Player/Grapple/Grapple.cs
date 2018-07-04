@@ -45,6 +45,7 @@ public class Grapple : MonoBehaviour
     private LayerMask grappleAssistLayerMask;
 
     private Quaternion initialHookLocalRotation;
+    private Vector3 initialLocalPosition;
 
     public bool isRetracted
     {
@@ -85,9 +86,10 @@ public class Grapple : MonoBehaviour
         Assert.IsNotNull(attachmentPoint);
         Assert.IsNotNull(attachmentRigidbody);
         Assert.IsNotNull(hookTransform);
+        initialLocalPosition = transform.localPosition;
         initialHookLocalRotation = hookTransform.localRotation;
 
-        audioSource = audioSource ?? GetComponent<AudioSource>();
+        audioSource = audioSource ? audioSource : GetComponent<AudioSource>();
         Assert.IsNotNull(audioSource);
 
         firstPersonController = GetComponentInParent<RigidbodyFirstPersonController>();
@@ -203,7 +205,7 @@ public class Grapple : MonoBehaviour
         // Play a hit sound
         var customSound = collision.gameObject.GetComponentInParent<CustomGrappleHookHitSound>();
         var sound = customSound != null ? customSound.audioClip : defaultHookHitSound;
-        sound = sound ?? defaultHookHitSound;
+        sound = sound ? sound : defaultHookHitSound;
         if (sound != null)
         {
             audioSource.PlayOneShot(sound);
@@ -249,7 +251,7 @@ public class Grapple : MonoBehaviour
         rigidbody.isKinematic = true;
 
         transform.SetParent(attachmentPoint, worldPositionStays: false);
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = initialLocalPosition;
         transform.localRotation = Quaternion.identity;
         transform.localScale    = Vector3.one;
 

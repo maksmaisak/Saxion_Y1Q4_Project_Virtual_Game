@@ -43,14 +43,18 @@ public class Checkpoint : MonoBehaviour
         public bool isActivated;
     }
 
-    void Awake()
-    {
-        LoadSaveData();
-    }
-
     void Start()
     {
-        prerequisiteCheckpoints.RemoveAll(checkpoint => checkpoint == null || checkpoint.isActivated);
+        LoadSaveData();
+        if (isActivated) return;
+
+        prerequisiteCheckpoints.RemoveAll(checkpoint =>
+        {
+            if (checkpoint == null || checkpoint.isActivated) return true;
+
+            SaveData saveData;
+            return checkpoint.GetComponent<Saveable>().GetSavedData(out saveData) && saveData.isActivated;
+        });
         needToDieToUnlock.RemoveAll(health => health == null);
 
         EnsureTrigger();
@@ -186,6 +190,7 @@ public class Checkpoint : MonoBehaviour
         if (saveData.isActivated)
         {
             isActivated = true;
+            
             gameObject.SetActive(false);
             foreach (var health in needToDieToUnlock)
             {

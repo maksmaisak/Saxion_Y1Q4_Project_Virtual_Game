@@ -7,42 +7,19 @@ using UnityEngine;
 public class Saveable : MonoBehaviour
 {
     [Tooltip("DO NOT CHANGE THIS")]
-    [SerializeField] private string stringGuid;
+    [SerializeField] string stringGuid;
 
-    public Guid guid
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(stringGuid))
-            {
-                var temp = Guid.NewGuid();
-                stringGuid = temp.ToString();
-                return temp; 
-            }
-            return new Guid(stringGuid);
-        }
-        private set
-        {
-            stringGuid = value.ToString();
-        }
-    }
-
-    void Awake()
+    void Start()
     {
         CheckGuid();
     }
 
-    void Update()
-    {
-        if (!Application.isPlaying)
-        {
-            CheckGuid();
-        }
-    }
-
     void OnDestroy()
     {
-        GlobalIdManager.Instance.Unregister(stringGuid);
+        if (GlobalIdManager.Instance != null)
+        {
+            GlobalIdManager.Instance.Unregister(stringGuid);
+        }
     }
 
     [ContextMenu("MakeGuidsUnique")]
@@ -56,9 +33,9 @@ public class Saveable : MonoBehaviour
 
     private void CheckGuid()
     {
-        if (string.IsNullOrEmpty(stringGuid))
+        if (/*string.IsNullOrEmpty(stringGuid)*/ !Application.isPlaying)
         {
-            stringGuid = Guid.NewGuid().ToString();
+            AssignNewGuid();
         }
 
         int registeredInstanceId;
@@ -66,12 +43,14 @@ public class Saveable : MonoBehaviour
         if (!hasRegistered)
         {
             GlobalIdManager.Instance.Register(stringGuid, GetInstanceID());
+            //Debug.Log(gameObject.name + ": Guid not registered! Registered: " + stringGuid);
         }
         else if (registeredInstanceId != GetInstanceID())
         {
-            stringGuid = Guid.NewGuid().ToString();
+            string oldGuid = stringGuid;
+            AssignNewGuid();
             GlobalIdManager.Instance.Register(stringGuid, GetInstanceID());
-            Debug.Log("Duplicate guid!");
+            Debug.Log(gameObject.name + "Duplicate guid (" + oldGuid + ")! Created: " + stringGuid);
         }
     }
 
@@ -85,5 +64,29 @@ public class Saveable : MonoBehaviour
     public bool GetSavedData<T>(out T data)
     {
         return GlobalIdManager.Instance.GetSavedData(stringGuid, out data);
+    }
+
+    private void AssignNewGuid()
+    {
+        stringGuid = Guid.NewGuid().ToString();
+        //Debug.Log(gameObject.name + " assigned new guid: " + stringGuid);
+        
+        #if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            // Note: SetDirty has to be used here even though the documentation 
+            // doesn't recommend it. Without it this object won't be affected
+            // when you save the scene. Kinda makes sense, 
+            // now that I think about it.
+            UnityEditor.EditorUtility.SetDirty(this);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(gameObject.scene);
+        }
+        else
+        {
+            Debug.LogError(gameObject.name + " assigned a new guid while not in edit mode! This should never happen! New guid: " + stringGuid);
+        }
+        #else
+        Debug.LogError(gameObject.name + " assigned a new guid while not in edit mode! This should never happen! New guid: " + stringGuid);
+        #endif
     }
 }

@@ -5,9 +5,8 @@ using UnityStandardAssets.Characters.FirstPerson;
 using DG.Tweening;
 using UnityEngine;
 
-public class PauseMenuScrpt : MonoBehaviour
+public class PauseMenuScript : MonoBehaviour
 {
-
     [SerializeField] private float transitionDuration = 1f;
     [SerializeField] private float maxScale = 2f;
 
@@ -71,7 +70,7 @@ public class PauseMenuScrpt : MonoBehaviour
         rbFirstPersonController.mouseLook.SetCursorLock(false);
         Time.timeScale = 1f;
         isPaused = false;
-        AsyncOperation asyncOperation =  SceneManager.LoadSceneAsync(menuScene);
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(menuScene);
         asyncOperation.completed += op => AudioListener.volume = audioListenerInitialVolume;
     }
 

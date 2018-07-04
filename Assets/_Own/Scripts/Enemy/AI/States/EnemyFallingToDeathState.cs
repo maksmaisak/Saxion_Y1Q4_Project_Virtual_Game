@@ -4,8 +4,10 @@ using UnityEngine;
 
 #pragma warning disable 0649
 
-public class EnemyFallingToDeathState : FSMState<Enemy> 
+public class EnemyFallingToDeathState : FSMState<Enemy>
 {
+    [SerializeField] private float fallingTime = 5f;
+    
     private Rigidbody rb;
     private Health health;
     private ParticleManager particleManager;
@@ -24,6 +26,13 @@ public class EnemyFallingToDeathState : FSMState<Enemy>
         rb.useGravity = true;
 
         StartCoroutine(WhileFallingScreamCoroutine());
+        StartCoroutine(DieAfterTime());
+    }
+
+    private IEnumerator DieAfterTime()
+    {
+        yield return new WaitForSeconds(fallingTime);
+        health.SetHealth(0);
     }
 
     void FixedUpdate()
@@ -37,7 +46,7 @@ public class EnemyFallingToDeathState : FSMState<Enemy>
         {
             if (health != null)
             {
-                health.DealDamage(100);
+                health.SetHealth(0);
             }
         }
     }
