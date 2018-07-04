@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.SceneManagement;
 
 [ExecuteInEditMode]
 public class Saveable : MonoBehaviour
@@ -71,6 +70,8 @@ public class Saveable : MonoBehaviour
     {
         stringGuid = Guid.NewGuid().ToString();
         //Debug.Log(gameObject.name + " assigned new guid: " + stringGuid);
+        
+        #if UNITY_EDITOR
         if (!Application.isPlaying)
         {
             // Note: SetDirty has to be used here even though the documentation 
@@ -78,11 +79,14 @@ public class Saveable : MonoBehaviour
             // when you save the scene. Kinda makes sense, 
             // now that I think about it.
             UnityEditor.EditorUtility.SetDirty(this);
-            EditorSceneManager.MarkSceneDirty(gameObject.scene);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(gameObject.scene);
         }
         else
         {
             Debug.LogError(gameObject.name + " assigned a new guid while not in edit mode! This should never happen! New guid: " + stringGuid);
         }
+        #else
+        Debug.LogError(gameObject.name + " assigned a new guid while not in edit mode! This should never happen! New guid: " + stringGuid);
+        #endif
     }
 }

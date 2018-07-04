@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections;
-using UnityEngine.SceneManagement;
-using UnityEditor.SceneManagement;
 using System;
 
 public abstract class ManagementSingleton<T> : MonoBehaviour where T : ManagementSingleton<T>

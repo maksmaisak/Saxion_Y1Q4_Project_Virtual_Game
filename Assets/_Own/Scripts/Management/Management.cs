@@ -1,8 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.Assertions;
+using Debug = UnityEngine.Debug;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [ExecuteInEditMode]
 public class Management : MonoBehaviour
@@ -12,14 +17,18 @@ public class Management : MonoBehaviour
     public static void MakeSureManagementIsPresentInTheScene()
     {
         if (Instance) return;
-
+        
+        #if UNITY_EDITOR
+        
         GameObject prefabGameObject = GetPrefabGameObject();
         Assert.IsTrue(PrefabUtility.GetPrefabType(prefabGameObject) == PrefabType.Prefab);
-
+        
         var prefabInstance = (GameObject)PrefabUtility.InstantiatePrefab(prefabGameObject);
         Assert.IsNotNull(prefabInstance);
         Assert.IsTrue(PrefabUtility.GetPrefabType(prefabInstance) == PrefabType.PrefabInstance);
         prefabInstance.SetActive(true);
+        
+        #endif
     }
 
     void Awake()
@@ -50,15 +59,19 @@ public class Management : MonoBehaviour
 
         transform.SetAsFirstSibling();
 
+        #if UNITY_EDITOR
         PrefabUtility.ResetToPrefabState(gameObject);
+        #endif
 
         if (Application.isPlaying)
         {
             DontDestroyOnLoad(gameObject);
         }
     }
+    
+    #if UNITY_EDITOR
 
-    public static void TrySaveChanges()
+    /*public static void TrySaveChanges()
     {
         if (Application.isPlaying) return;
         if (Instance == null) return;
@@ -69,7 +82,7 @@ public class Management : MonoBehaviour
 
         //var ownIdManager = Instance.gameObject.GetComponentInChildren<GlobalIdManager>();
         //var prefabIdManager = prefabGameObject.GetComponentInChildren<GlobalIdManager>();
-    }
+    }*/
 
     private static GameObject GetPrefabGameObject()
     {
@@ -77,4 +90,6 @@ public class Management : MonoBehaviour
         Assert.IsNotNull(prefabGameObject);
         return prefabGameObject;
     }
+    
+    #endif
 }
