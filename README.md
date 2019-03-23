@@ -1,8 +1,8 @@
-# Year 1 Quarter 4 project
+# Year 1 Quarter 4 project - Asgard
 
-A game made in three weeks for a college group project.
+A grappling hook game made in Unity in two weeks.
 
-Here's a video of the tutorial level!
+[More info](https://maksmaisak.github.io/asgard)
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=T9GOLZO4AH4
 " target="_blank"><img src="http://img.youtube.com/vi/T9GOLZO4AH4/0.jpg" 
